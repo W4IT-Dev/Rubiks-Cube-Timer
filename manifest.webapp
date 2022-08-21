@@ -1,0 +1,22 @@
+{
+  "version": "1.0.0",
+  "name": "Rubik's Cube Timer",
+  "description": "A simple but good Rubik's Cube Timer",
+  "type": "web",
+  "launch_path": "/index.html",
+  "icons": {
+    "56": "/proe.png",
+    "128": "/proe.png"
+  },
+  "developer": {
+    "name": "W4IT Dev"
+  },
+  "locales": {
+    "en-US": {
+      "name": "Rubik's Cube Timer",
+      "subtitle": "This Rubik's Cube Timer is compatible for most of the Cube's out there! Have fun solving!",
+      "description": "A simple but good Rubik's Cube Timer"
+    }
+  },
+  "default_locale": "en-US"
+}
