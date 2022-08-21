@@ -1,32 +1,130 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rubik's Cube Timer</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 
-<body>
+<body onload="getScramble(); getStoredData();" class="dark">
+    <div id="loadScreen"
+        style="height: 295px; width: 240px; display: block; background-color: white; position: fixed; top: 0; left: 0;">
+        <img src="w4it-dev-logo.png" style="margin: 20px 20px 0px 20px">
+        <br>
+        <progress id="progress" value="0" style="margin: -60px 0px 60px 40px"></progress>
+    </div>
 
-    <div id="mySidenav" class="sidenav">
-        <div class="menuaClose">
-            <p>Menu</p>
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div id="wholeSite">
+        <!--Used to blur background-->
+        <div class="ad adtop">Ad here</div>
+        <div class="ad adbottom">Ad here</div>
+        <div class='scramble'>scramble...</div>
+        <!--Scramble-->
+
+        <div id="timerBox">
+            <!--Timer-->
+            <span id="timer">
+                <h1 id="minutes"></h1>
+                <h1 class="point"></h1>
+                <h1 id="tenseconds"></h1>
+                <h1 id="seconds">0</h1>
+                <h1 class="point">.</h1>
+                <h1 id="first">0</h1>
+            </span>
         </div>
-        <a href="#" tabindex="0" id="first" class="option">About</a>
-        <a href="#" tabindex="1" class="option">Services</a>
-        <a href="#" tabindex="2" class="option">Clients</a>
-        <a href="#" tabindex="3" class="option">Contact</a>
-        <a href="#" tabindex="4" id="first" class="option">About</a>
-        <a href="#" tabindex="5" class="option">Services</a>
-        <a href="#" tabindex="6" class="option">Clients</a>
-        <a href="#" tabindex="7" class="option">Contact</a>
-    </div>
-    <div id="topheader">
-        <span style="font-size: 32px">&#9776;<span style="font-size: 27px">Home</span>
+        <input type="text" name="" id="comment">
     </div>
 
-    <script src="script.js" defer></script>
+    <div id="session" class="light">
+        <div id="editTime">
+            <div id="editInfos">
+                <h3 id="editTimeTime" class="editTimeItems" tabindex="0">Time: undefined</h3>
+                <h4 id="editTimeStatus" class="editTimeItems" tabindex="1">Status: undefined</h4>
+                <h4 id="editTimeScramble" class="editTimeItems" tabindex="2">Scramble: undefined</h4>
+                <label for="comment" class="editTimeItems" tabindex="3">Comment</label>
+                <input type="text" name="comment" class="editTimeItems" id="editTimeComment" value="">
+            </div>
+            <div id="edit">
+                <button class="editBtn editTimeItems" id="OK" tabindex="4">OK</button>
+                <button class="editBtn editTimeItems" id="DNF" tabindex="5">DNF</button>
+                <button class="editBtn editTimeItems" id="+2" tabindex="6">+2</button>
+            </div>
+        </div>
+        <table id="timestable">
+            <tr>
+                <th class="dark">Time</th>
+                <th class="dark">Status</th>
+            </tr>
+            <tr>
+                <td class="td dark" tabindex="-1">Begin timing</td>
+                <td class="dark">none</td>
+            </tr>
+
+        </table>
+
+    </div>
+    <div tabindex="-1" id="settings" class="dark">
+        <!--Settings-->
+        <h1 style="border-bottom: 2px #888 solid;">Settings</h1>
+
+        <div tabindex='0' class="setting dark" id="puzzleTypeDiv">
+            <label for="puzzleType">Puzzle Type:</label>
+            <select name="puzzleType" id="puzzleType">
+                <option value="2x2">2x2x2</option>
+                <option value="3x3" selected>3x3x3</option>
+                <option value="4x4">4x4x4</option>
+                <option value="5x5">5x5x5</option>
+                <option value="4x4">6x6x6</option>
+                <option value="5x5">7x7x7</option>
+            </select>
+        </div>
+
+        <div tabindex='1' class="setting dark" id="timerFontDiv">
+            <label for="timerFont">Timer Font:</label>
+            <select name="timerFont" id="timerFont">
+                <option value="2x2">Arial</option>
+                <option value="3x3" selected>Digital 1</option>
+                <option value="4x4">Digital 2</option>
+                <option value="5x5">Digital 3</option>
+            </select>
+        </div>
+
+        <div tabindex='2' class="setting dark" id="timerSizeDiv">
+            <label for="timerSize">Timer Size:</label>
+            <input type="number" min="10" max="30" name="timerSize" id="timerSize" value="16">
+        </div>
+
+        <div tabindex='3' class="setting dark" id="darkModeDiv">
+            <p>Dark Mode</p>
+            <label class="switch">
+                <input type="checkbox" id="darkMode" checked>
+                <span class="slider round"></span>
+            </label>
+        </div>
+    </div>
+
+    <div class="kui-toast">
+        <p class="kui-pri">This is a toast message.</p>
+    </div>
+
+    <footer id="softkeys" class="dark" style="opacity: 0;">
+        <!--SoftKey Labels-->
+        <div id="softLeft"><i class="material-icons"
+                style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i></div>
+
+        <div id="softMiddle">Session</div>
+
+        <div id="softRight"><i class="material-icons"
+                style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i></div>
+    </footer>
 
 </body>
 
