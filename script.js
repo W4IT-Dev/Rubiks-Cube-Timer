@@ -48,36 +48,40 @@ document.addEventListener("keydown", e => {
         }
 
         if (canChange || oncomment) {
-            if (e.key == 'SoftLeft') return allTimes[allTimes.length - 1].status = 'DNF', showToast('Changed Status to DNF  ', 2000), setSoftkey({
-                left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
-                middle: 'Session',
-                right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
-            });
-            if (e.key == 'Enter') {
-                if (document.activeElement == document.getElementById('comment') && oncomment) {
+            if (canChange) {
+                if (e.key == 'SoftLeft') return allTimes[allTimes.length - 1].status = 'DNF', showToast('Changed Status to DNF  ', 2000), setSoftkey({
+                    left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
+                    middle: 'Session',
+                    right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
+                });
+                if (e.key == 'Enter') return setSoftkey({
+                    left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
+                    middle: 'Session',
+                    right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
+                });
+                if (e.key == 'SoftRight') return allTimes[allTimes.length - 1].status = '+2', showToast('Changed Status to +2', 2000), setSoftkey({
+                    left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
+                    middle: 'Session',
+                    right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
+                });
+
+                if (e.key !== 'Enter') {
+                    document.getElementById('comment').style.opacity = 1;
+                    document.getElementById('comment').focus();
+                    oncomment = true;
+                }
+            }
+            if (oncomment) {
+                if (e.key == 'Enter') {
                     showToast('Succesfully added comment', 2000);
                     allTimes[allTimes.length - 1].comment = document.getElementById('comment').value;
                     document.activeElement.blur();
                     document.getElementById('comment').style.opacity = 0;
+                    document.getElementById('comment').value = '';
                     oncomment = false;
                     return
                 }
-                setSoftkey({
-                    left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
-                    middle: 'Session',
-                    right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
-                }); return
             }
-            if (e.key == 'SoftRight') return allTimes[allTimes.length - 1].status = '+2', showToast('Changed Status to +2', 2000), setSoftkey({
-                left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
-                middle: 'Session',
-                right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
-            });
-            // if (e.key != 'Enter') {
-            document.getElementById('comment').style.opacity = 1;
-            document.getElementById('comment').focus();
-            oncomment = true;
-            // }
         }
 
 
@@ -109,17 +113,17 @@ document.addEventListener("keydown", e => {
             if (e.key == 'Enter') {
                 if (session.style.display == 'block') {
                     if (document.getElementById('editTime').style.display == 'none') {
-                        // document.getElementById('editTimeTime').innerHTML = 'Time: ' + document.activeElement.innerText;
-                        // let tableRow = document.activeElement.parentNode;
-                        // let status = tableRow.querySelectorAll('td')[1].innerText;
-                        // let scramble = tableRow.querySelectorAll('td')[2].innerText;
-                        // let comment = tableRow.querySelectorAll('td')[3].innerText;
-                        // document.getElementById('editTimeStatus').innerText = 'Status:' + status;
-                        // document.getElementById('editTimeScramble').innerText = scramble;
-                        // document.getElementById('editTimeComment').value = comment;
-                        document.getElementById('editTime').style.display = 'block';
+                        document.getElementById("editTime").style.display = "block";
+                        document.getElementById("editTimeTime").innerHTML = "Time: " + document.activeElement.innerText;
+                        let tableRow = document.activeElement.parentNode;
+
+                        let status, scramble, comment;
+                        [status, scramble, comment] = [...tableRow.querySelectorAll("td")].map((a) => a.innerText);
+
+                        document.getElementById("editTimeStatus").innerText = "Status:" + status;
+                        document.getElementById("editTimeScramble").innerText = scramble;
+                        document.getElementById("editTimeComment").value = comment;
                         editTimeTime.focus();
-                    } else {
                         document.getElementById('editTime').style.display = 'none';
                     }
                 }
