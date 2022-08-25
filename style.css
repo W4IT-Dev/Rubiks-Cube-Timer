@@ -397,3 +397,32 @@ td.dark:focus {
 .editTimeItems:focus {
     background-color: red;
 }
+
+.selectdiv {
+    height: 30px;
+    width: 180px;
+    background-color: red;
+    position: relative;
+    right: -400px;
+}
+
+.selectlable {
+    font-size: 19px;
+    
+}
+.optionsdiv {
+    display: none;
+    background-color: orange;
+    /* position: relative;
+    width: 160px;
+    left: 20px;
+    top: 4px; */
+}
+.select {
+    border-bottom: 2px solid #666;
+    padding-left: 17px;
+}
+
+.select.selected {
+    padding-left: 1px;
+}
