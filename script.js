@@ -7,7 +7,6 @@ let timermargintop = '40px';
 let timermargintoppercentage = '50%';
 
 let canChange = false;
-let oncomment = false;
 
 let allTimes = [];
 
@@ -47,7 +46,7 @@ document.addEventListener("keydown", e => {
             return
         }
 
-        if (canChange || oncomment) {
+        if (canChange) {
             if (canChange) {
                 if (e.key == 'SoftLeft') return allTimes[allTimes.length - 1].status = 'DNF', showToast('Changed Status to DNF  ', 2000), setSoftkey({
                     left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
@@ -64,23 +63,6 @@ document.addEventListener("keydown", e => {
                     middle: 'Session',
                     right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
                 });
-
-                if (e.key !== 'Enter') {
-                    document.getElementById('comment').style.opacity = 1;
-                    document.getElementById('comment').focus();
-                    oncomment = true;
-                }
-            }
-            if (oncomment) {
-                if (e.key == 'Enter') {
-                    showToast('Succesfully added comment', 2000);
-                    allTimes[allTimes.length - 1].comment = document.getElementById('comment').value;
-                    document.activeElement.blur();
-                    document.getElementById('comment').style.opacity = 0;
-                    document.getElementById('comment').value = '';
-                    oncomment = false;
-                    return
-                }
             }
         }
 
@@ -100,34 +82,30 @@ document.addEventListener("keydown", e => {
 
             if (e.key == 'SoftRight') {
                 if (session.style.display == 'block') {
-                    if (document.activeElement != document.body) {
-                        if (confirm('Are you sure to delete this time?')) {
-                            let tableRow = document.activeElement.parentNode;
-                            allTimes.splice(tableRow.id, 1)
-                            document.activeElement.innerHTML = 'Please reopen Session Tab';
-                        }
-                        return
-                    }
+                    return openSessions();
                 }
             }
-            if (e.key == 'Enter') {
-                if (session.style.display == 'block') {
-                    if (document.getElementById('editTime').style.display == 'none') {
-                        document.getElementById("editTime").style.display = "block";
-                        document.getElementById("editTimeTime").innerHTML = "Time: " + document.activeElement.innerText;
-                        let tableRow = document.activeElement.parentNode;
+            // if (e.key == 'Enter') {
+            //     if (session.style.display == 'block') {
+            //         if (document.getElementById('editTime').style.display == 'none') {
+            //             document.getElementById("editTime").style.display = "block";
+            //             document.getElementById("editTimeTime").innerHTML = "Time: " + document.activeElement.innerText;
+            //             let tableRow = document.activeElement.parentNode;
 
-                        let status, scramble, comment;
-                        [status, scramble, comment] = [...tableRow.querySelectorAll("td")].map((a) => a.innerText);
+            //             let status, scramble, comment;
+            //             // [status, scramble, comment] = [...tableRow.querySelectorAll("td")].map((a) => a.innerText);
 
-                        document.getElementById("editTimeStatus").innerText = "Status:" + status;
-                        document.getElementById("editTimeScramble").innerText = scramble;
-                        document.getElementById("editTimeComment").value = comment;
-                        editTimeTime.focus();
-                        document.getElementById('editTime').style.display = 'none';
-                    }
-                }
-            }
+            //             document.getElementById("editTimeStatus").innerText = "Status:" + status;
+            //             document.getElementById("editTimeScramble").innerText = scramble;
+            //             document.getElementById("editTimeComment").value = comment;
+            //             editTimeTime.focus();
+            //             document.getElementById('editTime').style.display = 'none';
+            //         }
+            //     } else {
+
+
+            //     }
+            // }
             //Open/Close Settings
             if (e.key == 'SoftLeft') {
                 if (settings.style.display == 'none') {
@@ -155,7 +133,7 @@ document.addEventListener("keydown", e => {
 
 
             //Quit App using SoftRight
-
+            // if (e.key == 'SoftRight' && document.getElementById('session').style.display == 'none') 
             if (e.key == 'SoftRight' && !settingsOpened) return window.close();
             //Get info in settings
             if (e.key == 'SoftRight' && document.activeElement == timerSize) return timerSize.value = timerSize.value.slice(0, -1);
@@ -179,8 +157,8 @@ document.addEventListener("keydown", e => {
                 document.querySelectorAll('.td')[0].focus();
                 setSoftkey({
                     left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
-                    middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">edit</i>',
-                    right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">delete</i>'
+                    middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">edit</i>',
+                    right: '<i class="material-icons" style="font-size: 25px; position: relative; top: 2.1px; right: 2px">list</i>'
                 });
                 loadTable();
 
@@ -288,9 +266,6 @@ function stop() {//stop timer
     });
     setTimeout(() => {
         canChange = false;
-        if (!oncomment) {
-            document.querySelector('#comment').style.opacity = 0;
-        }
         setSoftkey({
             left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
             middle: 'Session',
@@ -354,8 +329,6 @@ function handleKeydown(e) {
                     nav(-1, '.setting');
                 } else if (document.getElementById('session').style.display == 'block' && document.getElementById('editTime').style.display == 'none') {
                     nav(-1, '.td')
-                } else if (document.getElementById('editTime').style.display == 'block') {
-                    nav(-1, '.editTimeItems');
                 }
             }
             break;
@@ -365,8 +338,6 @@ function handleKeydown(e) {
                     nav(1, '.setting');
                 } else if (document.getElementById('session').style.display == 'block') {
                     nav(1, '.td')
-                } else if (document.getElementById('editTime').style.display == 'block') {
-                    nav(1, '.editTimeItems');
                 }
             }
             break;
@@ -555,4 +526,8 @@ function loadTable() {
         cell3.innerHTML = allTimes[i].scramble;
         cell4.innerHTML = allTimes[i].comment;
     }
+}
+
+function openSessions() {
+    // some session opening
 }
