@@ -113,7 +113,7 @@ label {
     background-color: #bababa;
     right: 0;
     bottom: 0;
-    transition: .5s;
+    transition: opacity .5s;
 }
 
 .slider:before {
@@ -155,7 +155,7 @@ input:checked+.slider:before {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1px
+    padding: 1px;
 }
 
 #softMiddle {
@@ -321,7 +321,7 @@ input:checked+.slider:before {
 }
 
 #editTime {
-    display: none;
+    display: block;
     position: fixed;
     top: 20px;
     left: 20px;
@@ -375,24 +375,6 @@ td.dark:focus {
     background-color: #545454;
 }
 
-#comment {
-    opacity: 0;
-    font-size: 21.2px;
-    height: 25px;
-    width: 140px;
-    margin-left: 40px;
-    transition: opacity .3s;
-}
-
-#comment.light {
-    background-color: #aaa;
-    color: #222;
-}
-
-#comment.dark {
-    background-color: #222;
-    color: #ebe8e8;
-}
 
 .editTimeItems:focus {
     background-color: red;
@@ -406,23 +388,48 @@ td.dark:focus {
     right: -400px;
 }
 
-.selectlable {
+.selectlabel {
     font-size: 19px;
-    
-}
-.optionsdiv {
-    display: none;
-    background-color: orange;
-    /* position: relative;
-    width: 160px;
-    left: 20px;
-    top: 4px; */
-}
-.select {
-    border-bottom: 2px solid #666;
-    padding-left: 17px;
+    padding-left: 4px;
 }
 
-.select.selected {
-    padding-left: 1px;
+.optionsdiv {
+    display: none;
+    background-color: #ffa500;
+}
+
+.select {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #666;
+    padding-left: 5px;
+}
+
+.select:hover {
+    background-color: rgb(207, 155, 2);
+}
+
+#sessions {
+    display: block;
+    /* border: 4px solid #676767; */
+    border-radius: 7px;
+    /* background-color: #323232; */
+    width: 160px;
+    height: 180px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    text-align: center;
+}
+
+#sessions.light {
+    border: 4px solid rgb(150, 150, 150);
+    background-color: #ebe8e8;
+    color: #272727;
+}
+
+#sessions.dark {
+    background-color: #323232;
+    border: 4px solid #676767;
+    color: #ebe8e8;
 }

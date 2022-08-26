@@ -10,7 +10,7 @@ let canChange = false;
 
 let allTimes = [];
 
-let allelem = document.querySelectorAll('.setting, select, input, #timerBox, body, #settings, #softkeys, #session, td, th');
+let allelem = document.querySelectorAll('.setting, select, input, #timerBox, body, #settings, #softkeys, #session, td, th, #sessions');
 
 let settingsOpened = false;
 
@@ -88,22 +88,15 @@ document.addEventListener("keydown", e => {
             // if (e.key == 'Enter') {
             //     if (session.style.display == 'block') {
             //         if (document.getElementById('editTime').style.display == 'none') {
-            //             document.getElementById("editTime").style.display = "block";
-            //             document.getElementById("editTimeTime").innerHTML = "Time: " + document.activeElement.innerText;
-            //             let tableRow = document.activeElement.parentNode;
+            //             let time, status, scramble;
+            //             time = document.getElementById('timer').innerText;
+            //             editTimeTime.innerText = time;
+            //             document.getElementById("editTime").style.display = "block"
+            //             // status = document.getElementById('')
+            //         } else {
+            //             document.getElementById("editTime").style.display = "none";
 
-            //             let status, scramble, comment;
-            //             // [status, scramble, comment] = [...tableRow.querySelectorAll("td")].map((a) => a.innerText);
-
-            //             document.getElementById("editTimeStatus").innerText = "Status:" + status;
-            //             document.getElementById("editTimeScramble").innerText = scramble;
-            //             document.getElementById("editTimeComment").value = comment;
-            //             editTimeTime.focus();
-            //             document.getElementById('editTime').style.display = 'none';
             //         }
-            //     } else {
-
-
             //     }
             // }
             //Open/Close Settings
@@ -382,7 +375,7 @@ function setSoftkey(object) {
 
 function setDarkOrLightMode() {
     if (!darkMode.checked) {
-        setTimeout(() => {
+        document.querySelector('.switch').addEventListener('transitionend', () => {
             for (let elem of allelem) {
                 elem.classList.remove('dark');
             }
@@ -390,17 +383,17 @@ function setDarkOrLightMode() {
                 elem.classList.add('light');
             }
             localStorage.setItem('darkmode', 'false');
-        }, 50);
+        })
     } else {
         localStorage.setItem('darkmode', 'true');
-        setTimeout(() => {
+        document.querySelector('.switch').addEventListener('transitionend', () => {
             for (let elem of allelem) {
                 elem.classList.remove('light');
             }
             for (let elem of allelem) {
                 elem.classList.add('dark');
             }
-        }, 50);
+        })
     }
 }
 
