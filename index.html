@@ -16,18 +16,19 @@
 
 <body onload="getScramble(); getStoredData();" class="dark">
     <div id="loadScreen"
-        style="height: 295px; width: 240px; display: block; background-color: white; position: fixed; top: 0; left: 0;">
-        <img src="w4it-dev-logo.png" style="margin: 20px 20px 0px 20px">
+        style="height: 295px; width: 240px; display: block; background-color: white; position: fixed; top: 0; left: 0; z-index: 1; text-align: center;">
+        <img src="w4it-dev-logo-horizintal.png" style="height: 40px; width: 120px; margin: 20px 20px 0px 20px">
+        <img src="proe.png" alt="App Logo" style="height: 170px; width: 170px;">
         <br>
-        <progress id="progress" value="0" style="margin: -60px 0px 60px 40px"></progress>
+        <progress id="progress" value="0" style="margin: 0px 0px 60px 10px"></progress>
     </div>
     <!-- <div class="selectdiv">
         <div class="selectlabel">Label</div>
         <div class="optionsdiv">
             <div class="select" style="font-family: Orbitron;">Digital 1</div>
             <div class="select">12 34 56</div>
-            <div class="select selected">3<i class="material-icons"
-                    style="font-size: 16px; position: relative; top: 2px;">check</i></div>
+            <div class="select selected">3<span class="material-icons"
+                    style="font-size: 16px; position: relative; top: 2px;">check</span></div>
             <div class="select">4</div>
         </div>
     </div>WORKING ON THIS -->
@@ -49,11 +50,19 @@
                 <h1 id="first">0</h1>
             </span>
         </div>
+        <input id="comment" placeholder="Comment">
     </div>
 
     <div id="session" class="dark">
         <div id="sessions" class="dark">
             <h3>Sessions</h3>
+            <div id="allSessions">
+                <div value="1">1</div>
+                <div value="2">2</div>
+                <div value="3">3</div>
+                <div value="4">4</div>
+                <div value="5">5</div>
+            </div>
         </div>
         <div id="editTime">
             <div id="editInfos">
@@ -86,7 +95,15 @@
         <!--Settings-->
         <h1 style="border-bottom: 2px #888 solid;">Settings</h1>
 
-        <div tabindex='0' class="setting dark" id="puzzleTypeDiv">
+        <div class="divider">
+            <div class="title">Key Settings</div>
+            <div class="line"></div>
+        </div>
+        <div tabindex='0' class="setting dark" id="startKeyDiv">
+            <label for="startKey">Start/Stop Key:</label>
+            <input type="text" name="startKey" id="startKey" value="5" placeholder="Press any key.">
+        </div>
+        <div tabindex='1' class="setting dark" id="puzzleTypeDiv">
             <label for="puzzleType">Puzzle Type:</label>
             <select name="puzzleType" id="puzzleType">
                 <option value="2x2">2x2x2</option>
@@ -98,7 +115,7 @@
             </select>
         </div>
 
-        <div tabindex='1' class="setting dark" id="timerFontDiv">
+        <div tabindex='2' class="setting dark" id="timerFontDiv">
             <label for="timerFont">Timer Font:</label>
             <select name="timerFont" id="timerFont">
                 <option value="2x2">Arial</option>
@@ -107,13 +124,22 @@
                 <option value="5x5">Digital 3</option>
             </select>
         </div>
+        <!-- <div tabindex='2' class="setting dark" id="softLeftFunction">
+            <label for="sLFn">Timer Font:</label>
+            <select name="slFn" id="sLfunctio">
+                <option value="leave" selected>Leave</option>
+                <option value="editlast" >Digital 1</option>
+                <option value="4x4">Digital 2</option>
+                <option value="5x5">Digital 3</option>
+            </select>
+        </div> -->
 
-        <div tabindex='2' class="setting dark" id="timerSizeDiv">
+        <div tabindex='3' class="setting dark" id="timerSizeDiv">
             <label for="timerSize">Timer Size:</label>
             <input type="number" min="10" max="30" name="timerSize" id="timerSize" value="16">
         </div>
 
-        <div tabindex='3' class="setting dark" id="darkModeDiv">
+        <div tabindex='4' class="setting dark" id="darkModeDiv">
             <p>Dark Mode</p>
             <label class="switch">
                 <input type="checkbox" id="darkMode" checked>
@@ -128,13 +154,13 @@
 
     <footer id="softkeys" class="dark" style="opacity: 0;">
         <!--SoftKey Labels-->
-        <div id="softLeft"><i class="material-icons"
-                style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i></div>
+        <div id="softLeft"><span class="material-icons"
+                style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</span></div>
 
         <div id="softMiddle">Session</div>
 
-        <div id="softRight"><i class="material-icons"
-                style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i></div>
+        <div id="softRight"><span class="material-icons"
+                style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</span></div>
     </footer>
 
 </body>

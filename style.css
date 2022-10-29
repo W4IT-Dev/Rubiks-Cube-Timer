@@ -2,7 +2,6 @@ body {
     overflow: hidden;
 }
 
-
 /* Ads */
 .ad {
     position: absolute;
@@ -36,6 +35,34 @@ body {
     font-size: 16px;
 }
 
+#comment {
+    position: relative;
+    left: 25px;
+    opacity: 0;
+    height: 22px;
+    width: 170px;
+    font-size: 18px;
+    z-index: 0;
+}
+
+.divider {
+    padding: 10px 7px 10px 7px;
+    display: flex;
+    align-items: center;
+}
+
+.divider>.title {
+    /* color: #ebe8e8; */
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-right: 7px;
+}
+
+.divider>.line {
+    background-color: #eee;
+    height: 1px;
+    flex: 1;
+}
 
 /* Settings */
 #settings {
@@ -44,8 +71,9 @@ body {
     top: 11px;
     height: 240px;
     width: 215px;
-    border-radius: 15px;
+    border-radius: 13px;
     margin-left: 1.35px;
+    overflow: auto;
 }
 
 
@@ -71,12 +99,16 @@ label {
     padding-top: 0px;
 }
 
-#timerSize {
+#timerSize, #startKey {
     width: 40px;
     background-color: #666;
     border-width: 1.5px;
     color: #ebe8e8;
     text-align: center;
+}
+
+#startKey {
+    width: 80px;
 }
 
 .setting {
@@ -177,12 +209,19 @@ input:checked+.slider:before {
     color: #222;
 }
 
+body.light {
+    background-color: #f7f7f7;
+}
+
 #session.light {
     background-color: #ddd;
     border-color: #bbb;
     color: #222;
 }
 
+#timerBox.light {
+    background-color: #f7f7f7;
+}
 
 #timer.light {
     color: #222;
@@ -250,8 +289,6 @@ input:checked+.slider:before {
     background-color: #171717;
     color: #ebe8e8;
 }
-
-
 
 
 .kui-toast {
@@ -380,6 +417,7 @@ td.dark:focus {
     background-color: red;
 }
 
+/* 
 .selectdiv {
     height: 30px;
     width: 180px;
@@ -407,13 +445,11 @@ td.dark:focus {
 
 .select:hover {
     background-color: rgb(207, 155, 2);
-}
+} */
 
 #sessions {
-    display: block;
-    /* border: 4px solid #676767; */
+    display: none;
     border-radius: 7px;
-    /* background-color: #323232; */
     width: 160px;
     height: 180px;
     position: absolute;

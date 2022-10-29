@@ -3,6 +3,7 @@ let spaceddown = false;
 let ready = false;
 let time;
 let timing = false;
+let startKeyName = '5';
 let timermargintop = '40px';
 let timermargintoppercentage = '50%';
 
@@ -10,12 +11,13 @@ let canChange = false;
 
 let allTimes = [];
 
-let allelem = document.querySelectorAll('.setting, select, input, #timerBox, body, #settings, #softkeys, #session, td, th, #sessions');
+let allelem = document.querySelectorAll('.setting, select, input, #timerBox, body, #settings, #softkeys, #session, td, th, #sessions, #divider');
 
 let settingsOpened = false;
 
 let scrambleOnDom = document.getElementById('scramble');
 let timerBox = document.getElementById('timerBox');
+let timer = document.getElementById('timer');
 let first = document.getElementById('first');
 let firstsecond = document.getElementById('seconds');
 let tensecond = document.getElementById('tenseconds');
@@ -37,6 +39,7 @@ setTimeout(() => { loadScreen.style.display = 'none'; document.querySelector('fo
 
 document.addEventListener('keydown', handleKeydown);
 document.addEventListener("keydown", e => {
+
     if (loadScreen.style.display == 'none') {
         if (timing) {
             if (e.key == 'Backspace') {
@@ -45,25 +48,33 @@ document.addEventListener("keydown", e => {
             stop();
             return
         }
-
+        if (document.activeElement.id == 'comment') {
+            document.activeElement.style.opacity = 0;
+            document.activeElement.value = "";
+            document.activeElement.blur();
+            showToast('Added Comment', 2000)
+        }
         if (canChange) {
-            if (canChange) {
-                if (e.key == 'SoftLeft') return allTimes[allTimes.length - 1].status = 'DNF', showToast('Changed Status to DNF  ', 2000), setSoftkey({
-                    left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
-                    middle: 'Session',
-                    right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
-                });
-                if (e.key == 'Enter') return setSoftkey({
-                    left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
-                    middle: 'Session',
-                    right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
-                });
-                if (e.key == 'SoftRight') return allTimes[allTimes.length - 1].status = '+2', showToast('Changed Status to +2', 2000), setSoftkey({
-                    left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
-                    middle: 'Session',
-                    right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
-                });
+            if (!isNaN(parseInt(e.key))) {
+                document.getElementById('comment').focus();
+                document.getElementById('comment').style.opacity = 1;
             }
+            if (e.key == 'SoftLeft') return allTimes[allTimes.length - 1].status = 'DNF', canChange = false, showToast('Changed Status to DNF  ', 2000), setSoftkey({
+                left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
+                middle: 'Session',
+                right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
+            });
+            if (e.key == 'Enter') return canChange = false, setSoftkey({
+                left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
+                middle: 'Session',
+                right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
+            });
+            if (e.key == 'SoftRight') return allTimes[allTimes.length - 1].status = '+2', canChange = false, showToast('Changed Status to +2', 2000), setSoftkey({
+                left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
+                middle: 'Session',
+                right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
+            });
+
         }
 
 
@@ -85,36 +96,22 @@ document.addEventListener("keydown", e => {
                     return openSessions();
                 }
             }
-            // if (e.key == 'Enter') {
-            //     if (session.style.display == 'block') {
-            //         if (document.getElementById('editTime').style.display == 'none') {
-            //             let time, status, scramble;
-            //             time = document.getElementById('timer').innerText;
-            //             editTimeTime.innerText = time;
-            //             document.getElementById("editTime").style.display = "block"
-            //             // status = document.getElementById('')
-            //         } else {
-            //             document.getElementById("editTime").style.display = "none";
-
-            //         }
-            //     }
-            // }
             //Open/Close Settings
             if (e.key == 'SoftLeft') {
                 if (settings.style.display == 'none') {
                     settings.style.display = 'block';
                     wholeSite.style.filter = 'blur(5px)';
-                    puzzleType.focus();
+                    document.getElementById('startKeyDiv').focus();
                     setSoftkey({
                         left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2px; left: 2px">arrow_back</i>',
                         middle: 'Select',
                         right: '<i class="material-icons" style="font-size: 21px; position: relative; color: #44f;  top: 2px; right: 2px">question_mark</i>'
                     });
                     settingsOpened = true;
-                } else if (settings.style.display == 'block') {
+                } else if (settings.style.display == 'block' && document.getElementById('startKey').style.borderWidth !== '1px' && document.activeElement.id !== 'timerSize') {
                     settings.style.display = 'none';
                     wholeSite.style.filter = 'none';
-                    puzzleType.focus();
+
                     setSoftkey({
                         left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
                         middle: 'Session',
@@ -131,10 +128,13 @@ document.addEventListener("keydown", e => {
             //Get info in settings
             if (e.key == 'SoftRight' && document.activeElement == timerSize) return timerSize.value = timerSize.value.slice(0, -1);
             if (e.key == 'SoftRight' && settingsOpened) return info();
+            if (e.key == 'ArrowDown') {
+                e.preventDefault();
+            }
         }
 
         //Timing
-        if (e.key === '5' && !settingsOpened) {
+        if (e.key === startKeyName && !settingsOpened && document.activeElement.id !== 'comment') {
             spacedown = true;
             if (!spaceddown) {
                 start();
@@ -157,6 +157,11 @@ document.addEventListener("keydown", e => {
 
             }
             // if (document.getElementById('session').style.display == 'block') return alert('edit');
+        }
+        if (document.getElementById('startKey').style.borderWidth == '1px') {
+            if (e.key != 'MicrophoneToggle' && e.key != 'Enter' && e.key != 'SoftLeft' && e.key != 'SoftRight' && e.key != 'Backspace' && e.key != 'EndCall')
+                startKeyName = e.key;
+            document.getElementById('startKey').value = e.key;
         }
     }
 });
@@ -259,12 +264,15 @@ function stop() {//stop timer
     });
     setTimeout(() => {
         canChange = false;
-        setSoftkey({
-            left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
-            middle: 'Session',
-            right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
-        });
-    }, 1350)
+        if (!settingsOpened && session.style.display == 'none') {
+            setSoftkey({
+                left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
+                middle: 'Session',
+                right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
+            });
+        }
+    }, 1500)
+
 }
 
 
@@ -313,11 +321,11 @@ function shuffle(o) {
 
 
 
-//  ====== NAVIGATE & SELECT======
+//  ====== NAVIGATE & SELECT ======
 function handleKeydown(e) {
     switch (e.key) {
         case 'ArrowUp':
-            if (document.activeElement != timerSize) {
+            if (document.activeElement != timerSize && document.getElementById('startKey').style.borderWidth !== '1px') {
                 if (settingsOpened) {
                     nav(-1, '.setting');
                 } else if (document.getElementById('session').style.display == 'block' && document.getElementById('editTime').style.display == 'none') {
@@ -326,7 +334,7 @@ function handleKeydown(e) {
             }
             break;
         case 'ArrowDown':
-            if (document.activeElement != timerSize) {
+            if (document.activeElement != timerSize && document.getElementById('startKey').style.borderWidth !== '1px') {
                 if (settingsOpened) {
                     nav(1, '.setting');
                 } else if (document.getElementById('session').style.display == 'block') {
@@ -350,6 +358,16 @@ function nav(move, elems) {
 }
 
 function select() {
+    if (document.activeElement == document.getElementById('startKeyDiv')) return document.getElementById('startKeyDiv').blur(), document.getElementById('startKey').style.border = "1px solid #005", setSoftkey({
+        left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
+        middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">check</i>',
+        right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 4.5px; right: 2.5px">restart_alt</i>'
+    });
+    if (document.getElementById('startKey').style.borderWidth == '1px') return document.getElementById('startKeyDiv').focus(), document.getElementById('startKey').style.border = "none", setSoftkey({
+        left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
+        middle: 'Select',
+        right: '<i class="material-icons" style=" color: blue; font-size: 21px; position: relative; top: 2.5px; right: 2px">question_mark</i>'
+    });
     if (document.activeElement == puzzleType) return puzzleTypeSelector.focus();
     if (document.activeElement == timerFont) return timerFontSelector.focus();
     if (document.activeElement == timerSizeDiv) return timerSize.focus(), setSoftkey({
@@ -375,25 +393,21 @@ function setSoftkey(object) {
 
 function setDarkOrLightMode() {
     if (!darkMode.checked) {
-        document.querySelector('.switch').addEventListener('transitionend', () => {
-            for (let elem of allelem) {
-                elem.classList.remove('dark');
-            }
-            for (let elem of allelem) {
-                elem.classList.add('light');
-            }
-            localStorage.setItem('darkmode', 'false');
-        })
+        for (let elem of allelem) {
+            elem.classList.remove('dark');
+        }
+        for (let elem of allelem) {
+            elem.classList.add('light');
+        }
+        localStorage.setItem('darkmode', 'false');
     } else {
         localStorage.setItem('darkmode', 'true');
-        document.querySelector('.switch').addEventListener('transitionend', () => {
-            for (let elem of allelem) {
-                elem.classList.remove('light');
-            }
-            for (let elem of allelem) {
-                elem.classList.add('dark');
-            }
-        })
+        for (let elem of allelem) {
+            elem.classList.remove('light');
+        }
+        for (let elem of allelem) {
+            elem.classList.add('dark');
+        }
     }
 }
 
@@ -414,6 +428,7 @@ document.getElementById('timerSize').addEventListener('input', () => {
 })
 
 function info() {
+    if (document.activeElement == document.getElementById('startKeyDiv') && document.getElementById('startKey').style.borderWidth !== "1px") return alert('This settings changes which key you need to press to start and stop the timer.');
     if (document.activeElement == puzzleType) return alert('Here you can change the puzzle type.\n A puzzle type is as example a 3x3 or Pyraminx etc.');
     if (document.activeElement == timerFont) return alert('Timer font means how the timer looks.\n Change the font to the one you like!');
     if (document.activeElement == timerSizeDiv) return alert('Timer size will change the size of the timer.');
