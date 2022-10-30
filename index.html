@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="rgb(23, 23, 23)">
     <title>Rubik's Cube Timer</title>
 
     <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
@@ -66,9 +67,9 @@
         </div>
         <div id="editTime">
             <div id="editInfos">
-                <h3 id="editTimeTime" class="editTimeItems" tabindex="0">Time: undefined</h3>
-                <h4 id="editTimeStatus" class="editTimeItems" tabindex="1">Status: undefined</h4>
-                <h4 id="editTimeScramble" class="editTimeItems" tabindex="2">Scramble: undefined</h4>
+                <div id="editTimeTime" class="editTimeItems" tabindex="0">Time: undefined</div>
+                <div id="editTimeStatus" class="editTimeItems" tabindex="1">Status: undefined</div>
+                <div id="editTimeScramble" class="editTimeItems" tabindex="2">Scramble: undefined</div>
                 <label for="comment" class="editTimeItems" tabindex="3">Comment</label>
                 <input type="text" name="comment" class="editTimeItems" id="editTimeComment" value="">
             </div>
@@ -94,20 +95,27 @@
     <div tabindex="-1" id="settings" class="dark">
         <!--Settings-->
         <h1 style="border-bottom: 2px #888 solid;">Settings</h1>
-
         <div class="divider">
             <div class="title">Key Settings</div>
             <div class="line"></div>
         </div>
         <div tabindex='0' class="setting dark" id="startKeyDiv">
-            <label for="startKey">Start/Stop Key:</label>
+            <label for="startKey">Start Key:</label>
             <input type="text" name="startKey" id="startKey" value="5" placeholder="Press any key.">
         </div>
-        <div tabindex='1' class="setting dark" id="puzzleTypeDiv">
+        <div tabindex='1' class="setting dark" id="startKeyDiv">
+            <label for="startKey">Right Softkey:</label>
+            <select type="text" name="startKey" id="startKey">
+                <option value="settings">Settings</option>
+                <option value="logout">Quit App</option>
+            </select>
+        </div>
+
+        <div tabindex='2' class="setting dark" id="puzzleTypeDiv">
             <label for="puzzleType">Puzzle Type:</label>
             <select name="puzzleType" id="puzzleType">
+                <option value="3x3">3x3x3</option>
                 <option value="2x2">2x2x2</option>
-                <option value="3x3" selected>3x3x3</option>
                 <option value="4x4">4x4x4</option>
                 <option value="5x5">5x5x5</option>
                 <option value="4x4">6x6x6</option>
@@ -115,7 +123,7 @@
             </select>
         </div>
 
-        <div tabindex='2' class="setting dark" id="timerFontDiv">
+        <div tabindex='3' class="setting dark" id="timerFontDiv">
             <label for="timerFont">Timer Font:</label>
             <select name="timerFont" id="timerFont">
                 <option value="2x2">Arial</option>
@@ -134,12 +142,12 @@
             </select>
         </div> -->
 
-        <div tabindex='3' class="setting dark" id="timerSizeDiv">
+        <div tabindex='4' class="setting dark" id="timerSizeDiv">
             <label for="timerSize">Timer Size:</label>
             <input type="number" min="10" max="30" name="timerSize" id="timerSize" value="16">
         </div>
 
-        <div tabindex='4' class="setting dark" id="darkModeDiv">
+        <div tabindex='5' class="setting dark" id="darkModeDiv">
             <p>Dark Mode</p>
             <label class="switch">
                 <input type="checkbox" id="darkMode" checked>
