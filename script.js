@@ -65,7 +65,8 @@ document.addEventListener("keydown", e => {
                 document.activeElement.style.opacity = 0;
                 document.activeElement.value = "";
                 document.activeElement.blur();
-                showToast('Added Comment', 2000)
+                showToast('Added Comment', 2000);
+                return;
             }
         }
         if (canChange) {
@@ -168,6 +169,7 @@ document.addEventListener("keydown", e => {
                 document.getElementById('editTime').style.display = 'block';
                 document.querySelector('#editTimeTime').focus();
             }
+
         }
         //Start Key changing in settings
         if (document.getElementById('startKey').style.borderWidth == '1px') {
@@ -325,18 +327,22 @@ function shuffle(o) {
 function handleKeydown(e) {
     switch (e.key) {
         case 'ArrowUp':
-            if (document.activeElement != timerSize && document.getElementById('startKey').style.borderWidth !== '1px') {
+            if (document.activeElement != timerSize && document.getElementById('startKey').style.borderWidth !== '1px' && document.activeElement.id !== 'scrambleSizeInput') {
                 if (settingsOpened) {
                     nav(-1, '.setting');
+                } else if (document.getElementById('editTime').style.display == 'block') {
+                    nav(-1, '.editTimeItems');
                 } else if (document.getElementById('session').style.display == 'block') {
                     nav(-1, '.td')
                 }
             }
             break;
         case 'ArrowDown':
-            if (document.activeElement != timerSize && document.getElementById('startKey').style.borderWidth !== '1px') {
+            if (document.activeElement != timerSize && document.getElementById('startKey').style.borderWidth !== '1px' && document.activeElement.id !== 'scrambleSizeInput') {
                 if (settingsOpened) {
                     nav(1, '.setting');
+                } else if (document.getElementById('editTime').style.display == 'block') {
+                    nav(1, '.editTimeItems');
                 } else if (document.getElementById('session').style.display == 'block') {
                     nav(1, '.td')
                 }
@@ -370,12 +376,24 @@ function select() {
     });
     if (document.activeElement == puzzleType) return puzzleTypeSelector.focus();
     if (document.activeElement == timerFont) return timerFontSelector.focus();
+    if (document.activeElement == document.getElementById('rightSoftDiv')) return document.getElementById('rightSoft').focus();
     if (document.activeElement == timerSizeDiv) return timerSize.focus(), setSoftkey({
         left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
         middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">check</i>',
         right: '<i class="material-icons" style="font-size: 17px; position: relative; top: 4.5px; right: 2.5px">backspace</i>'
     }), timerSize.setSelectionRange(2, 2);
     if (document.activeElement == timerSize) return timerSizeDiv.focus(), setSoftkey({
+        left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
+        middle: 'Select',
+        right: '<i class="material-icons" style=" color: blue; font-size: 21px; position: relative; top: 2.5px; right: 2px">question_mark</i>'
+    });
+    if (document.activeElement == document.getElementById('scrambleSizeDiv')) return document.getElementById('scrambleSize').focus();
+    if (document.activeElement == document.getElementById('scrambleSizeInputDiv')) return document.getElementById('scrambleSizeInput').focus(), setSoftkey({
+        left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
+        middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">check</i>',
+        right: '<i class="material-icons" style="font-size: 17px; position: relative; top: 4.5px; right: 2.5px">backspace</i>'
+    }), timerSize.setSelectionRange(2, 2);
+    if (document.activeElement == document.getElementById('scrambleSizeInput')) return document.getElementById('scrambleSizeInputDiv').focus(), setSoftkey({
         left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
         middle: 'Select',
         right: '<i class="material-icons" style=" color: blue; font-size: 21px; position: relative; top: 2.5px; right: 2px">question_mark</i>'
@@ -539,6 +557,7 @@ function loadTable() {
 
 function openSessions() {
     // some session opening
+    alert('open session')
 }
 
 // document.querySelector('.selectdiv').addEventListener('click', () => {
@@ -612,7 +631,32 @@ puzzleTypeSelector.addEventListener('change', () => {
         keys = new Array("r", "Rw", "l", "Lw", "u", "Uw", "d", "Dw", "f", "Fw");
         limit = 60;
     }
-    // 5x5 - 60
+    // 5x5 - 60 done
     // 6x6 - 80
     // 7x7 - 100
+});
+
+document.getElementById('scrambleSizeDiv').addEventListener('change', () => {
+    if (this.value == 'auto') return document.getElementById('scrambleSizeInput').setAttribute('disabled', '');
+    document.getElementById('scrambleSizeInput').removeAttribute('disabled');
+});
+document.getElementById('search').addEventListener('input', () => {
+    search();
 })
+
+function search() {
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById('search');
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("settings");
+    li = ul.getElementsByClassName("nos");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("label")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}

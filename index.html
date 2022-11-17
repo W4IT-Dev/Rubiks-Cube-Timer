@@ -19,7 +19,7 @@
     <div id="loadScreen"
         style="height: 295px; width: 240px; display: block; background-color: white; position: fixed; top: 0; left: 0; z-index: 1; text-align: center;">
         <img src="w4it-dev-logo-horizintal.png" style="height: 40px; width: 120px; margin: 20px 20px 0px 20px">
-        <img src="proe.png" alt="App Logo" style="height: 170px; width: 170px;">
+        <img src="icon.png" alt="App Logo" style="height: 170px; width: 170px;">
         <br>
         <progress id="progress" value="0" style="margin: 0px 0px 60px 10px"></progress>
     </div>
@@ -67,16 +67,16 @@
         </div>
         <div id="editTime">
             <div id="editInfos">
-                <div id="editTimeTime" class="editTimeItems" tabindex="0">Time: undefined</div>
-                <div id="editTimeStatus" class="editTimeItems" tabindex="1">Status: undefined</div>
-                <div id="editTimeScramble" class="editTimeItems" tabindex="2">Scramble: undefined</div>
-                <label for="comment" class="editTimeItems" tabindex="3">Comment</label>
-                <input type="text" name="comment" class="editTimeItems" id="editTimeComment" value="">
+                <div id="editTimeTime" class="editTimeItems" tabindex="1">Time: undefined</div>
+                <div id="editTimeStatus" class="editTimeItems" tabindex="2">Status: undefined</div>
+                <div id="editTimeScramble" class="editTimeItems" tabindex="3">Scramble: undefined</div>
+                <label for="comment" class="editTimeItems">Comment</label>
+                <input type="text" name="comment" class="editTimeItems" tabindex="4" id="editTimeComment" value="">
             </div>
             <div id="edit">
-                <button class="editBtn editTimeItems" id="OK" tabindex="4">OK</button>
-                <button class="editBtn editTimeItems" id="DNF" tabindex="5">DNF</button>
-                <button class="editBtn editTimeItems" id="+2" tabindex="6">+2</button>
+                <button class="editBtn editTimeItems" id="OK" tabindex="5">OK</button>
+                <button class="editBtn editTimeItems" id="DNF" tabindex="6">DNF</button>
+                <button class="editBtn editTimeItems" id="+2" tabindex="7">+2</button>
             </div>
         </div>
         <table id="timestable">
@@ -95,23 +95,27 @@
     <div tabindex="-1" id="settings" class="dark">
         <!--Settings-->
         <h1 style="border-bottom: 2px #888 solid;">Settings</h1>
+        <input class="setting" tabindex="0" type="text" id="search" placeholder="Search">
         <div class="divider">
             <div class="title">Key Settings</div>
             <div class="line"></div>
+            <span class="material-icons" id="keyset">
+                expand_less
+            </span>
         </div>
-        <div tabindex='0' class="setting dark" id="startKeyDiv">
+        <div tabindex='1' class="setting nos dark" id="startKeyDiv">
             <label for="startKey">Start Key:</label>
             <input type="text" name="startKey" id="startKey" value="5" placeholder="Press any key.">
         </div>
-        <div tabindex='1' class="setting dark" id="startKeyDiv">
-            <label for="startKey">Right Softkey:</label>
-            <select type="text" name="startKey" id="startKey">
+        <div tabindex='2' class="setting nos dark" id="rightSoftDiv">
+            <label for="rightSoft">Right Softkey:</label>
+            <select type="text" name="rightSoft" id="rightSoft">
                 <option value="settings">Settings</option>
                 <option value="logout">Quit App</option>
             </select>
         </div>
 
-        <div tabindex='2' class="setting dark" id="puzzleTypeDiv">
+        <div tabindex='3' class="setting nos dark" id="puzzleTypeDiv">
             <label for="puzzleType">Puzzle Type:</label>
             <select name="puzzleType" id="puzzleType">
                 <option value="3x3">3x3x3</option>
@@ -122,8 +126,14 @@
                 <option value="5x5">7x7x7</option>
             </select>
         </div>
-
-        <div tabindex='3' class="setting dark" id="timerFontDiv">
+        <div class="divider">
+            <div class="title">Style</div>
+            <div class="line"></div>
+            <span class="material-icons" id="style">
+                expand_less
+            </span>
+        </div>
+        <div tabindex='4' class="setting nos dark" id="timerFontDiv">
             <label for="timerFont">Timer Font:</label>
             <select name="timerFont" id="timerFont">
                 <option value="2x2">Arial</option>
@@ -142,22 +152,35 @@
             </select>
         </div> -->
 
-        <div tabindex='4' class="setting dark" id="timerSizeDiv">
+        <div tabindex='5' class="setting nos dark" id="timerSizeDiv">
             <label for="timerSize">Timer Size:</label>
             <input type="number" min="10" max="30" name="timerSize" id="timerSize" value="16">
         </div>
 
-        <div tabindex='5' class="setting dark" id="darkModeDiv">
+        <div tabindex='6' class="setting nos dark" id="scrambleSizeDiv">
+            <label for="scrambleSize">Scramble Size:</label>
+            <select name="scrambleSize" id="scrambleSize">
+                <option value="auto">Auto</option>
+                <option value="user-defined">User Defined</option>
+            </select>
+        </div>
+
+        <div tabindex='7' class="setting nos dark" id="scrambleSizeInputDiv">
+            <label for="scrambleSizeInput">Size:</label>
+            <input disabled type="number" min="10" max="21" name="scrambleSizeInput" id="scrambleSizeInput" value="16">
+        </div>
+
+        <div tabindex='8 ' class="setting nos dark" id="darkModeDiv">
             <p>Dark Mode</p>
             <label class="switch">
                 <input type="checkbox" id="darkMode" checked>
-                <span class="slider round"></span>
+                <span class="slider"></span>
             </label>
         </div>
     </div>
 
     <div class="kui-toast">
-        <p class="kui-pri">Thanks.</p>
+        <p class="kui-pri">Thanks Cyan</p>
     </div>
 
     <footer id="softkeys" class="dark" style="opacity: 0;">
