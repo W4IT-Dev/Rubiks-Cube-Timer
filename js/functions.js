@@ -212,7 +212,7 @@ function setSoftkey(object) {
 
 function setDarkOrLightMode() {
     if (!darkMode.checked) {
-        document.querySelector("meta[name='theme-color']").setAttribute('content', 'rgb(235, 232, 232)');
+        document.querySelector("meta[name='theme-color']").setAttribute('content', 'rgb(235, 232, 232);');
         for (let elem of allelem) {
             elem.classList.remove('dark');
         }
