@@ -16,7 +16,8 @@
     <link rel="stylesheet" href="/css/dark.css">
     <script src="/js/variables.js" defer></script>
     <script src="/js/functions.js" defer></script>
-    <script src="/js/eventListener.js" defer></script>
+    <script src="/js/eventListener/keyEvents/key.js" defer></script>
+    <script src="/js/eventListener/other events/settingsEvents.js" defer></script>
     <script src="/js/script.js" defer></script>
 </head>
 
@@ -72,16 +73,16 @@
         </div>
         <div id="editTime">
             <div id="editInfos">
-                <div id="editTimeTime" class="editTimeItems" tabindex="1">Time: undefined</div>
-                <div id="editTimeStatus" class="editTimeItems" tabindex="2">Status: undefined</div>
-                <div id="editTimeScramble" class="editTimeItems" tabindex="3">Scramble: undefined</div>
+                <div id="editTimeTime" class="editTimeItems">Time: undefined</div>
+                <div id="editTimeStatus" class="editTimeItems">Status: undefined</div>
+                <div id="editTimeScramble" class="editTimeItems">Scramble: undefined</div>
                 <label for="comment" class="editTimeItems">Comment</label>
-                <input type="text" name="comment" class="editTimeItems" tabindex="4" id="editTimeComment" value="">
+                <input type="text" name="comment" class="editTimeItems" id="editTimeComment" value="">
             </div>
             <div id="edit">
-                <button class="editBtn editTimeItems" id="OK" tabindex="5">OK</button>
-                <button class="editBtn editTimeItems" id="DNF" tabindex="6">DNF</button>
-                <button class="editBtn editTimeItems" id="+2" tabindex="7">+2</button>
+                <button class="editBtn editTimeItems" id="OK">OK</button>
+                <button class="editBtn editTimeItems" id="DNF">DNF</button>
+                <button class="editBtn editTimeItems" id="+2">+2</button>
             </div>
         </div>
         <table id="timestable">
@@ -90,17 +91,17 @@
                 <th class="dark">Status</th>
             </tr>
             <tr>
-                <td class="td dark" tabindex="-1">Begin timing</td>
+                <td class="td dark">Begin timing</td>
                 <td class="dark">none</td>
             </tr>
 
         </table>
 
     </div>
-    <div tabindex="-1" id="settings" class="dark">
+    <div id="settings" class="dark">
         <!--Settings-->
         <h1 style="border-bottom: 2px #888 solid;">Settings</h1>
-        <input class="setting" tabindex="0" type="text" id="search" placeholder="Search">
+        <input class="setting show" tabindex="0" type="text" id="search" placeholder="Search">
         <div class="divider">
             <div class="title">Key Settings</div>
             <div class="line"></div>
@@ -108,11 +109,11 @@
                 expand_less
             </span>
         </div>
-        <div tabindex='1' class="setting nos dark" id="startKeyDiv">
+        <div tabindex='1' class="setting nos show dark" id="startKeyDiv">
             <label for="startKey">Start Key:</label>
             <input type="text" name="startKey" id="startKey" value="5" placeholder="Press any key.">
         </div>
-        <div tabindex='2' class="setting nos dark" id="rightSoftDiv">
+        <div tabindex='2' class="setting nos show dark" id="rightSoftDiv">
             <label for="rightSoft">Right Softkey:</label>
             <select type="text" name="rightSoft" id="rightSoft">
                 <option value="settings">Settings</option>
@@ -120,7 +121,7 @@
             </select>
         </div>
 
-        <div tabindex='3' class="setting nos dark" id="puzzleTypeDiv">
+        <div tabindex='3' class="setting nos show dark" id="puzzleTypeDiv">
             <label for="puzzleType">Puzzle Type:</label>
             <select name="puzzleType" id="puzzleType">
                 <option value="3x3">3x3x3</option>
@@ -138,7 +139,7 @@
                 expand_less
             </span>
         </div>
-        <div tabindex='4' class="setting nos dark" id="timerFontDiv">
+        <div tabindex='4' class="setting nos show dark" id="timerFontDiv">
             <label for="timerFont">Timer Font:</label>
             <select name="timerFont" id="timerFont">
                 <option value="2x2">Arial</option>
@@ -157,12 +158,12 @@
             </select>
         </div> -->
 
-        <div tabindex='5' class="setting nos dark" id="timerSizeDiv">
+        <div tabindex='5' class="setting nos show dark" id="timerSizeDiv">
             <label for="timerSize">Timer Size:</label>
             <input type="number" min="10" max="30" name="timerSize" id="timerSize" value="16">
         </div>
 
-        <div tabindex='6' class="setting nos dark" id="scrambleSizeDiv">
+        <div tabindex='6' class="setting nos show dark" id="scrambleSizeDiv">
             <label for="scrambleSize">Scramble Size:</label>
             <select name="scrambleSize" id="scrambleSize">
                 <option value="auto">Auto</option>
@@ -172,10 +173,10 @@
 
         <div tabindex='7' class="setting nos dark" id="scrambleSizeInputDiv">
             <label for="scrambleSizeInput">Size:</label>
-            <input disabled type="number" min="10" max="21" name="scrambleSizeInput" id="scrambleSizeInput" value="16">
+            <input type="number" min="10" max="21" name="scrambleSizeInput" id="scrambleSizeInput" value="16">
         </div>
 
-        <div tabindex='8 ' class="setting nos dark" id="darkModeDiv">
+        <div tabindex='8' class="setting nos show dark" id="darkModeDiv">
             <p>Dark Mode</p>
             <label class="switch">
                 <input type="checkbox" id="darkMode" checked>

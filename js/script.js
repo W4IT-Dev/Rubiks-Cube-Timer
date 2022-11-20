@@ -19,11 +19,6 @@ if (loadScreen.style.display == 'block') {
 setTimeout(() => { loadScreen.style.display = 'none'; document.querySelector('footer').style.opacity = '1' }, 3000)
 
 
-
-
-// document.querySelector('.selectdiv').addEventListener('click', () => {
-//     document.querySelector('.optionsdiv').style.display = 'block'
-// })
 function softkey(e) {
     const { target, key, bubbles, cancelable, repeat, type } = e;
     if (!/Left|Right/.test(key) || !key.startsWith("Arrow") || !e.ctrlKey) return;

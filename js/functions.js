@@ -121,7 +121,11 @@ function shuffle(o) {
 function handleKeydown(e) {
     switch (e.key) {
         case 'ArrowUp':
-            nav(-1, "." + document.activeElement.classList[0]);
+            if(document.activeElement.classList.contains('setting')) {
+                nav(-1, "." + document.activeElement.classList[0] + ".show");
+            } else {
+                nav(-1, "." + document.activeElement.classList[0]);
+            }
             // if (document.activeElement != timerSize && document.getElementById('startKey').style.borderWidth !== '1px' && document.activeElement.id !== 'scrambleSizeInput') {
             //     if (settingsOpened) {
             //         nav(-1, '.setting');
@@ -133,7 +137,11 @@ function handleKeydown(e) {
             // }
             break;
         case 'ArrowDown':
-            nav(1, "." + document.activeElement.classList[0]);
+            if (document.activeElement.classList.contains('setting')) {
+                nav(1, "." + document.activeElement.classList[0] + ".show");
+            } else {
+                nav(1, "." + document.activeElement.classList[0]);
+            }
             // if (document.activeElement != timerSize && document.getElementById('startKey').style.borderWidth !== '1px' && document.activeElement.id !== 'scrambleSizeInput') {
             //     if (settingsOpened) {
             //         nav(1, '.setting');
@@ -148,15 +156,11 @@ function handleKeydown(e) {
 }
 
 function nav(move, elems) {
-    const currentIndex = document.activeElement.tabIndex;
-    const next = currentIndex + move;
+    const currentIndex = document.activeElement;
     const items = document.querySelectorAll(elems);
+    let currentElemIdx = [...items].indexOf(currentIndex);
+    const next = currentElemIdx + move;
     const targetElement = items[next];
-    /*
-    if (move === 1 && currentIndex == items.length - 1) return items[0].focus();
-    if (move === -1 && currentIndex == 0) return items[items.length - 1].focus();
-        probably not using this
-    */
     targetElement.focus();
 }
 

@@ -110,7 +110,7 @@ select,
 .setting {
     margin-top: 1px;
     height: 35px;
-    display: flex;
+    display: none;
     align-items: center;
     border-bottom: 1.5px #888 solid;
     display: flex;
@@ -340,15 +340,6 @@ th {
     text-align: center;
 }
 
-
-
-
-
-
-*:disabled {
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
 .setting#search {
     text-align: left;
     font-size: 18px;
@@ -383,4 +374,12 @@ th {
     background-color: #eee;
     height: 1px;
     flex: 1;
+}
+
+#scrambleSizeInputDiv {
+    display: none;
+}
+
+.show {
+    display: flex;
 }
