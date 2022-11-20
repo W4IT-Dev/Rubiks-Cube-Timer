@@ -372,8 +372,10 @@ function search() {
         txtValue = a.textContent || a.innerText;
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
             li[i].classList.add('show');
+            console.log(li[i].classList)
         } else {
             li[i].classList.remove('show');
+            console.log(li[i].classList)
         }
     }
 }

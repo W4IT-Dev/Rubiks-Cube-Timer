@@ -113,7 +113,6 @@ select,
     display: none;
     align-items: center;
     border-bottom: 1.5px #888 solid;
-    display: flex;
     justify-content: space-between;
 }
 
