@@ -1,0 +1,71 @@
+.light {
+    /*general*/
+    background-color: #ebe8e8;
+    color: #222;
+}
+
+body.light {
+    background-color: #f7f7f7;
+}
+
+#session.light {
+    background-color: #ddd;
+    border-color: #bbb;
+    color: #222;
+}
+
+#sessions.light {
+    border: 4px solid rgb(150, 150, 150);
+    background-color: #ebe8e8;
+    color: #272727;
+}
+
+#timerBox.light {
+    background-color: #f7f7f7;
+}
+
+#timer.light {
+    color: #222;
+}
+
+#settings.light {
+    background-color: #ddd;
+    border: 4.5px solid #bbb;
+    color: #222;
+}
+
+#settings input.light,
+#settings select.light {
+    background-color: #bbb;
+    color: #333;
+}
+
+.setting.light {
+    background-color: #ddd;
+    color: #222;
+}
+
+.setting.light:focus {
+    background-color: #aaa;
+}
+
+#softkeys.light {
+    background-color: #ddd;
+    color: #333;
+}
+
+th.light {
+    background-color: #ababab;
+}
+
+td.light {
+    background-color: #eee;
+}
+
+td.light:focus {
+    background-color: #ccc;
+}
+
+.divider>.line.light {
+    background-color: #171717;
+}

@@ -200,96 +200,6 @@ input:checked+.slider:before {
     outline: none;
 }
 
-
-/* light */
-.light {
-    /*general*/
-    background-color: #ebe8e8;
-    color: #222;
-}
-
-body.light {
-    background-color: #f7f7f7;
-}
-
-#session.light {
-    background-color: #ddd;
-    border-color: #bbb;
-    color: #222;
-}
-
-#timerBox.light {
-    background-color: #f7f7f7;
-}
-
-#timer.light {
-    color: #222;
-}
-
-#settings.light {
-    background-color: #ddd;
-    border: 4.5px solid #bbb;
-    color: #222;
-}
-
-#settings input.light,
-#settings select.light {
-    background-color: #bbb;
-    color: #333;
-}
-
-.setting.light {
-    background-color: #ddd;
-    color: #222;
-}
-
-.setting.light:focus {
-    background-color: #aaa;
-}
-
-#softkeys.light {
-    background-color: #ddd;
-    color: #333;
-}
-
-/* Dark */
-.dark {
-    /*general*/
-    background-color: #222;
-    color: #ebe8e8;
-}
-
-#session.dark {
-    background-color: #333;
-    color: #ebe8e8;
-    border-color: #454545;
-}
-
-#timer.dark {
-    color: #ebe8e8;
-}
-
-#settings.dark {
-    background-color: #323232;
-    border: 4.5px solid #454545;
-    color: #efefef;
-}
-
-.setting.dark {
-    background-color: #323232;
-    color: #efefef;
-}
-
-.setting.dark:focus {
-    background-color: #272727;
-}
-
-#softkeys.dark {
-    background-color: #171717;
-    color: #ebe8e8;
-}
-
-
 .kui-toast {
     animation: toaster 0.48s;
     height: 42px;
@@ -385,34 +295,6 @@ th {
 }
 
 
-/* light */
-th.light {
-    background-color: #ababab;
-}
-
-td.light {
-    background-color: #eee;
-}
-
-td.light:focus {
-    background-color: #ccc;
-}
-
-
-/* dark */
-th.dark {
-    background-color: #454545;
-}
-
-td.dark {
-    background-color: #676767;
-}
-
-td.dark:focus {
-    background-color: #545454;
-}
-
-
 .editTimeItems:focus {
     background-color: red;
 }
@@ -458,17 +340,9 @@ td.dark:focus {
     text-align: center;
 }
 
-#sessions.light {
-    border: 4px solid rgb(150, 150, 150);
-    background-color: #ebe8e8;
-    color: #272727;
-}
 
-#sessions.dark {
-    background-color: #323232;
-    border: 4px solid #676767;
-    color: #ebe8e8;
-}
+
+
 
 
 *:disabled {
@@ -509,8 +383,4 @@ td.dark:focus {
     background-color: #eee;
     height: 1px;
     flex: 1;
-}
-
-.divider>.line.light {
-    background-color: #171717;
 }

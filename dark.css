@@ -1,0 +1,53 @@
+.dark {
+    /*general*/
+    background-color: #222;
+    color: #ebe8e8;
+}
+
+#session.dark {
+    background-color: #333;
+    color: #ebe8e8;
+    border-color: #454545;
+}
+
+#sessions.dark {
+    background-color: #323232;
+    border: 4px solid #676767;
+    color: #ebe8e8;
+}
+
+#timer.dark {
+    color: #ebe8e8;
+}
+
+#settings.dark {
+    background-color: #323232;
+    border: 4.5px solid #454545;
+    color: #efefef;
+}
+
+.setting.dark {
+    background-color: #323232;
+    color: #efefef;
+}
+
+.setting.dark:focus {
+    background-color: #272727;
+}
+
+#softkeys.dark {
+    background-color: #171717;
+    color: #ebe8e8;
+}
+
+th.dark {
+    background-color: #454545;
+}
+
+td.dark {
+    background-color: #676767;
+}
+
+td.dark:focus {
+    background-color: #545454;
+}
