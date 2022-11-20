@@ -9,6 +9,7 @@ moves['d'] = new Array("D", "D'", "D2");
 moves['f'] = new Array("F", "F'", "F2");
 moves['b'] = new Array("B", "B'", "B2");
 
+keys = new Array("r", "l", "u", "d", "f", "b");
 
 if (loadScreen.style.display == 'block') {
     load = setInterval(() => { progress.value += .09 }, 180)
@@ -18,7 +19,7 @@ if (loadScreen.style.display == 'block') {
 setTimeout(() => { loadScreen.style.display = 'none'; document.querySelector('footer').style.opacity = '1' }, 3000)
 
 
-keys = new Array("r", "l", "u", "d", "f", "b");
+
 
 // document.querySelector('.selectdiv').addEventListener('click', () => {
 //     document.querySelector('.optionsdiv').style.display = 'block'
