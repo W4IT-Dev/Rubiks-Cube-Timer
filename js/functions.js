@@ -366,7 +366,7 @@ function search() {
     input = document.getElementById('search');
     filter = input.value.toUpperCase();
     settings = document.getElementById("settings");
-    setting = settings.querySelectorAll(".nos.show");
+    setting = settings.querySelectorAll(".nos");
     for (i = 0; i < setting.length; i++) {
         label = setting[i].getElementsByTagName("label")[0];
         txtValue = label.textContent || label.innerText;
