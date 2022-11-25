@@ -61,8 +61,8 @@ puzzleTypeSelector.addEventListener('change', () => {
 });
 
 document.getElementById('scrambleSizeDiv').addEventListener('change', () => {
-    if (document.getElementById('scrambleSizeDiv').value == 'auto') return document.getElementById('scrambleSizeInputDiv').style.display = 'none';
-    document.getElementById('scrambleSizeInputDiv').style.display = 'block';
+    if (document.getElementById('scrambleSizeDiv').value == 'auto') return document.getElementById('scrambleSizeInputDiv').classList.remove('show', 'nos')
+    document.getElementById('scrambleSizeInputDiv').classList.add('show', 'nos')
 });
 document.getElementById('search').addEventListener('input', () => {
     search();

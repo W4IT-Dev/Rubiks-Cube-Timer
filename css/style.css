@@ -375,10 +375,6 @@ th {
     flex: 1;
 }
 
-#scrambleSizeInputDiv {
-    display: none;
-}
-
 .show {
     display: flex;
 }

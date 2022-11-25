@@ -72,10 +72,12 @@ document.addEventListener("keydown", e => {
                         right: '<i class="material-icons" style="font-size: 21px; position: relative; color: #44f;  top: 2px; right: 2px">question_mark</i>'
                     });
                     settingsOpened = true;
-                } else if (settings.style.display == 'block' && document.getElementById('startKey').style.borderWidth !== '1px' && document.activeElement.id !== 'timerSize') {
+                } else if (settings.style.display == 'block' && document.getElementById('startKey').style.borderWidth !== '1px' && document.activeElement.id !== 'timerSize' && document.activeElement.id !== 'scrambleSizeInput') {
                     settings.style.display = 'none';
                     wholeSite.style.filter = 'none';
-
+                    document.activeElement.blur();
+                    document.getElementById('search').value = '';
+                    search();
                     setSoftkey({
                         left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
                         middle: 'Session',
