@@ -212,7 +212,7 @@ function setSoftkey(object) {
 
 function setDarkOrLightMode() {
     if (!darkMode.checked) {
-        document.querySelector("meta[name='theme-color']").setAttribute('content', 'rgb(235, 232, 232);');
+        document.querySelector("meta[name='theme-color']").setAttribute('content', 'rgb(235, 232, 232)');
         for (let elem of allelem) {
             elem.classList.remove('dark');
         }
@@ -362,20 +362,19 @@ function openSessions() {
 }
 
 function search() {
-    var input, filter, ul, li, a, i, txtValue;
+    var input, filter, settings, setting, label, i, txtValue;
     input = document.getElementById('search');
     filter = input.value.toUpperCase();
-    ul = document.getElementById("settings");
-    li = ul.getElementsByClassName("nos");
-    for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByTagName("label")[0];
-        txtValue = a.textContent || a.innerText;
+    settings = document.getElementById("settings");
+    setting = settings.querySelectorAll(".nos.show");
+    for (i = 0; i < setting.length; i++) {
+        label = setting[i].getElementsByTagName("label")[0];
+        txtValue = label.textContent || label.innerText;
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            li[i].classList.add('show');
-            console.log(li[i].classList)
+            setting[i].classList.add('show');
+            console.log(setting[i].classList)
         } else {
-            li[i].classList.remove('show');
-            console.log(li[i].classList)
+            setting[i].classList.remove('show');
         }
     }
 }
