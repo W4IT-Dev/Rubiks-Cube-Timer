@@ -29,8 +29,8 @@ body.light {
 }
 
 #settings.light {
-    background-color: #ddd;
-    border: 4.5px solid #bbb;
+    background-color: #eee;
+    border: 4.5px solid #ccc;
     color: #222;
 }
 
@@ -41,12 +41,12 @@ body.light {
 }
 
 .setting.light {
-    background-color: #ddd;
+    background-color: #eee;
     color: #222;
 }
 
 .setting.light:focus {
-    background-color: #aaa;
+    background-color: #bfbfbf;
 }
 
 #softkeys.light {

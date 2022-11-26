@@ -34,10 +34,10 @@ function start() {
 }
 
 function startTimer() {//timer
-    document.querySelector('.scramble').style.display = 'none';
+    scrambleOnDom.style.display = 'none';
     document.querySelector('#timerBox').style.marginTop = timermargintoppercentage;
-    document.querySelector('.ad').style.display = 'block';
-    document.querySelectorAll('.ad')[1].style.display = 'block';
+    // document.querySelector('.ad').style.display = 'block';
+    // document.querySelectorAll('.ad')[1].style.display = 'block';
     setSoftkey({
         left: '',
         middle: '',
@@ -75,8 +75,8 @@ function stop() {//stop timer
     getScramble();
     document.querySelector('.scramble').style.display = 'block';
     document.querySelector('#timerBox').style.marginTop = timermargintop;
-    document.querySelector('.ad').style.display = 'none';
-    document.querySelectorAll('.ad')[1].style.display = 'none';
+    // document.querySelector('.ad').style.display = 'none';
+    // document.querySelectorAll('.ad')[1].style.display = 'none';
     canChange = true;
     setSoftkey({
         left: 'DNF',

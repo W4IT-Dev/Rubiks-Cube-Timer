@@ -15,7 +15,7 @@ let allelem = document.querySelectorAll('.setting, select, input, #timerBox, bod
 
 let settingsOpened = false;
 
-let scrambleOnDom = document.getElementById('scramble');
+let scrambleOnDom = document.querySelector('.scramble');
 let timerBox = document.getElementById('timerBox');
 let timer = document.getElementById('timer');
 let first = document.getElementById('first');
