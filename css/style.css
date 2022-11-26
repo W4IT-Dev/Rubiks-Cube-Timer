@@ -357,7 +357,7 @@ th {
 
 .divider {
     padding: 10px 7px 10px 7px;
-    display: flex;
+    /* display: flex; */
     align-items: center;
     height: 24px;
 }
