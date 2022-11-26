@@ -109,7 +109,7 @@ function getScramble() {//generate a scramble
         scramble += move + " ";
         last = keys[0];
     }
-    document.querySelector('.scramble').innerHTML = ("<strong>Scramble:</strong> <br>" + scramble);
+    document.querySelector('.scramble').innerHTML = ("<div><strong>Scramble:</strong> <br>" +  scramble + "</div>");
 }
 
 function shuffle(o) {
