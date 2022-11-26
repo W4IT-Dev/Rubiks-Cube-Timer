@@ -12,11 +12,11 @@ moves['b'] = new Array("B", "B'", "B2");
 keys = new Array("r", "l", "u", "d", "f", "b");
 
 if (loadScreen.style.display == 'block') {
-    load = setInterval(() => { progress.value += .09 }, 180)
+    load = setInterval(() => { progress.value += .09 }, 150)
 } else {
     clearInterval(load);
 }
-setTimeout(() => { loadScreen.style.display = 'none'; document.querySelector('footer').style.opacity = '1' }, 3000)
+setTimeout(() => { loadScreen.style.display = 'none'; document.querySelector('footer').style.opacity = '1' }, 2300)
 
 
 function softkey(e) {

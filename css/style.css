@@ -28,22 +28,27 @@ body {
 }
 
 #timer {
+    position: fixed;
+    top: 50%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; 
     max-width: 10px;
-    font-family: 'Orbitron';/*Whitney*/
+    font-family: 'Orbitron';
     font-size: 16px;
+    transform: translate(-50%,-50%);
 }
 
 #comment {
-    position: relative;
-    left: 25px;
+    position: fixed;
+    top: 65%;
+    left: 50%;
     opacity: 0;
     height: 22px;
     width: 170px;
     font-size: 18px;
     z-index: 0;
     transition: all 0.5s;
+    transform: translateX(-50%)
 }
 
 
