@@ -25,6 +25,10 @@ body.light {
     box-shadow: 0px 0px 30px 8px rgba(66, 66, 66, 0.39)
 }
 
+#scramble.light {
+    background-color: rgb(235, 232, 232);
+}
+
 #timerBox.light {
     background-color: #f7f7f7;
 }

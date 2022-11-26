@@ -60,6 +60,10 @@ document.addEventListener("keydown", e => {
                     return openSessions();
                 }
             }
+            if(settings.style.display == 'none' && !timing) {
+                if (e.key == 'ArrowDown') return document.querySelector('.scramble').style.maxHeight = '300px';
+                document.querySelector('.scramble').style.maxHeight = '100px';
+            }
             //Open/Close Settings
             if (e.key == 'SoftLeft') {
                 if (settings.style.display == 'none') {

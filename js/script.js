@@ -2,6 +2,7 @@ settings.style.display = 'none';
 session.style.display = 'none';
 editTime.style.display = 'none';
 
+
 moves['r'] = new Array("R", "R'", "R2");
 moves['l'] = new Array("L", "L'", "L2");
 moves['u'] = new Array("U", "U'", "U2");

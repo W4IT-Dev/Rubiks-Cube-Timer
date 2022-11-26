@@ -20,7 +20,7 @@
 
 <body onload="getScramble(); getStoredData();" class="dark">
     <div id="loadScreen"
-        style="height: 295px; width: 240px; display: block; background-color: white; position: fixed; top: 0; left: 0; z-index: 1; text-align: center;">
+        style="height: 295px; width: 240px; display: block; background-color: white; position: fixed; top: 0; left: 0; z-index: 1000000; text-align: center;">
         <img src="/img/w4it-dev-logo-horizintal.png" style="height: 40px; width: 120px; margin: 20px 20px 0px 20px">
         <img src="/img/app-icon.png" alt="App Logo" style="height: 170px; width: 170px;">
         <br>
@@ -38,7 +38,7 @@
     <div id="wholeSite">
         <!-- <div class="ad adtop">Ad here</div>
         <div class="ad adbottom">Ad here</div> -->
-        <div class='scramble dark'>scramble...</div>
+        <div class='scramble dark'><p style="font-size: 15px; margin: 0px 0 -10px 0;">Session 1 - 3x3</p><p tabindex="1" style="margin-bottom: 2px;" class="dark" id="scramble">scramble...</p></div>
 
         <div id="timerBox">
             <span id="timer">

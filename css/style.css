@@ -26,8 +26,12 @@ body {
     top: 0;
     left: 0;
     right: 0;
+    text-align: center;
+    max-height: 100px;
+    overflow: hidden;
+    transition: max-height 0.3s;
+    z-index: 100;
 }
-
 
 /* Timer */
 #timerBox {
@@ -37,7 +41,7 @@ body {
 
 #timer {
     position: fixed;
-    top: 50%;
+    top: 55%;
     display: flex;
     justify-content: space-between; 
     max-width: 10px;

@@ -4,14 +4,12 @@ let ready = false;
 let time;
 let timing = false;
 let startKeyName = '5';
-let timermargintop = '40px';
-let timermargintoppercentage = '50%';
 
 let canChange = false;
 
 let allTimes = [];
 
-let allelem = document.querySelectorAll('.scramble, .setting, select, input, #timerBox, body, #settings, #softkeys, #session, td, th, #sessions, #divider, .line');
+let allelem = document.querySelectorAll('.scramble, #scramble,  .setting, select, input, #timerBox, body, #settings, #softkeys, #session, td, th, #sessions, #divider, .line');
 
 let settingsOpened = false;
 

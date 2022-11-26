@@ -24,6 +24,13 @@ function start() {
         if (spacedown) {
             ready = true;
             timer.style.color = 'green';
+            scrambleOnDom.style.display = 'none';
+            timer.style.top = '50%';
+            setSoftkey({
+                left: '',
+                middle: '',
+                right: '',
+            });
             minutes.innerHTML = '';
             document.querySelector('.point').innerHTML = '';
             tensecond.innerHTML = '';
@@ -34,15 +41,10 @@ function start() {
 }
 
 function startTimer() {//timer
-    scrambleOnDom.style.display = 'none';
-    document.querySelector('#timerBox').style.marginTop = timermargintoppercentage;
+   
     // document.querySelector('.ad').style.display = 'block';
     // document.querySelectorAll('.ad')[1].style.display = 'block';
-    setSoftkey({
-        left: '',
-        middle: '',
-        right: '',
-    })
+    
     timing = true;
     time = setInterval(() => {
         first.innerHTML++;
@@ -74,7 +76,7 @@ function stop() {//stop timer
     })
     getScramble();
     document.querySelector('.scramble').style.display = 'block';
-    document.querySelector('#timerBox').style.marginTop = timermargintop;
+    timer.style.top = '55%' 
     // document.querySelector('.ad').style.display = 'none';
     // document.querySelectorAll('.ad')[1].style.display = 'none';
     canChange = true;
@@ -109,7 +111,7 @@ function getScramble() {//generate a scramble
         scramble += move + " ";
         last = keys[0];
     }
-    document.querySelector('.scramble').innerHTML = ("<div><strong>Scramble:</strong> <br>" +  scramble + "</div>");
+    document.querySelector('#scramble').innerText = scramble
 }
 
 function shuffle(o) {
