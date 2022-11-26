@@ -41,10 +41,8 @@ function start() {
 }
 
 function startTimer() {//timer
-   
     // document.querySelector('.ad').style.display = 'block';
     // document.querySelectorAll('.ad')[1].style.display = 'block';
-    
     timing = true;
     time = setInterval(() => {
         first.innerHTML++;
@@ -68,7 +66,7 @@ function startTimer() {//timer
 function stop() {//stop timer
     clearInterval(time);
     timing = false;
-    allTimes.push({
+    allTimes.unshift({
         time: timer.innerText,
         scramble: document.querySelector('.scramble').innerText,
         status: 'OK',
