@@ -28,6 +28,14 @@ let puzzleTypeSelector = document.getElementById('puzzleType');
 let timerFont = document.getElementById('timerFontDiv');
 let timerFontSelector = document.getElementById('timerFont');
 let session = document.querySelector('#session');
+let scrambleSizeDiv = document.querySelector('#scrambleSizeDiv');
+let scrambleSizeInputDiv = document.querySelector('#scrambleSizeInputDiv');
+let searchField = document.querySelector('#search');
+let comment = document.querySelector('#comment');
+let startKeyDiv = document.querySelector('#startKeyDiv');
+let editTime = document.querySelector('#editTime');
+let editTimeTime = document.querySelector('#editTimeTime');
+let startKey = document.querySelector('#startKey');
 
 var moves = new Array();
 var limit = 20;

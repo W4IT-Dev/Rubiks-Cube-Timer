@@ -14,7 +14,7 @@ keys = new Array("r", "l", "u", "d", "f", "b");
 if (loadScreen.style.display == 'block') {
     load = setInterval(() => { progress.value += .09 }, 180)
 } else {
-    clearInterval(load)
+    clearInterval(load);
 }
 setTimeout(() => { loadScreen.style.display = 'none'; document.querySelector('footer').style.opacity = '1' }, 3000)
 

@@ -60,17 +60,17 @@ puzzleTypeSelector.addEventListener('change', () => {
     // 7x7 - 100
 });
 
-document.getElementById('scrambleSizeDiv').addEventListener('change', () => {
-    if (document.getElementById('scrambleSizeDiv').value == 'auto') return document.getElementById('scrambleSizeInputDiv').classList.remove('show', 'nos')
-    document.getElementById('scrambleSizeInputDiv').classList.add('show', 'nos')
+scrambleSizeDiv.addEventListener('change', () => {
+    if (scrambleSizeDiv.value == 'auto') { scrambleSizeInputDiv.classList.remove('show', 'nos'); } else {
+        scrambleSizeInputDiv.classList.add('show', 'nos');
+    }
 });
-document.getElementById('search').addEventListener('input', () => {
+searchField.addEventListener('input', () => {
     search();
 });
 
 allSelectElems.forEach(function (elem) {
     elem.addEventListener('blur', () => {
         document.getElementById(elem.parentElement.id).focus();
-        console.log(document.getElementById(elem.parentElement.id))
     });
 });

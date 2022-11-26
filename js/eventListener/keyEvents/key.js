@@ -21,8 +21,8 @@ document.addEventListener("keydown", e => {
         }
         if (canChange) {
             if (!isNaN(parseInt(e.key))) {
-                document.getElementById('comment').focus();
-                document.getElementById('comment').style.opacity = 1;
+                comment.focus();
+                comment.style.opacity = 1;
             }
             if (e.key == 'SoftLeft') return allTimes[allTimes.length - 1].status = 'DNF', canChange = false, showToast('Changed Status to DNF  ', 2000), setSoftkey({
                 left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
@@ -72,11 +72,11 @@ document.addEventListener("keydown", e => {
                         right: '<i class="material-icons" style="font-size: 21px; position: relative; color: #44f;  top: 2px; right: 2px">question_mark</i>'
                     });
                     settingsOpened = true;
-                } else if (settings.style.display == 'block' && document.getElementById('startKey').style.borderWidth !== '1px' && document.activeElement.id !== 'timerSize' && document.activeElement.id !== 'scrambleSizeInput') {
+                } else if (settings.style.display == 'block' && startKeyDiv.style.borderWidth !== '1px' && document.activeElement.id !== 'timerSize' && document.activeElement.id !== 'scrambleSizeInput') {
                     settings.style.display = 'none';
                     wholeSite.style.filter = 'none';
                     document.activeElement.blur();
-                    document.getElementById('search').value = '';
+                    searchField.value = '';
                     search();
                     setSoftkey({
                         left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
@@ -96,7 +96,7 @@ document.addEventListener("keydown", e => {
             if (e.key == 'ArrowDown') return e.preventDefault();
         }
         //Timing
-        if (e.key === startKeyName && !settingsOpened && document.activeElement.id !== 'comment') {
+        if (e.key === startKeyName && !settingsOpened && document.activeElement !== comment) {
             spacedown = true;
             if (!spaceddown) {
                 start();
@@ -117,22 +117,20 @@ document.addEventListener("keydown", e => {
                 });
                 return
             }
-            if (document.getElementById('session').style.display == 'block') {
-                document.getElementById('editTime').style.display = 'block';
-                document.querySelector('#editTimeTime').focus();
+            if (session.style.display == 'block') {
+                editTime.style.display = 'block';
+                editTimeTime.focus();
             }
 
         }
         //Start Key changing in settings
-        if (document.getElementById('startKey').style.borderWidth == '1px') {
+        if (startKey.style.borderWidth == '1px') {
             if (e.key != 'MicrophoneToggle' && e.key != 'Enter' && e.key != 'SoftLeft' && e.key != 'SoftRight' && e.key != 'Backspace' && e.key != 'EndCall')
                 startKeyName = e.key;
-            document.getElementById('startKey').value = e.key;
+            startKey.value = e.key;
         }
     }
 });
-
-
 
 // ==== KEY UP ====
 document.addEventListener("keyup", e => {
