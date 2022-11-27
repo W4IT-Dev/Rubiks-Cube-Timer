@@ -43,11 +43,11 @@ body {
     position: fixed;
     top: 55%;
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
     max-width: 10px;
     font-family: 'Orbitron';
     font-size: 16px;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
 }
 
 #comment {
@@ -313,7 +313,6 @@ th {
 .editTimeItems:focus {
     background-color: red;
 }
-
 
 #sessions {
     display: none;

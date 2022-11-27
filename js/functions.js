@@ -74,7 +74,7 @@ function stop() {//stop timer
     })
     getScramble();
     document.querySelector('.scramble').style.display = 'block';
-    timer.style.top = '55%' 
+    timer.style.top = '55%'
     // document.querySelector('.ad').style.display = 'none';
     // document.querySelectorAll('.ad')[1].style.display = 'none';
     canChange = true;
@@ -121,7 +121,7 @@ function shuffle(o) {
 function handleKeydown(e) {
     switch (e.key) {
         case 'ArrowUp':
-            if(document.activeElement.classList.contains('setting')) {
+            if (document.activeElement.classList.contains('setting')) {
                 nav(-1, "." + document.activeElement.classList[0] + ".show");
             } else {
                 nav(-1, "." + document.activeElement.classList[0]);
