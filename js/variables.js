@@ -9,7 +9,7 @@ let canChange = false;
 
 let allTimes = [];
 
-let allelem = document.querySelectorAll('.scramble, #scramble,  .setting, select, input, #timerBox, body, #settings, #softkeys, #session, td, th, #sessions, #divider, .line');
+let allelem = document.querySelectorAll('.scramble, #scramble, .setting, select, input, #timerBox, body, #settings, #softkeys, #session, td, th, #sessions, #divider, .line');
 
 let settingsOpened = false;
 
@@ -39,7 +39,7 @@ let editTimeTime = document.querySelector('#editTimeTime');
 let startKey = document.querySelector('#startKey');
 
 let autoFontSize = true;
-let scrambleFontSize = "17px"; 
+let scrambleFontSize = "17px";
 
 var moves = new Array();
 var limit = 20;

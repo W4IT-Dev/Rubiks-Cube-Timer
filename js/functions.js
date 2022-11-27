@@ -91,10 +91,10 @@ function stop() {//stop timer
                 right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
             });
         }
-        // localStorage['allTimes'] = JSON.stringify(allTimes);
-        // console.log(JSON.parse(localStorage['allTimes']));//✅
+        localStorage['allTimes'] = JSON.stringify(allTimes);
+        console.log(JSON.parse(localStorage['allTimes']));//✅
     }, 1500)
-    
+
 }
 
 function getScramble() {
@@ -234,16 +234,20 @@ function getStoredData() {
             for (let elem of allelem) {
                 elem.classList.add('dark');
             }
-            return
+        } else {
+            document.querySelector("meta[name='theme-color']").setAttribute('content', 'rgb(235, 232, 232)');
+            darkMode.checked = false;
+            for (let elem of allelem) {
+                elem.classList.remove('dark');
+            }
+            for (let elem of allelem) {
+                elem.classList.add('light');
+            }
         }
-        document.querySelector("meta[name='theme-color']").setAttribute('content', 'rgb(235, 232, 232)');
-        darkMode.checked = false;
-        for (let elem of allelem) {
-            elem.classList.remove('dark');
-        }
-        for (let elem of allelem) {
-            elem.classList.add('light');
-        }
+    }
+    if (localStorage.allTimes) {
+        allTimes = JSON.parse(localStorage['allTimes']);
+        console.log(allTimes);
     }
 }
 
@@ -324,11 +328,6 @@ function loadTable() {
     }
 }
 
-function openSessions() {
-    // some session opening
-    alert('open session')
-}
-
 function search() {
     var input, filter, settings, setting, label, i, txtValue;
     input = document.getElementById('search');
@@ -340,7 +339,7 @@ function search() {
         txtValue = label.textContent || label.innerText;
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
             setting[i].classList.add('show');
-            console.log(setting[i].classList)
+            // console.log(setting[i].classList)
         } else {
             setting[i].classList.remove('show');
         }

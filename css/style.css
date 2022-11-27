@@ -280,6 +280,12 @@ input:checked+.slider:before {
     border: 5px solid;
     border-radius: 10px;
     overflow: auto;
+    text-align: center;
+}
+
+#sessionSelect {
+    margin-top: 7px;
+    width: auto;
 }
 
 #editTime {

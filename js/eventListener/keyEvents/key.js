@@ -57,19 +57,21 @@ document.addEventListener("keydown", e => {
 
             if (e.key == 'SoftRight') {
                 if (session.style.display == 'block') {
-                    return openSessions();
+                    // console.log(document.activeElement.parentElement.children[2].innerText);
+                    // console.log(document.querySelector("#" + document.activeElement.id + ": nth - child(3)").innerText);
+                    // allTimes.filter(time => time.scramble != document.activeElement.parentElement.children[2].innerText)
                 }
             }
             if (settings.style.display == 'none' && session.style.display == 'none' && !timing) {
-                if (e.key == 'ArrowDown') return document.querySelector('.scramble').style.maxHeight = '280px';
-                document.querySelector('.scramble').style.maxHeight = '100px';
+                if (e.key == 'ArrowDown') return scrambleOnDom.style.maxHeight = '280px';
+                scrambleOnDom.style.maxHeight = '100px';
             }
             //Open/Close Settings
             if (e.key == 'SoftLeft') {
                 if (settings.style.display == 'none') {
                     settings.style.display = 'block';
                     wholeSite.style.filter = 'blur(5px)';
-                    document.getElementById('startKeyDiv').focus();
+                    startKeyDiv.focus();
                     setSoftkey({
                         left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2px; left: 2px">arrow_back</i>',
                         middle: 'Select',
@@ -93,7 +95,7 @@ document.addEventListener("keydown", e => {
 
 
             //Quit App using SoftRight
-            if (e.key == 'SoftRight' && !settingsOpened) return window.close();
+            if (e.key == 'SoftRight' && !settingsOpened && session.style.display != 'block') return window.close();
             //Get info in settings
             if (e.key == 'SoftRight' && document.activeElement == timerSize) return timerSize.value = timerSize.value.slice(0, -1);
             if (e.key == 'SoftRight' && settingsOpened) return info();
@@ -117,7 +119,7 @@ document.addEventListener("keydown", e => {
                 setSoftkey({
                     left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
                     middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">edit</i>',
-                    right: '<i class="material-icons" style="font-size: 25px; position: relative; top: 2.1px; right: 2px">list</i>'
+                    right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
                 });
                 return
             }
