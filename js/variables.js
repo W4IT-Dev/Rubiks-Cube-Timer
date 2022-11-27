@@ -14,6 +14,7 @@ let allelem = document.querySelectorAll('.scramble, #scramble,  .setting, select
 let settingsOpened = false;
 
 let scrambleOnDom = document.querySelector('.scramble');
+let actualScramble = document.querySelector('#scramble');
 let timerBox = document.getElementById('timerBox');
 let timer = document.getElementById('timer');
 let first = document.getElementById('first');
@@ -27,13 +28,17 @@ let timerFont = document.getElementById('timerFontDiv');
 let timerFontSelector = document.getElementById('timerFont');
 let session = document.querySelector('#session');
 let scrambleSizeDiv = document.querySelector('#scrambleSizeDiv');
+let scrambleSize = document.querySelector('#scrambleSize')
 let scrambleSizeInputDiv = document.querySelector('#scrambleSizeInputDiv');
+let scrambleSizeInput = document.querySelector('#scrambleSizeInput')
 let searchField = document.querySelector('#search');
 let comment = document.querySelector('#comment');
 let startKeyDiv = document.querySelector('#startKeyDiv');
 let editTime = document.querySelector('#editTime');
 let editTimeTime = document.querySelector('#editTimeTime');
 let startKey = document.querySelector('#startKey');
+
+let autoFontSize = true;
 
 var moves = new Array();
 var limit = 20;

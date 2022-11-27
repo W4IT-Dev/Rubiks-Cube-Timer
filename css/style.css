@@ -41,7 +41,7 @@ body {
 
 #timer {
     position: fixed;
-    top: 55%;
+    top: 50%;
     display: flex;
     justify-content: space-between;
     max-width: 10px;

@@ -25,7 +25,7 @@ function start() {
             ready = true;
             timer.style.color = 'green';
             scrambleOnDom.style.display = 'none';
-            timer.style.top = '50%';
+            // timer.style.top = '50%';
             setSoftkey({
                 left: '',
                 middle: '',
@@ -74,7 +74,7 @@ function stop() {//stop timer
     })
     getScramble();
     document.querySelector('.scramble').style.display = 'block';
-    timer.style.top = '55%'
+    // timer.style.top = '55%'
     // document.querySelector('.ad').style.display = 'none';
     // document.querySelectorAll('.ad')[1].style.display = 'none';
     canChange = true;
@@ -126,15 +126,6 @@ function handleKeydown(e) {
             } else {
                 nav(-1, "." + document.activeElement.classList[0]);
             }
-            // if (document.activeElement != timerSize && document.getElementById('startKey').style.borderWidth !== '1px' && document.activeElement.id !== 'scrambleSizeInput') {
-            //     if (settingsOpened) {
-            //         nav(-1, '.setting');
-            //     } else if (document.getElementById('editTime').style.display == 'block') {
-            //         nav(-1, '.editTimeItems');
-            //     } else if (document.getElementById('session').style.display == 'block') {
-            //         nav(-1, '.td')
-            //     }
-            // }
             break;
         case 'ArrowDown':
             if (document.activeElement.classList.contains('setting')) {
@@ -142,15 +133,6 @@ function handleKeydown(e) {
             } else {
                 nav(1, "." + document.activeElement.classList[0]);
             }
-            // if (document.activeElement != timerSize && document.getElementById('startKey').style.borderWidth !== '1px' && document.activeElement.id !== 'scrambleSizeInput') {
-            //     if (settingsOpened) {
-            //         nav(1, '.setting');
-            //     } else if (document.getElementById('editTime').style.display == 'block') {
-            //         nav(1, '.editTimeItems');
-            //     } else if (document.getElementById('session').style.display == 'block') {
-            //         nav(1, '.td')
-            //     }
-            // }
             break;
     }
 }
@@ -232,20 +214,7 @@ function setDarkOrLightMode() {
     }
 }
 
-document.getElementById('timerSize').addEventListener('input', () => {
-    if (document.getElementById('timerSize').value > 30) {
-        document.getElementById('timerSize').value = 30;
-    } else if (document.getElementById('timerSize').value >= 23) {
-        timermargintop = '15px';
-        timermargintoppercentage = '36%';
-        timerBox.style = 'margin-top: 15px; margin-left: 50px;'
-    } else if (document.getElementById('timerSize').value < 25) {
-        timermargintop = '40px';
-        timermargintoppercentage = '50%';
-        timerBox.style = 'margin-top: 40px; margin-left: 80px;'
-    }
-    timer.style.fontSize = document.getElementById('timerSize').value + 'px';
-})
+
 
 function info() {
     if (document.activeElement == document.getElementById('startKeyDiv') && document.getElementById('startKey').style.borderWidth !== "1px") return alert('This settings changes which key you need to press to start and stop the timer.');
