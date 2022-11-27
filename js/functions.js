@@ -92,7 +92,7 @@ function stop() {//stop timer
             });
         }
         localStorage['allTimes'] = JSON.stringify(allTimes);
-        console.log(JSON.parse(localStorage['allTimes']));//✅
+        console.log(JSON.parse(localStorage['allTimes']));
     }, 1500)
 
 }

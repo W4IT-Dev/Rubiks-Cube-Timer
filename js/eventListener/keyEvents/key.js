@@ -57,6 +57,9 @@ document.addEventListener("keydown", e => {
 
             if (e.key == 'SoftRight') {
                 if (session.style.display == 'block') {
+                    allTimes = [];
+                    localStorage['allTimes'] = JSON.stringify(allTimes);
+                    showToast('Deleted', 1000)
                     // console.log(document.activeElement.parentElement.children[2].innerText);
                     // console.log(document.querySelector("#" + document.activeElement.id + ": nth - child(3)").innerText);
                     // allTimes.filter(time => time.scramble != document.activeElement.parentElement.children[2].innerText)
@@ -115,7 +118,7 @@ document.addEventListener("keydown", e => {
             if (session.style.display == 'none') {
                 session.style.display = 'block';
                 loadTable();
-                document.querySelector('.td').focus();
+                document.querySelectorAll('.td')[0].focus();
                 setSoftkey({
                     left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
                     middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">edit</i>',
