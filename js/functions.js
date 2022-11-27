@@ -67,14 +67,13 @@ function stop() {//stop timer
     clearInterval(time);
     timing = false;
     allTimes.unshift({
-        time: timer.innerText,
-        scramble: document.querySelector('.scramble').innerText,
-        status: 'OK',
+        time: timer.innerText.replace(/\s/g, ''),
+        scramble: document.querySelector('#scramble').innerText,
+        status: '-',
         comment: ''
     })
     getScramble();
     document.querySelector('.scramble').style.display = 'block';
-    // timer.style.top = '55%'
     // document.querySelector('.ad').style.display = 'none';
     // document.querySelectorAll('.ad')[1].style.display = 'none';
     canChange = true;
@@ -92,11 +91,13 @@ function stop() {//stop timer
                 right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
             });
         }
+        // localStorage['allTimes'] = JSON.stringify(allTimes);
+        // console.log(JSON.parse(localStorage['allTimes']));//✅
     }, 1500)
-
+    
 }
 
-function getScramble() {//generate a scramble
+function getScramble() {
     var last = "";
     var scramble = "";
     for (var i = 1; i <= limit; i++) {
@@ -213,8 +214,6 @@ function setDarkOrLightMode() {
         }
     }
 }
-
-
 
 function info() {
     if (document.activeElement == document.getElementById('startKeyDiv') && document.getElementById('startKey').style.borderWidth !== "1px") return alert('This settings changes which key you need to press to start and stop the timer.');

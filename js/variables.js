@@ -39,6 +39,7 @@ let editTimeTime = document.querySelector('#editTimeTime');
 let startKey = document.querySelector('#startKey');
 
 let autoFontSize = true;
+let scrambleFontSize = "17px"; 
 
 var moves = new Array();
 var limit = 20;

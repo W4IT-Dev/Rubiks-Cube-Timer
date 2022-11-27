@@ -24,7 +24,7 @@ document.addEventListener("keydown", e => {
                 comment.focus();
                 comment.style.opacity = 1;
             }
-            if (e.key == 'SoftLeft') return allTimes[allTimes.length - 1].status = 'DNF', canChange = false, showToast('Changed Status to DNF  ', 2000), setSoftkey({
+            if (e.key == 'SoftLeft') return allTimes[0].status = 'DNF', canChange = false, showToast('Changed Status to DNF  ', 2000), setSoftkey({
                 left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
                 middle: 'Session',
                 right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
@@ -34,7 +34,7 @@ document.addEventListener("keydown", e => {
                 middle: 'Session',
                 right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
             });
-            if (e.key == 'SoftRight') return allTimes[allTimes.length - 1].status = '+2', canChange = false, showToast('Changed Status to +2', 2000), setSoftkey({
+            if (e.key == 'SoftRight') return allTimes[0].status = '+2', canChange = false, showToast('Changed Status to +2', 2000), setSoftkey({
                 left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
                 middle: 'Session',
                 right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'

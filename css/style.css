@@ -180,7 +180,7 @@ input:checked+.slider {
 
 
 input:checked+.slider:before {
-    transform: translateX(14px);
+    transform: translateX(13.5px);
 }
 
 .slider {

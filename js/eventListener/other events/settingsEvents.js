@@ -6,6 +6,7 @@ puzzleTypeSelector.addEventListener('change', () => {
         moves['f'] = new Array("F", "F'", "F2");
         keys = new Array("r", "u", "f");
         limit = 9;
+        scrambleFontSize = "20px";
         if (autoFontSize) {
             document.querySelector('#scramble').style.fontSize = '20px';
         }
@@ -21,8 +22,9 @@ puzzleTypeSelector.addEventListener('change', () => {
         moves['b'] = new Array("B", "B'", "B2");
         keys = new Array("r", "l", "u", "d", "f", "b");
         limit = 20;
+        scrambleFontSize = "18px";
         if (autoFontSize) {
-            document.querySelector('#scramble').style.fontSize = '17px';
+            document.querySelector('#scramble').style.fontSize = '18px';
         }
         return getScramble();
     }
@@ -42,6 +44,7 @@ puzzleTypeSelector.addEventListener('change', () => {
         moves['Bw'] = new Array("B", "B'", "B2");
         keys = new Array("r", "Rw", "l", "Lw", "u", "Uw", "d", "Dw", "f", "Fw");
         limit = 46;
+        scrambleFontSize = "17px";
         if (autoFontSize) {
             document.querySelector('#scramble').style.fontSize = '17px';
         }
@@ -63,6 +66,7 @@ puzzleTypeSelector.addEventListener('change', () => {
         moves['Bw'] = new Array("B", "B'", "B2");
         keys = new Array("r", "Rw", "l", "Lw", "u", "Uw", "d", "Dw", "f", "Fw");
         limit = 60;
+        scrambleFontSize = "16px";
         if (autoFontSize) {
             document.querySelector('#scramble').style.fontSize = '16px';
         }
@@ -90,6 +94,7 @@ puzzleTypeSelector.addEventListener('change', () => {
         moves['3Bw'] = new Array("3Bw", "3Bw'", "3Bw2");
         keys = new Array("r", "Rw", "l", "Lw", "u", "Uw", "d", "Dw", "f", "Fw", "3Rw", "3Lw", "3Uw", "3Dw", "3Fw", "3Bw");
         limit = 80;
+        scrambleFontSize = "15px";
         if (autoFontSize) {
             document.querySelector('#scramble').style.fontSize = '15px';
         }
@@ -117,6 +122,7 @@ puzzleTypeSelector.addEventListener('change', () => {
         moves['3Bw'] = new Array("3Bw", "3Bw'", "3Bw2");
         keys = new Array("r", "Rw", "l", "Lw", "u", "Uw", "d", "Dw", "f", "Fw", "3Rw", "3Lw", "3Uw", "3Dw", "3Fw", "3Bw");
         limit = 100;
+        scrambleFontSize = "14px";
         if (autoFontSize) {
             document.querySelector('#scramble').style.fontSize = '14px';
         }
@@ -125,17 +131,6 @@ puzzleTypeSelector.addEventListener('change', () => {
 });
 
 document.getElementById('timerSize').addEventListener('input', () => {
-    // if (document.getElementById('timerSize').value > 30) {
-    //     document.getElementById('timerSize').value = 30;
-    // } else if (document.getElementById('timerSize').value >= 23) {
-    //     timermargintop = '15px';
-    //     timermargintoppercentage = '36%';
-    //     timerBox.style = 'margin-top: 15px; margin-left: 50px;'
-    // } else if (document.getElementById('timerSize').value < 25) {
-    //     timermargintop = '40px';
-    //     timermargintoppercentage = '50%';
-    //     timerBox.style = 'margin-top: 40px; margin-left: 80px;'
-    // }
     timer.style.fontSize = document.getElementById('timerSize').value + 'px';
 });
 
@@ -143,11 +138,16 @@ scrambleSize.addEventListener('change', () => {
     if (scrambleSize.value == 'auto') {
         scrambleSizeInputDiv.classList.remove('show', 'nos');
         autoFontSize = true;
+        actualScramble.style.fontSize = scrambleFontSize;
     } else {
         scrambleSizeInputDiv.classList.add('show', 'nos'); autoFontSize = false;
+        // scrambleSizeInput.value = scrambleFontSize;????
         actualScramble.style.fontSize = scrambleSizeInput.value + "px";
     }
 });
+scrambleSizeInput.addEventListener('input', () => {
+    actualScramble.style.fontSize = scrambleSizeInput.value + "px";
+})
 searchField.addEventListener('input', () => {
     search();
 });
@@ -157,4 +157,3 @@ allSelectElems.forEach(function (elem) {
         document.getElementById(elem.parentElement.id).focus();
     });
 });
-
