@@ -72,9 +72,14 @@
                 <button class="editBtn editTimeItems" id="+2">+2</button>
             </div>
         </div>
-        <select name="session" id="sessionSelect">
-            <option value="session1">Session 1</option>
-        </select>
+        <div style="margin-top: 7px;display: flex; justify-content: center;">
+            <select name="session" id="sessionSelect">
+                <option value="session1">Session 1</option>
+            </select>
+            <button id="resetSession" class="dark"><span style="font-size: 20px;" class="material-icons">
+                    restart_alt
+                </span></button>
+        </div>
         <table id="timestable">
             <tr>
                 <th class="dark">Time</th>
@@ -84,9 +89,7 @@
                 <td class="td dark">Begin timing</td>
                 <td class="dark">none</td>
             </tr>
-
         </table>
-
     </div>
     <div id="settings" class="dark">
         <h1 style="border-bottom: 2px #888 solid;">Settings</h1>
