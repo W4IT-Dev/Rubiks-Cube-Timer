@@ -43,12 +43,28 @@ document.addEventListener("keydown", e => {
         }
 
         if (!timing) {
+            if (e.key == 'ArrowDown' || e.key == 'ArrowUp') {
+                if (document.activeElement == editTimeTime || document.activeElement == editTimeScramble) {
+                    setSoftkey({
+                        left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
+                        middle: '',
+                        right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
+                    });
+                }
+                if (document.activeElement == editTimeStatus) {
+                    setSoftkey({
+                        left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
+                        middle: 'Select',
+                        right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
+                    });
+                }
+            }
             if (e.key == 'SoftLeft') {
                 if (editTime.style.display == 'block') return editTime.style.display = 'none', setSoftkey({
                     left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
                     middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">edit</i>',
                     right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
-                });
+                }), lastFocused.focus();
                 if (session.style.display == 'block') {
                     session.style.display = 'none';
                     setSoftkey({
@@ -64,7 +80,8 @@ document.addEventListener("keydown", e => {
                 if (session.style.display == 'block') {
                     allTimes = [];
                     localStorage['allTimes'] = JSON.stringify(allTimes);
-                    showToast('Deleted', 1000)
+                    showToast('Deleted', 1000), loadTable();
+                    document.querySelectorAll('.td')[0].focus();
                     // console.log(document.activeElement.parentElement.children[2].innerText);
                     // console.log(document.querySelector("#" + document.activeElement.id + ": nth - child(3)").innerText);
                     // allTimes.filter(time => time.scramble != document.activeElement.parentElement.children[2].innerText)
@@ -107,7 +124,6 @@ document.addEventListener("keydown", e => {
             //Get info in settings
             if (e.key == 'SoftRight' && document.activeElement == timerSize) return timerSize.value = timerSize.value.slice(0, -1);
             if (e.key == 'SoftRight' && settingsOpened) return info();
-            if (e.key == 'ArrowDown') return e.preventDefault();
         }
         //Timing
         if (e.key === startKeyName && !settingsOpened && document.activeElement !== comment) {
@@ -132,13 +148,22 @@ document.addEventListener("keydown", e => {
                 return
             }
             if (session.style.display == 'block' && editTime.style.display == 'none') {
+                lastFocused = document.activeElement;
+                editTimeTime.innerHTML = `Time: ${document.activeElement.parentElement.firstChild.innerText}`
+                editTimeStatus.innerHTML = `Status: ${document.activeElement.parentElement.children[1].innerText}`
+                editTimeScramble.innerHTML = `Scramble: <br> ${document.activeElement.parentElement.children[2].innerText}`
                 editTime.style.display = 'block';
                 editTimeTime.focus();
                 setSoftkey({
                     left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
                     middle: '',
-                    right: ''
+                    right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
                 });
+            }
+            if (document.activeElement = editTimeScramble) {
+                if (editTimeScramble.style.maxHeight == '90px') return editTimeScramble.style.maxHeight = "1000px", editTimeScramble.style.overflow = 'visible';
+                editTimeScramble.style.maxHeight = '90px';
+                editTimeScramble.style.overflow = 'hidden'
             }
             if (document.activeElement == editTimeStatus) {
                 allBtns = document.querySelectorAll('.editBtn');

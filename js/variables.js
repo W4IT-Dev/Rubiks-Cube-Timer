@@ -37,8 +37,11 @@ let startKeyDiv = document.querySelector('#startKeyDiv');
 let editTime = document.querySelector('#editTime');
 let editTimeTime = document.querySelector('#editTimeTime');
 let editTimeStatus = document.querySelector('#editTimeStatus');
+let editTimeScramble = document.querySelector('#editTimeScramble');
 let statusChange = document.querySelector('#statusChange');
 let startKey = document.querySelector('#startKey');
+
+let lastFocused;
 
 let autoFontSize = true;
 let scrambleFontSize = "17px";
