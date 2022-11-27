@@ -122,14 +122,14 @@ function shuffle(o) {
 function handleKeydown(e) {
     switch (e.key) {
         case 'ArrowUp':
-            if (document.activeElement.classList.contains('setting')) {
+            if (document.activeElement.classList.contains('setting') || document.activeElement.classList.contains('editTimeItems')) {
                 nav(-1, "." + document.activeElement.classList[0] + ".show");
             } else {
                 nav(-1, "." + document.activeElement.classList[0]);
             }
             break;
         case 'ArrowDown':
-            if (document.activeElement.classList.contains('setting')) {
+            if (document.activeElement.classList.contains('setting') || document.activeElement.classList.contains('editTimeItems')) {
                 nav(1, "." + document.activeElement.classList[0] + ".show");
             } else {
                 nav(1, "." + document.activeElement.classList[0]);

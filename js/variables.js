@@ -36,6 +36,8 @@ let comment = document.querySelector('#comment');
 let startKeyDiv = document.querySelector('#startKeyDiv');
 let editTime = document.querySelector('#editTime');
 let editTimeTime = document.querySelector('#editTimeTime');
+let editTimeStatus = document.querySelector('#editTimeStatus');
+let statusChange = document.querySelector('#statusChange');
 let startKey = document.querySelector('#startKey');
 
 let autoFontSize = true;

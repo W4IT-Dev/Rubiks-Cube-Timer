@@ -60,16 +60,17 @@
         </div> -->
         <div id="editTime">
             <div id="editInfos">
-                <div id="editTimeTime" class="editTimeItems">Time: undefined</div>
-                <div id="editTimeStatus" class="editTimeItems">Status: undefined</div>
-                <div id="editTimeScramble" class="editTimeItems">Scramble: undefined</div>
-                <label for="comment" class="editTimeItems">Comment</label>
-                <input type="text" name="comment" class="editTimeItems" id="editTimeComment" value="">
-            </div>
-            <div id="edit">
-                <button class="editBtn editTimeItems" id="OK">OK</button>
-                <button class="editBtn editTimeItems" id="DNF">DNF</button>
-                <button class="editBtn editTimeItems" id="+2">+2</button>
+                <div tabindex="1" id="editTimeTime" class="editTimeItems show">Time: undefined</div>
+                <div tabindex="1" id="editTimeStatus" class="editTimeItems show">Status: undefined</div>
+                <div id="statusChange" style="display: none;">
+                    <button class=" editTimeItems editBtn" id="OK">OK</button>
+                    <button class=" editTimeItems editBtn" id="DNF">DNF</button>
+                    <button class=" editTimeItems editBtn" id="+2">+2</button>
+                </div>
+                <div tabindex="1" id="editTimeScramble" class="editTimeItems show">Scramble: undefined</div>
+                <!-- <label for="comment" class="editTimeItems">Comment</label>
+                <input tabindex="1" type="text" name="comment" class="editTimeItems" id="editTimeComment"
+                    value="lololol"> -->
             </div>
         </div>
         <div style="margin-top: 7px;display: flex; justify-content: center;">

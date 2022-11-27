@@ -44,6 +44,11 @@ document.addEventListener("keydown", e => {
 
         if (!timing) {
             if (e.key == 'SoftLeft') {
+                if (editTime.style.display == 'block') return editTime.style.display = 'none', setSoftkey({
+                    left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
+                    middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">edit</i>',
+                    right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
+                });
                 if (session.style.display == 'block') {
                     session.style.display = 'none';
                     setSoftkey({
@@ -126,11 +131,29 @@ document.addEventListener("keydown", e => {
                 });
                 return
             }
-            if (session.style.display == 'block') {
+            if (session.style.display == 'block' && editTime.style.display == 'none') {
                 editTime.style.display = 'block';
                 editTimeTime.focus();
+                setSoftkey({
+                    left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
+                    middle: '',
+                    right: ''
+                });
             }
-
+            if (document.activeElement == editTimeStatus) {
+                allBtns = document.querySelectorAll('.editBtn');
+                if (statusChange.style.display == 'flex') {
+                    statusChange.style.display = 'none';
+                    allBtns.forEach(btn => {
+                        btn.classList.remove('show');
+                    });
+                } else {
+                    statusChange.style.display = 'flex';
+                    allBtns.forEach(btn => {
+                        btn.classList.add('show')
+                    });
+                }
+            }
         }
         //Start Key changing in settings
         if (startKey.style.borderWidth == '1px') {
