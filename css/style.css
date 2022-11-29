@@ -304,6 +304,7 @@ input:checked+.slider:before {
     background-color: #666;
     color: #eee;
     border: 4px solid grey;
+    z-index: 200;
 }
 
 #editTimeScramble {

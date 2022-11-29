@@ -3,6 +3,9 @@ document.addEventListener('keydown', handleKeydown);
 
 document.addEventListener("keydown", e => {
     if (loadScreen.style.display == 'none') {
+
+
+        // === STOP TIME ===
         if (timing) {
             if (e.key == 'Backspace') {
                 e.preventDefault()
@@ -10,6 +13,9 @@ document.addEventListener("keydown", e => {
             stop();
             return
         }
+
+
+        // === SUBMIT COMMENT ===
         if (e.key == 'Enter') {
             if (document.activeElement.id == 'comment') {
                 document.activeElement.style.opacity = 0;
@@ -19,21 +25,28 @@ document.addEventListener("keydown", e => {
                 return;
             }
         }
+
+
+        // === CHANGE LATEST TIME'S STATUS ===
         if (canChange) {
+            // Focus Comment
             if (!isNaN(parseInt(e.key))) {
                 comment.focus();
                 comment.style.opacity = 1;
             }
+            //Add DNF
             if (e.key == 'SoftLeft') return allTimes[0].status = 'DNF', canChange = false, showToast('Changed Status to DNF  ', 2000), setSoftkey({
                 left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
                 middle: 'Session',
                 right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
             });
+            //Add OK
             if (e.key == 'Enter') return canChange = false, setSoftkey({
                 left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
                 middle: 'Session',
                 right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
             });
+            //Add +2
             if (e.key == 'SoftRight') return allTimes[0].status = '+2', canChange = false, showToast('Changed Status to +2', 2000), setSoftkey({
                 left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
                 middle: 'Session',
@@ -41,6 +54,7 @@ document.addEventListener("keydown", e => {
             });
 
         }
+
 
         if (!timing) {
             if (e.key == 'ArrowDown' || e.key == 'ArrowUp') {
@@ -152,6 +166,7 @@ document.addEventListener("keydown", e => {
                 editTimeTime.innerHTML = `Time: ${document.activeElement.parentElement.firstChild.innerText}`
                 editTimeStatus.innerHTML = `Status: ${document.activeElement.parentElement.children[1].innerText}`
                 editTimeScramble.innerHTML = `Scramble: <br> ${document.activeElement.parentElement.children[2].innerText}`
+                editTimeComment.value = document.activeElement.parentElement.children[3].innerText
                 editTime.style.display = 'block';
                 editTimeTime.focus();
                 setSoftkey({
