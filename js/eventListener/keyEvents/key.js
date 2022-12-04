@@ -3,8 +3,6 @@ document.addEventListener('keydown', handleKeydown);
 
 document.addEventListener("keydown", e => {
     if (loadScreen.style.display == 'none') {
-
-
         // === STOP TIME ===
         if (timing) {
             if (e.key == 'Backspace') {

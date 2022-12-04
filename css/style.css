@@ -1,5 +1,9 @@
 body {
     overflow: hidden;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Ads */
@@ -33,18 +37,12 @@ body {
     z-index: 100;
 }
 
-/* Timer */
-#timerBox {
-    margin-top: 40px;
-    margin-left: 80px;
-}
 
 #timer {
     position: fixed;
     top: 50%;
     display: flex;
     justify-content: space-between;
-    max-width: 10px;
     font-family: 'Orbitron';
     font-size: 16px;
     transform: translate(-50%, -50%);
@@ -74,12 +72,12 @@ body {
 /* Settings */
 #settings {
     display: none;
-    position: absolute;
+    position: fixed;
     top: 11px;
-    height: 240px;
-    width: 215px;
+    bottom: 36px;
+    left: 10px;
+    right: 10px;
     border-radius: 13px;
-    margin-left: 1.35px;
     overflow: auto;
     overflow-x: hidden;
 }
@@ -201,7 +199,7 @@ input:checked+.slider:before {
 /* Softkeys */
 #softkeys {
     font-size: 17px;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
@@ -277,12 +275,12 @@ input:checked+.slider:before {
 
 #session {
     display: none;
-    position: absolute;
+    position: fixed;
     top: 13px;
     left: 10px;
+    bottom: 37px;
+    right: 10px;
     z-index: 100;
-    width: 210px;
-    height: 230px;
     border: 5px solid;
     border-radius: 10px;
     overflow: auto;
@@ -294,10 +292,10 @@ input:checked+.slider:before {
 }
 
 #snow-canvas {
-    margin: 0;
-    padding: 0;
     display: block;
     position: absolute;
+    left: 0;
+    top: 0;
 }
 
 #editTime {
@@ -365,20 +363,13 @@ th {
     border: 2px solid #999;
 }
 
-.hide {
-    display: none;
-}
-
-
 .divider {
     padding: 10px 7px 10px 7px;
-    /* display: flex; */
     align-items: center;
     height: 24px;
 }
 
 .divider>.title {
-    /* color: #ebe8e8; */
     font-size: 1.15rem;
     font-weight: 600;
     margin-right: 7px;
@@ -393,4 +384,3 @@ th {
 .show {
     display: flex;
 }
-
