@@ -293,6 +293,11 @@ input:checked+.slider:before {
     width: auto;
 }
 
+#snow-canvas {
+    display: block;
+    position: absolute;
+}
+
 #editTime {
     display: block;
     position: fixed;
