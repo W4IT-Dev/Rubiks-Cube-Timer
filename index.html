@@ -62,17 +62,6 @@
     </div>
 </div>
     <div id="session" class="dark">
-        <!-- <div id="sessions" class="dark">
-            <h3>Sessions</h3>
-            <div id="allSessions">
-                <div value="1">1</div>
-                <div value="2">2</div>
-                <div value="3">3</div>
-                <div value="4">4</div>
-                <div value="5">5</div>
-            </div>
-        </div> -->
-       
         <div style="margin-top: 7px;display: flex; justify-content: center;">
             <select name="session" id="sessionSelect">
                 <option value="session1">Session 1</option>
@@ -114,7 +103,7 @@
             </select>
         </div> -->
 
-        <div tabindex='3' class="setting nos show dark" id="puzzleTypeDiv">
+        <div tabindex='1' class="setting nos show dark" id="puzzleTypeDiv">
             <label for="puzzleType">Puzzle Type:</label>
             <select name="puzzleType" id="puzzleType">
                 <option value="3x3">3x3x3</option>
@@ -132,7 +121,7 @@
                 expand_less
             </span>
         </div>
-        <div tabindex='4' class="setting nos show dark" id="timerFontDiv">
+        <div tabindex='1' class="setting nos show dark" id="timerFontDiv">
             <label for="timerFont">Timer Font:</label>
             <select name="timerFont" id="timerFont">
                 <option value="2x2">Arial</option>
@@ -142,12 +131,12 @@
             </select>
         </div>
 
-        <div tabindex='5' class="setting nos show dark" id="timerSizeDiv">
+        <div tabindex='1' class="setting nos show dark" id="timerSizeDiv">
             <label for="timerSize">Timer Size:</label>
             <input type="number" min="10" max="30" name="timerSize" id="timerSize" value="16">
         </div>
 
-        <div tabindex='6' class="setting nos show dark" id="scrambleSizeDiv">
+        <div tabindex='1' class="setting nos show dark" id="scrambleSizeDiv">
             <label for="scrambleSize">Scramble Size:</label>
             <select name="scrambleSize" id="scrambleSize">
                 <option value="auto">Auto</option>
@@ -155,15 +144,29 @@
             </select>
         </div>
 
-        <div tabindex='7' class="setting dark" id="scrambleSizeInputDiv">
+        <div tabindex='1' class="setting dark" id="scrambleSizeInputDiv">
             <label for="scrambleSizeInput">Size:</label>
             <input type="number" min="10" max="21" name="scrambleSizeInput" id="scrambleSizeInput" value="16">
         </div>
 
-        <div tabindex='8' class="setting nos show dark" id="darkModeDiv">
+        <div tabindex='1' class="setting nos show dark" id="darkModeDiv">
             <p>Dark Mode</p>
             <label class="switch">
                 <input type="checkbox" id="darkMode" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="divider show">
+            <div class="title">Season</div>
+            <div class="line"></div>
+            <span class="material-icons" id="style">
+                expand_less
+            </span>
+        </div>
+        <div tabindex='1' class="setting nos show dark" id="addPartDiv">
+            <p>Add Particles</p>
+            <label class="switch">
+                <input type="checkbox" id="addPart" checked>
                 <span class="slider"></span>
             </label>
         </div>

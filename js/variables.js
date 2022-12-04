@@ -41,6 +41,8 @@ let editTimeScramble = document.querySelector('#editTimeScramble');
 let editTimeComment = document.querySelector('#editTimeComment');
 let statusChange = document.querySelector('#statusChange');
 let startKey = document.querySelector('#startKey');
+let addPartDiv = document.querySelector('#addPartDiv');
+let addPart = document.querySelector('#addPart');
 
 let lastFocused;
 
