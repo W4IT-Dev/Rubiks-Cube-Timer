@@ -1,8 +1,9 @@
 let spacedown = false;
-let spaceddown = false;
 let ready = false;
 let time;
+let timeIn100MS = 0;
 let timing = false;
+let waitToStart;
 let startKeyName = '5';
 
 let canChange = false;

@@ -1,42 +1,16 @@
 function start() {
-    if (ready) {//If timer is green
-        if (darkMode.checked) {
-            timer.style.color = '#ebe8e8';
-        } else {
-            timer.style.color = '#222';
-        }
-        startTimer();
-        return
-    }
-    if (!spacedown) {//If space release but not ready
-        if (darkMode.checked) {
-            timer.style.color = '#ebe8e8';
-        } else {
-            timer.style.color = '#222';
-        }
-        return
-    }
+    if (ready) return timer.style.color = '', startTimer();
 
-    if (spacedown) {//if hold down make the timer red
-        timer.style.color = 'red';
-    }
-    setTimeout(() => {//after 400ms timer is ready
-        if (spacedown) {
-            ready = true;
-            timer.style.color = 'green';
-            scrambleOnDom.style.display = 'none';
-            // timer.style.top = '50%';
-            setSoftkey({
-                left: '',
-                middle: '',
-                right: '',
-            });
-            minutes.innerHTML = '';
-            document.querySelector('.point').innerHTML = '';
-            tensecond.innerHTML = '';
-            firstsecond.innerHTML = 0;
-            first.innerHTML = 0;
-        }
+    if (!spacedown) return timer.style.color = '';
+
+    if (spacedown) timer.style.color = 'red';
+
+    waitToStart = setTimeout(() => {//after 400ms timer is ready
+        ready = true;
+        timer.style.color = 'green';
+        scrambleOnDom.style.display = 'none', setSoftkey({ left: '', middle: '', right: '', });
+        minutes.innerHTML = '', document.querySelector('.point').innerHTML = '', tensecond.innerHTML = '';
+        firstsecond.innerHTML = 0, first.innerHTML = 0;
     }, 400)
 }
 
@@ -44,22 +18,15 @@ function startTimer() {//timer
     // document.querySelector('.ad').style.display = 'block';
     // document.querySelectorAll('.ad')[1].style.display = 'block';
     timing = true;
+    timeIn100MS = 0;
     time = setInterval(() => {
+        timeIn100MS++;
         first.innerHTML++;
-        if (first.innerHTML == 10) {
-            firstsecond.innerHTML++;
-            first.innerHTML = 0;
-        }
-        if (firstsecond.innerHTML == 10) {
-            tensecond.innerHTML++;
-            firstsecond.innerHTML = 0;
-        }
-        if (tensecond.innerHTML == 6) {
-            document.querySelector('.point').innerHTML = ':';
-            minutes.innerHTML++;
-            tensecond.innerHTML = 0;
-            firstsecond.innerHTML = 0;
-        }
+        if (first.innerHTML == 10) return firstsecond.innerHTML++, first.innerHTML = 0;
+
+        if (firstsecond.innerHTML == 10) return tensecond.innerHTML++, firstsecond.innerHTML = 0;
+
+        if (tensecond.innerHTML == 6) return document.querySelector('.point').innerHTML = ':', minutes.innerHTML++, tensecond.innerHTML = 0, firstsecond.innerHTML = 0;
     }, 100)
 }
 
@@ -68,10 +35,18 @@ function stop() {//stop timer
     timing = false;
     allTimes.unshift({
         time: timer.innerText.replace(/\s/g, ''),
+        timeInMS: timeIn100MS,
         scramble: document.querySelector('#scramble').innerText,
         status: '-',
         comment: ''
-    })
+    });
+    if (allTimes.length >= 5) {
+        calcAo5();
+    }
+    // if (allTimes.length >= 12) {
+    //     calcAo12();
+    // }
+    convert(allTimes[0].timeInMS);
     getScramble();
     document.querySelector('.scramble').style.display = 'block';
     // document.querySelector('.ad').style.display = 'none';
@@ -417,3 +392,41 @@ function letItSnow() {
         }
     }
 }//Copyright (c) 2022 by Boris Karastanev (https://codepen.io/ns_bob/pen/BoMqqR)
+
+function convert($time) {
+    time = $time//time
+    over = time % 36000
+    h = (time - over) / 36000;
+    time = over;
+    over = time % 600;
+    m = (time - over) / 600;
+    time = over;
+    over = time % 10;
+    s = (time - over) / 10;
+    time = over;
+    over = time % 1;
+    ms = (time - over) / 1;
+    console.log(h + ":" + m + ":" + s + "." + ms);
+}
+
+function calcAo5() {
+    console.log('ao5')
+    times = allTimes.slice(0, 5);
+    console.log(times);
+    let Ao5times = [];
+    for (let i = 0; i < times.length; i++) {
+        Ao5times.push(times[i].timeInMS)
+        
+    }
+    console.log(Ao5times)
+    const min = Math.min(...Ao5times);
+    const max = Math.max(...Ao5times);
+
+    const sum = Ao5times.reduce((a, b) => a + b, 0);
+
+    console.log(sum - max - min);
+}
+
+// function calcAo12() {
+
+// }

@@ -140,10 +140,7 @@ document.addEventListener("keydown", e => {
         //Timing
         if (e.key === startKeyName && !settingsOpened && document.activeElement !== comment) {
             spacedown = true;
-            if (!spaceddown) {
-                start();
-            }
-            spaceddown = true;
+            start();
         }
         //Select in settings or new scramble
         if (e.key == 'Enter') {
@@ -204,8 +201,8 @@ document.addEventListener("keydown", e => {
 
 // ==== KEY UP ====
 document.addEventListener("keyup", e => {
+    clearTimeout(waitToStart)
     spacedown = false;
-    spaceddown = false;
     start();
     ready = false;
 });
