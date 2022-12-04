@@ -354,7 +354,7 @@ function letItSnow() {
     // The initial angle 
     var angle = 0;
 
-    //Get canvas width and height
+    // Get canvas width and height
     var width = window.innerWidth;
     var height = window.innerHeight;
 
@@ -363,14 +363,14 @@ function letItSnow() {
     canvas.height = height;
 
     //Create the snow particles
-    var snowParticles = 75;
+    var snowParticles = 50;
     var flakes = [];
 
     for (var i = 0; i < snowParticles; i++) {
         flakes.push({
             x: Math.random() * width,
             y: Math.random() * height,
-            radius: Math.random() * 3,
+            radius: Math.random() * 2.5,
             density: Math.random() * snowParticles
         });
     }

@@ -294,6 +294,8 @@ input:checked+.slider:before {
 }
 
 #snow-canvas {
+    margin: 0;
+    padding: 0;
     display: block;
     position: absolute;
 }
