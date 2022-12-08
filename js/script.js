@@ -31,6 +31,3 @@ function softkey(e) {
 
 document.addEventListener("keyup", softkey, true);
 document.addEventListener("keydown", softkey, true);
-if (localStorage.getItem('darkmode') !== 'false') {
-    localStorage['darkmode'] = 'true';
-}
