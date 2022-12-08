@@ -9,8 +9,16 @@ let startKeyName = '5';
 let canChange = false;
 
 let allTimes = [];
+let Ao5 = {
+    current: 0,
+    currentMS: 0,
+    best: 0,
+    bestMS: 0,
+    ao5current: document.querySelector('#ao5current'),
+    ao5best: document.querySelector('#ao5best')
+}
 
-let allelem = document.querySelectorAll('#resetButton, .scramble, #scramble, .setting, select, input, #timerBox, body, #settings, #softkeys, #session, td, th, #sessions, #divider, .line');
+let allelem = document.querySelectorAll('#resetButton, #comment, .scramble, #scramble, .setting, select, input, #timerBox, body, #settings, #softkeys, #session, td, th, #sessions, #divider, .line');
 
 let settingsOpened = false;
 
@@ -44,6 +52,7 @@ let statusChange = document.querySelector('#statusChange');
 let startKey = document.querySelector('#startKey');
 let addPartDiv = document.querySelector('#addPartDiv');
 let addPart = document.querySelector('#addPart');
+ 
 
 let lastFocused;
 

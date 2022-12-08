@@ -5,13 +5,13 @@ function start() {
 
     if (spacedown) timer.style.color = 'red';
 
-    waitToStart = setTimeout(() => {//after 400ms timer is ready
+    waitToStart = setTimeout(() => {
         ready = true;
         timer.style.color = 'green';
         scrambleOnDom.style.display = 'none', setSoftkey({ left: '', middle: '', right: '', });
         minutes.innerHTML = '', document.querySelector('.point').innerHTML = '', tensecond.innerHTML = '';
         firstsecond.innerHTML = 0, first.innerHTML = 0;
-    }, 400)
+    }, 550)
 }
 
 function startTimer() {//timer
@@ -46,7 +46,6 @@ function stop() {//stop timer
     // if (allTimes.length >= 12) {
     //     calcAo12();
     // }
-    convert(allTimes[0].timeInMS);
     getScramble();
     document.querySelector('.scramble').style.display = 'block';
     // document.querySelector('.ad').style.display = 'none';
@@ -160,7 +159,6 @@ function select() {
     if (document.activeElement == addPartDiv) return addPart.checked = !addPart.checked, letItSnow();
 }
 
-
 // ====== SET ======
 function setSoftkey(object) {
     softLeft.innerHTML = object.left;
@@ -169,25 +167,12 @@ function setSoftkey(object) {
 }
 
 function setDarkOrLightMode() {
-    if (!darkMode.checked) {
-        document.querySelector("meta[name='theme-color']").setAttribute('content', 'rgb(235, 232, 232)');
-        for (let elem of allelem) {
-            elem.classList.remove('dark');
-        }
-        for (let elem of allelem) {
-            elem.classList.add('light');
-        }
-        localStorage.setItem('darkmode', 'false');
-    } else {
-        document.querySelector("meta[name='theme-color']").setAttribute('content', 'rgb(33,33,33)');
-        localStorage.setItem('darkmode', 'true');
-        for (let elem of allelem) {
-            elem.classList.remove('light');
-        }
-        for (let elem of allelem) {
-            elem.classList.add('dark');
-        }
+    for (let elem of allelem) {
+        elem.classList.toggle('light', !darkMode.checked);
     }
+    if (darkMode.checked) return document.querySelector("meta[name='theme-color']").setAttribute('content', 'rgb(33, 33, 33)'), localStorage.setItem('darkmode', 'true');
+    document.querySelector("meta[name='theme-color']").setAttribute('content', 'rgb(235, 232, 232)');
+    localStorage.setItem('darkmode', 'false');
 }
 
 function info() {
@@ -200,25 +185,10 @@ function info() {
 
 function getStoredData() {
     if (localStorage.darkmode) {
-        if (localStorage.getItem('darkmode') == 'true') {
-            document.querySelector("meta[name='theme-color']").setAttribute('content', 'rgb(33, 33, 33)');
-            darkMode.checked = true;
-            for (let elem of allelem) {
-                elem.classList.remove('light');
-            }
-            for (let elem of allelem) {
-                elem.classList.add('dark');
-            }
-        } else {
-            document.querySelector("meta[name='theme-color']").setAttribute('content', 'rgb(235, 232, 232)');
-            darkMode.checked = false;
-            for (let elem of allelem) {
-                elem.classList.remove('dark');
-            }
-            for (let elem of allelem) {
-                elem.classList.add('light');
-            }
-        }
+        if (localStorage.getItem('darkmode') == 'true') { darkMode.checked = true; } else { darkMode.checked = false; }
+        setDarkOrLightMode();
+    } else {
+        localStorage.setItem('darkmode', 'true')
     }
     if (localStorage.allTimes) {
         allTimes = JSON.parse(localStorage['allTimes']);
@@ -247,7 +217,7 @@ function loadTable() {
             </tr>
             <tr>
                 <td class="td dark" tabindex="0">Begin timing</td>
-                <td class="dark">none</td>
+                <td class="dark">-</td>
             </tr>`
         } else if (localStorage.getItem('darkmode') == 'false') {
             document.getElementById("timestable").innerHTML = `
@@ -257,7 +227,7 @@ function loadTable() {
             </tr>
             <tr>
                 <td class="td light" tabindex="0">Begin timing</td>
-                <td class="light">none</td>
+                <td class="light">-</td>
             </tr>`
         }
     } else {
@@ -313,7 +283,6 @@ function search() {
         txtValue = label.textContent || label.innerText;
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
             setting[i].classList.add('show');
-            // console.log(setting[i].classList)
         } else {
             setting[i].classList.remove('show');
         }
@@ -394,7 +363,7 @@ function letItSnow() {
 }//Copyright (c) 2022 by Boris Karastanev (https://codepen.io/ns_bob/pen/BoMqqR)
 
 function convert($time) {
-    time = $time//time
+    time = $time
     over = time % 36000
     h = (time - over) / 36000;
     time = over;
@@ -406,27 +375,35 @@ function convert($time) {
     time = over;
     over = time % 1;
     ms = (time - over) / 1;
-    console.log(h + ":" + m + ":" + s + "." + ms);
+    timeToReturn = ''
+    if (h) timeToReturn += h + ":"
+    if (m) timeToReturn += m + ":"
+    if (s) { timeToReturn += s + "." } else { timeToReturn += "0." }
+    if (ms) { timeToReturn += ms } else { timeToReturn += "0" }
+    return (timeToReturn)
 }
 
 function calcAo5() {
-    console.log('ao5')
     times = allTimes.slice(0, 5);
-    console.log(times);
     let Ao5times = [];
     for (let i = 0; i < times.length; i++) {
         Ao5times.push(times[i].timeInMS)
-        
     }
-    console.log(Ao5times)
     const min = Math.min(...Ao5times);
     const max = Math.max(...Ao5times);
 
     const sum = Ao5times.reduce((a, b) => a + b, 0);
-
-    console.log(sum - max - min);
+    Ao5inMS = (sum - max - min) / 3;
+    Ao5converted = convert(Ao5inMS);
+    addAo5(Ao5converted, Ao5inMS)
 }
-
+function addAo5(time, timeinMS) {
+    if (Ao5.best == 0) Ao5.best = time, Ao5.bestMS = timeinMS, Ao5.ao5best.innerHTML = Ao5.best;
+    Ao5.current = time;
+    Ao5.currentMS = timeinMS;
+    Ao5.ao5current.innerHTML = Ao5.current;
+    if (Ao5.currentMS < Ao5.bestMS) Ao5.bestMS = Ao5.currentMS, Ao5.best = Ao5.current, Ao5.ao5best.innerHTML = Ao5.best;
+}
 // function calcAo12() {
 
 // }

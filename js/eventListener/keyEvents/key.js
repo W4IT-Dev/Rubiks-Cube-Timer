@@ -2,7 +2,7 @@
 document.addEventListener('keydown', handleKeydown);
 
 document.addEventListener("keydown", e => {
-    if (loadScreen.style.display == 'none') {
+    if (loadScreen.style.display == 'none' && !spacedown) {
         // === STOP TIME ===
         if (timing) {
             if (e.key == 'Backspace') {
@@ -13,24 +13,14 @@ document.addEventListener("keydown", e => {
         }
 
 
-        // === SUBMIT COMMENT ===
-        if (e.key == 'Enter') {
-            if (document.activeElement.id == 'comment') {
-                document.activeElement.style.opacity = 0;
-                document.activeElement.value = "";
-                document.activeElement.blur();
-                showToast('Added Comment', 2000);
-                return;
-            }
-        }
-
-
         // === CHANGE LATEST TIME'S STATUS ===
         if (canChange) {
             // Focus Comment
             if (!isNaN(parseInt(e.key))) {
-                comment.focus();
-                comment.style.opacity = 1;
+                setTimeout(() => {
+                    comment.focus();
+                    comment.style.opacity = 1;
+                }, 100);
             }
             //Add DNF
             if (e.key == 'SoftLeft') return allTimes[0].status = 'DNF', canChange = false, showToast('Changed Status to DNF  ', 2000), setSoftkey({
@@ -52,6 +42,68 @@ document.addEventListener("keydown", e => {
             });
 
         }
+
+        // ==== ENTER ====
+        if (e.key == 'Enter') {
+            // ==== ADD COMMENT ====
+            if (document.activeElement.id == 'comment') {
+                document.activeElement.style.opacity = 0;
+                document.activeElement.value = "";
+                document.activeElement.blur();
+                showToast('Added Comment', 2000);
+                return;
+            }
+            // ====  ====
+            if (settingsOpened) return select();
+            if (session.style.display == 'none') {
+                session.style.display = 'block';
+                loadTable();
+                document.querySelector('.td').focus();
+                setSoftkey({
+                    left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
+                    middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">edit</i>',
+                    right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
+                });
+                return
+            }
+            if (session.style.display == 'block' && editTime.style.display == 'none') {
+                lastFocused = document.activeElement;
+                editTimeTime.innerHTML = `Time: ${document.activeElement.parentElement.firstChild.innerText}`
+                editTimeStatus.innerHTML = `Status: ${document.activeElement.parentElement.children[1].innerText}`
+                editTimeScramble.innerHTML = `Scramble: <br> ${document.activeElement.parentElement.children[2].innerText}`
+                editTimeComment.value = document.activeElement.parentElement.children[3].innerText
+                editTime.style.display = 'block';
+                editTimeTime.focus();
+                setSoftkey({
+                    left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
+                    middle: '',
+                    right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
+                });
+            }
+            if (document.activeElement = editTimeScramble) {
+                if (editTimeScramble.style.maxHeight == '90px') return editTimeScramble.style.maxHeight = "1000px", editTimeScramble.style.overflow = 'visible';
+                editTimeScramble.style.maxHeight = '90px';
+                editTimeScramble.style.overflow = 'hidden'
+            }
+            if (document.activeElement == editTimeStatus) {
+                allBtns = document.querySelectorAll('.editBtn');
+                if (statusChange.style.display == 'flex') {
+                    statusChange.style.display = 'none';
+                    allBtns.forEach(btn => {
+                        btn.classList.remove('show');
+                    });
+                } else {
+                    statusChange.style.display = 'flex';
+                    allBtns.forEach(btn => {
+                        btn.classList.add('show')
+                    });
+                }
+            }
+        }
+
+
+
+
 
 
         if (!timing) {
@@ -144,51 +196,7 @@ document.addEventListener("keydown", e => {
         }
         //Select in settings or new scramble
         if (e.key == 'Enter') {
-            if (settingsOpened) return select();
-            if (session.style.display == 'none') {
-                session.style.display = 'block';
-                loadTable();
-                document.querySelectorAll('.td')[0].focus();
-                setSoftkey({
-                    left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
-                    middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">edit</i>',
-                    right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
-                });
-                return
-            }
-            if (session.style.display == 'block' && editTime.style.display == 'none') {
-                lastFocused = document.activeElement;
-                editTimeTime.innerHTML = `Time: ${document.activeElement.parentElement.firstChild.innerText}`
-                editTimeStatus.innerHTML = `Status: ${document.activeElement.parentElement.children[1].innerText}`
-                editTimeScramble.innerHTML = `Scramble: <br> ${document.activeElement.parentElement.children[2].innerText}`
-                editTimeComment.value = document.activeElement.parentElement.children[3].innerText
-                editTime.style.display = 'block';
-                editTimeTime.focus();
-                setSoftkey({
-                    left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
-                    middle: '',
-                    right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
-                });
-            }
-            if (document.activeElement = editTimeScramble) {
-                if (editTimeScramble.style.maxHeight == '90px') return editTimeScramble.style.maxHeight = "1000px", editTimeScramble.style.overflow = 'visible';
-                editTimeScramble.style.maxHeight = '90px';
-                editTimeScramble.style.overflow = 'hidden'
-            }
-            if (document.activeElement == editTimeStatus) {
-                allBtns = document.querySelectorAll('.editBtn');
-                if (statusChange.style.display == 'flex') {
-                    statusChange.style.display = 'none';
-                    allBtns.forEach(btn => {
-                        btn.classList.remove('show');
-                    });
-                } else {
-                    statusChange.style.display = 'flex';
-                    allBtns.forEach(btn => {
-                        btn.classList.add('show')
-                    });
-                }
-            }
+
         }
         //Start Key changing in settings
         if (startKey.style.borderWidth == '1px') {

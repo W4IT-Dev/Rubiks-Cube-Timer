@@ -336,6 +336,18 @@ th {
     padding: 6px;
 }
 
+#ao {
+    font-size: 14px;
+    border: 1px solid black;
+}
+
+#ao td,
+#ao th {
+    border: none;
+    padding: 3.5px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
 
 .editTimeItems:focus {
     background-color: red;

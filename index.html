@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/light.css">
     <link rel="stylesheet" href="/css/dark.css">
+    <link rel="stylesheet" href="/css/light.css">
     <script src="/js/variables.js" defer></script>
     <script src="/js/functions.js" defer></script>
     <script src="/js/eventListener/keyEvents/key.js" defer></script>
@@ -49,20 +49,20 @@
         </div>
         <input id="comment" placeholder="Comment">
     </div>
-<div id="editTime">
-    <div id="editInfos">
-        <div tabindex="1" id="editTimeTime" class="editTimeItems show">Time: undefined</div>
-        <div tabindex="1" id="editTimeStatus" class="editTimeItems show">Status: undefined</div>
-        <div id="statusChange" style="display: none;">
-            <button class=" editTimeItems editBtn" id="OK">OK</button>
-            <button class=" editTimeItems editBtn" id="DNF">DNF</button>
-            <button class=" editTimeItems editBtn" id="+2">+2</button>
+    <div id="editTime">
+        <div id="editInfos">
+            <div tabindex="1" id="editTimeTime" class="editTimeItems show">Time: undefined</div>
+            <div tabindex="1" id="editTimeStatus" class="editTimeItems show">Status: undefined</div>
+            <div id="statusChange" style="display: none;">
+                <button class=" editTimeItems editBtn" id="OK">OK</button>
+                <button class=" editTimeItems editBtn" id="DNF">DNF</button>
+                <button class=" editTimeItems editBtn" id="+2">+2</button>
+            </div>
+            <div tabindex="1" id="editTimeScramble" class="editTimeItems show">Scramble: undefined</div>
+            <!-- <label for="comment" class="editTimeItems">Comment</label>-->
+            <input tabindex="1" type="text" name="comment" class="editTimeItems" id="editTimeComment" value="lololol">
         </div>
-        <div tabindex="1" id="editTimeScramble" class="editTimeItems show">Scramble: undefined</div>
-        <!-- <label for="comment" class="editTimeItems">Comment</label>-->
-        <input tabindex="1" type="text" name="comment" class="editTimeItems" id="editTimeComment" value="lololol">
     </div>
-</div>
     <div id="session" class="dark">
         <div style="margin-top: 7px;display: flex; justify-content: center;">
             <select name="session" id="sessionSelect">
@@ -72,6 +72,23 @@
                     restart_alt
                 </span></button>
         </div>
+        <table id="ao">
+            <tr>
+                <th class="dark"></th>
+                <th class="dark">Current</th>
+                <th class="dark">Best</th>
+            </tr>
+            <tr>
+                <td class="dark">Ao5</td>
+                <td class="dark" id="ao5current">0.0</td>
+                <td class="dark" id="ao5best">0.0</td>
+            </tr>
+            <tr>
+                <td class="dark">Ao12</td>
+                <td class="dark" id="ao12current">0.0</td>
+                <td class="dark" id="ao12best">0.0</td>
+            </tr>
+        </table>
         <table id="timestable">
             <tr>
                 <th class="dark">Time</th>

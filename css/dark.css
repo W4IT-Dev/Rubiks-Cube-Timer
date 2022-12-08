@@ -49,14 +49,14 @@
     color: #fefefe;
 }
 
-th.dark {
+#timestable th.dark {
     background-color: #454545;
 }
 
-td.dark {
+#timestable td.dark {
     background-color: #676767;
 }
 
-td.dark:focus {
+#timestable td.dark:focus {
     background-color: #545454;
 }
