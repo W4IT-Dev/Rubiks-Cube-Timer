@@ -67,7 +67,6 @@ function stop() {//stop timer
         }
         localStorage['allTimes'] = JSON.stringify(allTimes);
     }, 1500)
-
 }
 
 function getScramble() {
@@ -372,7 +371,7 @@ function convert($time) {
     time = over;
     over = time % 10;
     s = (time - over) / 10;
-    time = over;
+    time = Math.round(over)
     over = time % 1;
     ms = (time - over) / 1;
     timeToReturn = ''
@@ -397,6 +396,7 @@ function calcAo5() {
     Ao5converted = convert(Ao5inMS);
     addAo5(Ao5converted, Ao5inMS)
 }
+
 function addAo5(time, timeinMS) {
     if (Ao5.best == 0) Ao5.best = time, Ao5.bestMS = timeinMS, Ao5.ao5best.innerHTML = Ao5.best;
     Ao5.current = time;

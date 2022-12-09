@@ -139,18 +139,15 @@ scrambleSize.addEventListener('change', () => {
         scrambleSizeInputDiv.classList.remove('show', 'nos');
         autoFontSize = true;
         actualScramble.style.fontSize = scrambleFontSize;
-    } else {
-        scrambleSizeInputDiv.classList.add('show', 'nos'); autoFontSize = false;
-        // scrambleSizeInput.value = scrambleFontSize;????
-        actualScramble.style.fontSize = scrambleSizeInput.value + "px";
+        return
     }
+    scrambleSizeInputDiv.classList.add('show', 'nos'); autoFontSize = false;
+    actualScramble.style.fontSize = scrambleSizeInput.value + "px";
 });
 scrambleSizeInput.addEventListener('input', () => {
     actualScramble.style.fontSize = scrambleSizeInput.value + "px";
 })
-searchField.addEventListener('input', () => {
-    search();
-});
+searchField.addEventListener('input', search);
 
 allSelectElems.forEach(function (elem) {
     elem.addEventListener('blur', () => {
