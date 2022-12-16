@@ -154,3 +154,7 @@ allSelectElems.forEach(function (elem) {
         document.getElementById(elem.parentElement.id).focus();
     });
 });
+
+window.addEventListener('error', e => {
+    console.error(e)
+})

@@ -11,7 +11,6 @@ document.addEventListener("keydown", e => {
             stop();
             return
         }
-
         // === CHANGE LATEST TIME'S STATUS ===
         if (canChange) {
             // Focus Comment
@@ -20,26 +19,25 @@ document.addEventListener("keydown", e => {
                 comment.style.opacity = 1;
             }
             //Add DNF
-            if (e.key == 'SoftLeft') return allTimes[0].status = 'DNF', canChange = false, showToast('Changed Status to DNF  ', 2000), setSoftkey({
+            if (e.key == 'SoftLeft') return clearTimeout(bacjankdakhkdakdiuadkkj), allTimes[0].status = 'DNF', canChange = false, showToast('Changed Status to DNF  ', 2000), setSoftkey({
                 left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
                 middle: 'Session',
                 right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
             });
             //Add OK
-            if (e.key == 'Enter') return canChange = false, setSoftkey({
+            if (e.key == 'Enter') return clearTimeout(bacjankdakhkdakdiuadkkj), canChange = false, setSoftkey({
                 left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
                 middle: 'Session',
                 right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
             });
             //Add +2
-            if (e.key == 'SoftRight') return allTimes[0].status = '+2', canChange = false, showToast('Changed Status to +2', 2000), setSoftkey({
+            if (e.key == 'SoftRight') return clearTimeout(bacjankdakhkdakdiuadkkj), allTimes[0].status = '+2', canChange = false, showToast('Changed Status to +2', 2000), setSoftkey({
                 left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
                 middle: 'Session',
                 right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
             });
 
         }
-
         // ==== ENTER ====
         if (e.key == 'Enter') {
             // ==== ADD COMMENT ====
@@ -153,7 +151,6 @@ document.addEventListener("keydown", e => {
             if (document.activeElement == timerSize) return timerSize.value = timerSize.value.slice(0, -1);
             if (settingsOpened) return info();
         }
-
         if (!timing) {
             if (e.key == 'ArrowDown' || e.key == 'ArrowUp') {
                 if (document.activeElement == editTimeTime || document.activeElement == editTimeScramble) {
@@ -177,16 +174,18 @@ document.addEventListener("keydown", e => {
             }
 
         }
+        //Start Key changing in settings
+        if (startKey.style.borderWidth == '1px') {
+            if (e.key != 'MicrophoneToggle' && e.key != 'Enter' && e.key != 'SoftLeft' && e.key != 'SoftRight' && e.key != 'Backspace' && e.key != 'EndCall') {
+                startKeyName = e.key;
+                startKey.value = e.key;
+            }
+            return
+        }
         //Timing
         if (e.key === startKeyName && document.activeElement == document.body) {
             spacedown = true;
             start();
-        }
-        //Start Key changing in settings
-        if (startKey.style.borderWidth == '1px') {
-            if (e.key != 'MicrophoneToggle' && e.key != 'Enter' && e.key != 'SoftLeft' && e.key != 'SoftRight' && e.key != 'Backspace' && e.key != 'EndCall')
-                startKeyName = e.key;
-            startKey.value = e.key;
         }
     }
 });

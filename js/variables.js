@@ -6,6 +6,8 @@ let timing = false;
 let waitToStart;
 let startKeyName = '5';
 
+let bacjankdakhkdakdiuadkkj;
+
 let canChange = false;
 
 let allTimes = [];
@@ -16,9 +18,18 @@ let Ao5 = {
     bestMS: 0,
     ao5current: document.querySelector('#ao5current'),
     ao5best: document.querySelector('#ao5best')
-}
+};
 
-let allelem = document.querySelectorAll('#resetButton, #comment, .scramble, #scramble, .setting, select, input, #timerBox, body, #settings, #softkeys, #session, td, th, #sessions, #divider, .line');
+let Ao12 = {
+    current: 0,
+    currentMS: 0,
+    best: 0,
+    bestMS: 0,
+    ao12current: document.querySelector('#ao12current'),
+    ao12best: document.querySelector('#ao12best')
+};
+
+let allelem = document.querySelectorAll('#resetButton, #resetSession, #comment, .scramble, #scramble, .setting, select, input, #timerBox, body, #settings, #softkeys, #session, td, th, #sessions, #divider, .line');
 
 let settingsOpened = false;
 
@@ -52,7 +63,7 @@ let statusChange = document.querySelector('#statusChange');
 let startKey = document.querySelector('#startKey');
 let addPartDiv = document.querySelector('#addPartDiv');
 let addPart = document.querySelector('#addPart');
- 
+
 
 let lastFocused;
 

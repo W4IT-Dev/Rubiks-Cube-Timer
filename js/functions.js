@@ -43,9 +43,9 @@ function stop() {//stop timer
     if (allTimes.length >= 5) {
         calcAo5();
     }
-    // if (allTimes.length >= 12) {
-    //     calcAo12();
-    // }
+    if (allTimes.length >= 12) {
+        calcAo12();
+    }
     getScramble();
     document.querySelector('.scramble').style.display = 'block';
     // document.querySelector('.ad').style.display = 'none';
@@ -56,7 +56,7 @@ function stop() {//stop timer
         middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">check</i>',
         right: '+2'
     });
-    setTimeout(() => {
+    bacjankdakhkdakdiuadkkj = setTimeout(() => {
         canChange = false;
         if (!settingsOpened && session.style.display == 'none') {
             setSoftkey({
@@ -65,8 +65,8 @@ function stop() {//stop timer
                 right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
             });
         }
-        localStorage['allTimes'] = JSON.stringify(allTimes);
-    }, 1500)
+    }, 1500);
+    localStorage['allTimes'] = JSON.stringify(allTimes);
 }
 
 function getScramble() {
@@ -88,7 +88,7 @@ function getScramble() {
 function shuffle(o) {
     for (var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
     return o;
-};//Credits to Max on CodePen.io
+};
 
 //  ====== NAVIGATE & SELECT ======
 function handleKeydown(e) {
@@ -116,14 +116,16 @@ function nav(move, elems) {
     let currentElemIdx = [...items].indexOf(currentIndex);
     const next = currentElemIdx + move;
     const targetElement = items[next];
-    targetElement.focus();
+    if (targetElement) {
+        targetElement.focus();
+    }
 }
 
 function select() {
     if (document.activeElement == document.getElementById('startKeyDiv')) return document.getElementById('startKeyDiv').blur(), document.getElementById('startKey').style.border = "1px solid #005", setSoftkey({
         left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
         middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">check</i>',
-        right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 4.5px; right: 2.5px">restart_alt</i>'
+        right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 4.5px; right: 2.5px">close</i>'
     });
     if (document.getElementById('startKey').style.borderWidth == '1px') return document.getElementById('startKeyDiv').focus(), document.getElementById('startKey').style.border = "none", setSoftkey({
         left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
@@ -187,11 +189,21 @@ function getStoredData() {
         if (localStorage.getItem('darkmode') == 'true') { darkMode.checked = true; } else { darkMode.checked = false; }
         setDarkOrLightMode();
     } else {
-        localStorage.setItem('darkmode', 'true')
+        localStorage.setItem('darkmode', 'true');
     }
     if (localStorage.allTimes) {
         allTimes = JSON.parse(localStorage['allTimes']);
     }
+    //  TODO if (localStorage.ao5) {
+    //     Ao5 = JSON.parse(localStorage['ao5']);
+    //     Ao5.ao5current.innerHTML = Ao5.current;
+    //     Ao5.ao5best.innerHTML = Ao5.best;
+    // }
+    // if (localStorage.ao12) {
+    //     Ao12 = JSON.parse(localStorage['ao12']);
+    //     Ao12.ao12current.innerHTML = Ao12.current;
+    //     Ao12.ao12best.innerHTML = Ao12.best;
+    // }
 }
 
 function showToast(text, time) {//thanks cyan
@@ -395,6 +407,7 @@ function calcAo5() {
     Ao5inMS = (sum - max - min) / 3;
     Ao5converted = convert(Ao5inMS);
     addAo5(Ao5converted, Ao5inMS)
+    // localStorage['ao5'] = JSON.stringify(Ao5);
 }
 
 function addAo5(time, timeinMS) {
@@ -404,6 +417,31 @@ function addAo5(time, timeinMS) {
     Ao5.ao5current.innerHTML = Ao5.current;
     if (Ao5.currentMS < Ao5.bestMS) Ao5.bestMS = Ao5.currentMS, Ao5.best = Ao5.current, Ao5.ao5best.innerHTML = Ao5.best;
 }
-// function calcAo12() {
 
-// }
+function calcAo12() {
+    times = allTimes.slice(0, 12);
+    let Ao12times = [];
+    for (let i = 0; i < times.length; i++) {
+        Ao12times.push(times[i].timeInMS)
+    }
+    const min = Math.min(...Ao12times);
+    const max = Math.max(...Ao12times);
+
+    const sum = Ao12times.reduce((a, b) => a + b, 0);
+    Ao12inMS = (sum - max - min) / 3;
+    Ao12converted = convert(Ao12inMS);
+    addAo12(Ao12converted, Ao12inMS);
+    // localStorage['ao12'] = JSON.stringify(Ao12);
+}
+
+function addAo12(time, timeinMS) {
+    if (Ao12.best == 0) {
+        Ao12.best = time;
+        Ao12.bestMS = timeinMS;
+        Ao12.ao12best.innerHTML = Ao12.best;
+    }
+    Ao12.current = time;
+    Ao12.currentMS = timeinMS;
+    Ao12.ao12current.innerHTML = Ao12.current;
+    if (Ao12.currentMS < Ao12.bestMS) Ao12.bestMS = Ao12.currentMS, Ao12.best = Ao12.current, Ao12.ao12best.innerHTML = Ao12.best;
+}
