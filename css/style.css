@@ -37,7 +37,6 @@ body {
     z-index: 100;
 }
 
-
 #timer {
     position: fixed;
     top: 50%;
@@ -46,6 +45,15 @@ body {
     font-family: 'Orbitron';
     font-size: 16px;
     transform: translate(-50%, -50%);
+}
+
+#averages {
+    line-height: 4px;
+    position: fixed;
+    text-align: center;
+    left: 50%;
+    top: 160px;
+    transform: translateX(-50%);
 }
 
 #comment {

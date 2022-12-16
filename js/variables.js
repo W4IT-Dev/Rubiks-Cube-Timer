@@ -17,7 +17,8 @@ let Ao5 = {
     best: 0,
     bestMS: 0,
     ao5current: document.querySelector('#ao5current'),
-    ao5best: document.querySelector('#ao5best')
+    ao5best: document.querySelector('#ao5best'),
+    ao5: document.querySelector('#ao5')
 };
 
 let Ao12 = {
@@ -26,7 +27,8 @@ let Ao12 = {
     best: 0,
     bestMS: 0,
     ao12current: document.querySelector('#ao12current'),
-    ao12best: document.querySelector('#ao12best')
+    ao12best: document.querySelector('#ao12best'),
+    ao12: document.querySelector('#ao12')
 };
 
 let allelem = document.querySelectorAll('#resetButton, #resetSession, #comment, .scramble, #scramble, .setting, select, input, #timerBox, body, #settings, #softkeys, #session, td, th, #sessions, #divider, .line');

@@ -8,6 +8,7 @@ function start() {
     waitToStart = setTimeout(() => {
         ready = true;
         timer.style.color = 'green';
+        Ao5.ao5.style.display = 'none', Ao12.ao12.style.display = 'none';
         scrambleOnDom.style.display = 'none', setSoftkey({ left: '', middle: '', right: '', });
         minutes.innerHTML = '', document.querySelector('.point').innerHTML = '', tensecond.innerHTML = '';
         firstsecond.innerHTML = 0, first.innerHTML = 0;
@@ -47,6 +48,8 @@ function stop() {//stop timer
         calcAo12();
     }
     getScramble();
+    Ao5.ao5.style.display = 'block';
+    Ao12.ao12.style.display = 'block';
     document.querySelector('.scramble').style.display = 'block';
     // document.querySelector('.ad').style.display = 'none';
     // document.querySelectorAll('.ad')[1].style.display = 'none';
@@ -194,15 +197,20 @@ function getStoredData() {
     if (localStorage.allTimes) {
         allTimes = JSON.parse(localStorage['allTimes']);
     }
-    //  TODO if (localStorage.ao5) {
+    // if (localStorage.ao5) {
+    //     // console.log(JSON.parse(localStorage.ao5))
+    //     console.log(Ao5)
     //     Ao5 = JSON.parse(localStorage['ao5']);
-    //     Ao5.ao5current.innerHTML = Ao5.current;
-    //     Ao5.ao5best.innerHTML = Ao5.best;
+    //     console.log(Ao5)
+    //     // Ao5.ao5current.innerHTML = Ao5.current;
+    //     // Ao5.ao5best.innerHTML = Ao5.best;
     // }
     // if (localStorage.ao12) {
-    //     Ao12 = JSON.parse(localStorage['ao12']);
-    //     Ao12.ao12current.innerHTML = Ao12.current;
-    //     Ao12.ao12best.innerHTML = Ao12.best;
+    //     // console.log(JSON.parse(localStorage.ao12))
+    //     // Ao12 = JSON.parse(localStorage['ao12']);
+    //     console.log(Ao12)
+    //     // Ao12.ao12current.innerHTML = Ao12.current;
+    //     // Ao12.ao12best.innerHTML = Ao12.best;
     // }
 }
 
@@ -371,7 +379,7 @@ function letItSnow() {
             let snowing = setInterval(drawFlakes, 33);
         }
     }
-}//Copyright (c) 2022 by Boris Karastanev (https://codepen.io/ns_bob/pen/BoMqqR)
+}
 
 function convert($time) {
     time = $time
@@ -415,6 +423,7 @@ function addAo5(time, timeinMS) {
     Ao5.current = time;
     Ao5.currentMS = timeinMS;
     Ao5.ao5current.innerHTML = Ao5.current;
+    Ao5.ao5.innerHTML = `Ao5: ${time}`;
     if (Ao5.currentMS < Ao5.bestMS) Ao5.bestMS = Ao5.currentMS, Ao5.best = Ao5.current, Ao5.ao5best.innerHTML = Ao5.best;
 }
 
@@ -443,5 +452,6 @@ function addAo12(time, timeinMS) {
     Ao12.current = time;
     Ao12.currentMS = timeinMS;
     Ao12.ao12current.innerHTML = Ao12.current;
+    Ao12.ao12.innerHTML = `Ao12: ${time}`;
     if (Ao12.currentMS < Ao12.bestMS) Ao12.bestMS = Ao12.currentMS, Ao12.best = Ao12.current, Ao12.ao12best.innerHTML = Ao12.best;
 }
