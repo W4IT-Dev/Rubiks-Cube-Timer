@@ -43,17 +43,19 @@ document.addEventListener("keydown", e => {
             // ==== ADD COMMENT ====
             if (document.activeElement.id == 'comment') {
                 document.activeElement.style.opacity = 0;
+                allTimes[0].comment = document.activeElement.value;
                 document.activeElement.value = "";
                 document.activeElement.blur();
+                localStorage['allTimes'] = JSON.stringify(allTimes);
                 showToast('Added Comment', 2000);
                 return;
             }
-            // ====  ====
+
             if (settingsOpened) return select();
             if (session.style.display == 'none') {
                 session.style.display = 'block';
                 loadTable();
-                document.querySelector('.td').focus();
+                document.querySelectorAll('.td')[0].focus();
                 setSoftkey({
                     left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
                     middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">edit</i>',
@@ -61,48 +63,41 @@ document.addEventListener("keydown", e => {
                 });
                 return
             }
-            if (session.style.display == 'block' && editTime.style.display == 'none') {
-                lastFocused = document.activeElement;
-                editTimeTime.innerHTML = `Time: ${document.activeElement.parentElement.firstChild.innerText}`
-                editTimeStatus.innerHTML = `Status: ${document.activeElement.parentElement.children[1].innerText}`
-                editTimeScramble.innerHTML = `Scramble: <br> ${document.activeElement.parentElement.children[2].innerText}`
-                editTimeComment.value = document.activeElement.parentElement.children[3].innerText
-                editTime.style.display = 'block';
-                editTimeTime.focus();
-                setSoftkey({
-                    left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
-                    middle: '',
-                    right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
-                });
-            }
-            if (document.activeElement = editTimeScramble) {
-                if (editTimeScramble.style.maxHeight == '90px') return editTimeScramble.style.maxHeight = "1000px", editTimeScramble.style.overflow = 'visible';
-                editTimeScramble.style.maxHeight = '90px';
-                editTimeScramble.style.overflow = 'hidden'
-            }
-            if (document.activeElement == editTimeStatus) {
-                allBtns = document.querySelectorAll('.editBtn');
-                if (statusChange.style.display == 'flex') {
-                    statusChange.style.display = 'none';
-                    allBtns.forEach(btn => {
-                        btn.classList.remove('show');
+            if (session.style.display == 'block' && editTime.style.display == 'none' && document.activeElement !== sessionSelectDiv) {
+                if (document.activeElement.classList.contains('dropdown-item') && document.activeElement.id !== 'sessionSelectDiv' && document.activeElement.id !== 'newSessionInput') {
+                    activeSession = document.activeElement.innerText;
+                    console.log(activeSession)
+                }
+                if (document.activeElement.classList.contains('td')) {
+                    lastFocused = document.activeElement;
+                    editTimeTime.innerHTML = `Time: ${document.activeElement.parentElement.firstChild.innerText}`
+                    editTimeStatus.innerHTML = `Status: ${document.activeElement.parentElement.children[1].innerText}`
+                    editTimeScramble.innerHTML = `Scramble: <br> ${document.activeElement.parentElement.children[2].innerText}`
+                    editTimeComment.value = document.activeElement.parentElement.children[3].innerText;
+                    editTime.style.display = 'block';
+                    editTimeTime.focus();
+                    setSoftkey({
+                        left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
+                        middle: '',
+                        right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
                     });
-                } else {
-                    statusChange.style.display = 'flex';
-                    allBtns.forEach(btn => {
-                        btn.classList.add('show')
-                    });
+                }
+                if (document.activeElement = editTimeScramble) {
+                    if (editTimeScramble.style.maxHeight == '90px') return editTimeScramble.style.maxHeight = "1000px", editTimeScramble.style.overflow = 'visible';
+                    editTimeScramble.style.maxHeight = '90px';
+                    editTimeScramble.style.overflow = 'hidden'
                 }
             }
         }
         // ==== SOFTLEFT ====
         if (e.key == 'SoftLeft') {
-            if (editTime.style.display == 'block') return editTime.style.display = 'none', setSoftkey({
+            if (editTime.style.display == 'block') return console.log('NOOO'), editTime.style.display = 'none', setSoftkey({
                 left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
                 middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">edit</i>',
                 right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
             }), lastFocused.focus();
             if (session.style.display == 'block') {
+                console.log('YOYYOIYO')
                 session.style.display = 'none';
                 document.activeElement.blur();
                 setSoftkey({
@@ -136,58 +131,50 @@ document.addEventListener("keydown", e => {
                 settingsOpened = false;
             }
         }
-        // ==== SOFTRIGHT ====
-        if (e.key == 'SoftRight') {
-            if (session.style.display == 'block') {
-                allTimes = [];
-                localStorage['allTimes'] = JSON.stringify(allTimes);
-                showToast('Deleted', 1000), loadTable();
-                document.querySelectorAll('.td')[0].focus();
-                // console.log(document.activeElement.parentElement.children[2].innerText);
-                // console.log(document.querySelector("#" + document.activeElement.id + ": nth - child(3)").innerText);
-                // allTimes.filter(time => time.scramble != document.activeElement.parentElement.children[2].innerText)
-            }
-            if (!settingsOpened && session.style.display != 'block') return window.close();
-            if (document.activeElement == timerSize) return timerSize.value = timerSize.value.slice(0, -1);
-            if (settingsOpened) return info();
-        }
-        if (!timing) {
-            if (e.key == 'ArrowDown' || e.key == 'ArrowUp') {
-                if (document.activeElement == editTimeTime || document.activeElement == editTimeScramble) {
-                    setSoftkey({
-                        left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
-                        middle: '',
-                        right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
-                    });
-                }
-                if (document.activeElement == editTimeStatus) {
-                    setSoftkey({
-                        left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
-                        middle: 'Select',
-                        right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
-                    });
-                }
-            }
-            if (settings.style.display == 'none' && session.style.display == 'none') {
-                if (e.key == 'ArrowDown') return scrambleOnDom.style.maxHeight = '280px';
-                scrambleOnDom.style.maxHeight = '100px';
-            }
-
-        }
-        //Start Key changing in settings
-        if (startKey.style.borderWidth == '1px') {
-            if (e.key != 'MicrophoneToggle' && e.key != 'Enter' && e.key != 'SoftLeft' && e.key != 'SoftRight' && e.key != 'Backspace' && e.key != 'EndCall') {
-                startKeyName = e.key;
-                startKey.value = e.key;
-            }
-            return
-        }
-        //Timing
-        if (e.key === startKeyName && document.activeElement == document.body) {
-            spacedown = true;
-            start();
-        }
+    
+    // ==== SOFTRIGHT ====
+    if (e.key == 'SoftRight') {
+        if (!settingsOpened && session.style.display != 'block') return window.close();
+        if (document.activeElement == timerSize) return timerSize.value = timerSize.value.slice(0, -1);
+        if (settingsOpened) return info();
     }
+    if (!timing) {
+        if (e.key == 'ArrowDown' || e.key == 'ArrowUp') {
+            if (document.activeElement == editTimeTime || document.activeElement == editTimeScramble) {
+                setSoftkey({
+                    left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
+                    middle: '',
+                    right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
+                });
+            }
+            if (document.activeElement == editTimeStatus) {
+                setSoftkey({
+                    left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
+                    middle: 'Select',
+                    right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
+                });
+            }
+        }
+        if (settings.style.display == 'none' && session.style.display == 'none') {
+            if (e.key == 'ArrowDown') return scrambleOnDom.style.maxHeight = '280px';
+            scrambleOnDom.style.maxHeight = '100px';
+        }
+
+    }
+    //Start Key changing in settings
+    if (startKey.style.borderWidth == '1px') {
+        if (e.key != 'MicrophoneToggle' && e.key != 'Enter' && e.key != 'SoftLeft' && e.key != 'SoftRight' && e.key != 'Backspace' && e.key != 'EndCall') {
+            startKeyName = e.key;
+            startKey.value = e.key;
+        }
+        return
+    }
+    //Timing
+    if (e.key === startKeyName && document.activeElement == document.body) {
+        spacedown = true;
+        start();
+    }
+}
 });
 
 // ==== KEY UP ====

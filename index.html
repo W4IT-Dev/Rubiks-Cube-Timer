@@ -13,7 +13,7 @@
     <script src="/js/variables.js" defer></script>
     <script src="/js/functions.js" defer></script>
     <script src="/js/eventListener/keyEvents/key.js" defer></script>
-    <script src="/js/eventListener/other events/settingsEvents.js" defer></script>
+    <script src="/js/eventListener/other events/eventListeners.js" defer></script>
     <script src="/js/script.js" defer></script>
 </head>
 
@@ -53,12 +53,12 @@
     <div id="editTime">
         <div id="editInfos">
             <div tabindex="1" id="editTimeTime" class="editTimeItems show">Time: undefined</div>
-            <div tabindex="1" id="editTimeStatus" class="editTimeItems show">Status: undefined</div>
-            <div id="statusChange" style="display: none;">
-                <button class=" editTimeItems editBtn" id="OK">OK</button>
-                <button class=" editTimeItems editBtn" id="DNF">DNF</button>
-                <button class=" editTimeItems editBtn" id="+2">+2</button>
-            </div>
+            <div tabindex="1" id="editTimeStatus" class="editTimeItems show">Status:</div>
+            <select id="statusChange">
+                <option value="OK">OK</option>
+                <option value="DNF">DNF</option>
+                <option value="+2">+2</option>
+            </select>
             <div tabindex="1" id="editTimeScramble" class="editTimeItems show">Scramble: undefined</div>
             <!-- <label for="comment" class="editTimeItems">Comment</label>-->
             <input tabindex="1" type="text" name="comment" class="editTimeItems" id="editTimeComment" value="lololol">
@@ -66,9 +66,19 @@
     </div>
     <div id="session" class="dark">
         <div style="margin-top: 7px; display: flex; justify-content: center;">
-            <select name="session" class="dark" id="sessionSelect">
-                <option value="session1">Session 1</option>
-            </select>
+            <div tabindex="1">
+                <button id="sessionSelectDiv" onclick="myFunction()" class="dropdown-item dropbtn dark ">Session 1<span
+                        class="material-icons">
+                        expand_more
+                    </span></button>
+                <div id="myDropdown" class="dropdown-content">
+                    <div tabindex="1" class="dropdown-item dark">Session 1</div>
+                    <div tabindex="1" class="dropdown-item dark">Session 2</div>
+                    <div tabindex="1" class="dropdown-item dark">Session 3</div>
+                    <input id="newSessionInput" class="dropdown-item dark" placeholder="Add new session">
+                </div>
+            </div>
+
             <button id="resetSession" class="dark"><span style="font-size: 20px;" class="material-icons">
                     restart_alt
                 </span></button>

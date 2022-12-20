@@ -15,7 +15,7 @@ function start() {
     }, 550)
 }
 
-function startTimer() {//timer
+function startTimer() {
     // document.querySelector('.ad').style.display = 'block';
     // document.querySelectorAll('.ad')[1].style.display = 'block';
     timing = true;
@@ -23,9 +23,9 @@ function startTimer() {//timer
     time = setInterval(() => {
         timeIn100MS++;
         first.innerHTML++;
-        if (first.innerHTML == 10) return firstsecond.innerHTML++, first.innerHTML = 0;
+        if (first.innerHTML == 9) return firstsecond.innerHTML++, first.innerHTML = 0;
 
-        if (firstsecond.innerHTML == 10) return tensecond.innerHTML++, firstsecond.innerHTML = 0;
+        if (firstsecond.innerHTML == 9) return tensecond.innerHTML++, firstsecond.innerHTML = 0;
 
         if (tensecond.innerHTML == 6) return document.querySelector('.point').innerHTML = ':', minutes.innerHTML++, tensecond.innerHTML = 0, firstsecond.innerHTML = 0;
     }, 100)
@@ -85,7 +85,7 @@ function getScramble() {
         scramble += move + " ";
         last = keys[0];
     }
-    document.querySelector('#scramble').innerText = scramble
+    document.querySelector('#scramble').innerText = scramble;
 }
 
 function shuffle(o) {
@@ -97,6 +97,7 @@ function shuffle(o) {
 function handleKeydown(e) {
     switch (e.key) {
         case 'ArrowUp':
+            if (document.activeElement == document.querySelectorAll('.td')[0]) return sessionSelectDiv.focus();
             if (document.activeElement.classList.contains('setting') || document.activeElement.classList.contains('editTimeItems')) {
                 nav(-1, "." + document.activeElement.classList[0] + ".show");
             } else {
@@ -104,11 +105,20 @@ function handleKeydown(e) {
             }
             break;
         case 'ArrowDown':
+            if (document.activeElement == sessionSelectDiv || document.activeElement == document.querySelector('#resetSession')) {
+                if (!selectopened) document.querySelectorAll('.td')[0].focus();
+            }
             if (document.activeElement.classList.contains('setting') || document.activeElement.classList.contains('editTimeItems')) {
                 nav(1, "." + document.activeElement.classList[0] + ".show");
             } else {
                 nav(1, "." + document.activeElement.classList[0]);
             }
+            break;
+        case 'ArrowRight':
+            if (document.activeElement == sessionSelectDiv) document.querySelector('#resetSession').focus();
+            break;
+        case 'ArrowLeft':
+            if (document.activeElement == document.querySelector('#resetSession')) sessionSelectDiv.focus();
             break;
     }
 }
@@ -194,24 +204,16 @@ function getStoredData() {
     } else {
         localStorage.setItem('darkmode', 'true');
     }
-    if (localStorage.allTimes) {
-        allTimes = JSON.parse(localStorage['allTimes']);
+    if (localStorage.puzzleTypeSelector) puzzleTypeSelector.value = localStorage.puzzleTypeSelector, setPuzzleType();
+    if (localStorage.timerSize) document.getElementById('timerSize').value = localStorage.timerSize, timer.style.fontSize = localStorage.timerSize + 'px';
+    if (localStorage.scrambleSize) {
+        if (localStorage.scrambleSize == 'user') scrambleSize.value = 'user-defined', scrambleSizeInputDiv.classList.add('show', 'nos'); autoFontSize = false, actualScramble.style.fontSize = scrambleSizeInput.value + "px";
+        if (localStorage.scrambleSize == 'auto') scrambleSizeInputDiv.classList.remove('show', 'nos'), autoFontSize = true, actualScramble.style.fontSize = scrambleFontSize;
     }
-    // if (localStorage.ao5) {
-    //     // console.log(JSON.parse(localStorage.ao5))
-    //     console.log(Ao5)
-    //     Ao5 = JSON.parse(localStorage['ao5']);
-    //     console.log(Ao5)
-    //     // Ao5.ao5current.innerHTML = Ao5.current;
-    //     // Ao5.ao5best.innerHTML = Ao5.best;
-    // }
-    // if (localStorage.ao12) {
-    //     // console.log(JSON.parse(localStorage.ao12))
-    //     // Ao12 = JSON.parse(localStorage['ao12']);
-    //     console.log(Ao12)
-    //     // Ao12.ao12current.innerHTML = Ao12.current;
-    //     // Ao12.ao12best.innerHTML = Ao12.best;
-    // }
+    if (localStorage.scrambleSizeInput) scrambleSizeInput.value = localStorage.scrambleSizeInput;
+    if (localStorage.allTimes) allTimes = JSON.parse(localStorage['allTimes']);
+    if (allTimes.length >= 5) calcAo5();
+    if (allTimes.length >= 12) calcAo12();
 }
 
 function showToast(text, time) {//thanks cyan
@@ -227,7 +229,7 @@ function showToast(text, time) {//thanks cyan
 }
 
 function loadTable() {
-    if (allTimes.length == 0) {
+    if (allTimes.length == 0) {//TODO make dark a variable so you can do this `${darkyesorno}`
         if (localStorage.getItem('darkmode') == 'true') {
             document.getElementById("timestable").innerHTML = `
             <tr>
@@ -415,7 +417,6 @@ function calcAo5() {
     Ao5inMS = (sum - max - min) / 3;
     Ao5converted = convert(Ao5inMS);
     addAo5(Ao5converted, Ao5inMS)
-    // localStorage['ao5'] = JSON.stringify(Ao5);
 }
 
 function addAo5(time, timeinMS) {
@@ -437,10 +438,9 @@ function calcAo12() {
     const max = Math.max(...Ao12times);
 
     const sum = Ao12times.reduce((a, b) => a + b, 0);
-    Ao12inMS = (sum - max - min) / 3;
+    Ao12inMS = (sum - max - min) / 10;
     Ao12converted = convert(Ao12inMS);
     addAo12(Ao12converted, Ao12inMS);
-    // localStorage['ao12'] = JSON.stringify(Ao12);
 }
 
 function addAo12(time, timeinMS) {
@@ -454,4 +454,166 @@ function addAo12(time, timeinMS) {
     Ao12.ao12current.innerHTML = Ao12.current;
     Ao12.ao12.innerHTML = `Ao12: ${time}`;
     if (Ao12.currentMS < Ao12.bestMS) Ao12.bestMS = Ao12.currentMS, Ao12.best = Ao12.current, Ao12.ao12best.innerHTML = Ao12.best;
+}
+
+function setPuzzleType() {
+    if (puzzleTypeSelector.value == "2x2") {
+        moves = new Array();
+        moves['r'] = new Array("R", "R'", "R2");
+        moves['u'] = new Array("U", "U'", "U2");
+        moves['f'] = new Array("F", "F'", "F2");
+        keys = new Array("r", "u", "f");
+        limit = 9;
+        scrambleFontSize = "20px";
+        if (autoFontSize) {
+            document.querySelector('#scramble').style.fontSize = '20px';
+        }
+        getScramble();
+    }
+    if (puzzleTypeSelector.value == "3x3") {
+        moves = new Array();
+        moves['r'] = new Array("R", "R'", "R2");
+        moves['l'] = new Array("L", "L'", "L2");
+        moves['u'] = new Array("U", "U'", "U2");
+        moves['d'] = new Array("D", "D'", "D2");
+        moves['f'] = new Array("F", "F'", "F2");
+        moves['b'] = new Array("B", "B'", "B2");
+        keys = new Array("r", "l", "u", "d", "f", "b");
+        limit = 20;
+        scrambleFontSize = "18px";
+        if (autoFontSize) {
+            document.querySelector('#scramble').style.fontSize = '18px';
+        }
+        getScramble();
+    }
+    if (puzzleTypeSelector.value == "4x4") {
+        moves = new Array();
+        moves['r'] = new Array("R", "R'", "R2");
+        moves['l'] = new Array("L", "L'", "L2");
+        moves['u'] = new Array("U", "U'", "U2");
+        moves['d'] = new Array("D", "D'", "D2");
+        moves['f'] = new Array("F", "F'", "F2");
+        moves['b'] = new Array("B", "B'", "B2");
+        moves['Rw'] = new Array("Rw", "Rw'", "Rw2");
+        moves['Lw'] = new Array("Lw", "Lw'", "Lw2");
+        moves['Uw'] = new Array("Uw", "Uw'", "Uw2");
+        moves['Dw'] = new Array("Dw", "Dw'", "Dw2");
+        moves['Fw'] = new Array("Fw", "Fw'", "Fw2");
+        moves['Bw'] = new Array("B", "B'", "B2");
+        keys = new Array("r", "Rw", "l", "Lw", "u", "Uw", "d", "Dw", "f", "Fw");
+        limit = 46;
+        scrambleFontSize = "17px";
+        if (autoFontSize) {
+            document.querySelector('#scramble').style.fontSize = '17px';
+        }
+        getScramble();
+    }
+    if (puzzleTypeSelector.value == "5x5") {
+        moves = new Array();
+        moves['r'] = new Array("R", "R'", "R2");
+        moves['l'] = new Array("L", "L'", "L2");
+        moves['u'] = new Array("U", "U'", "U2");
+        moves['d'] = new Array("D", "D'", "D2");
+        moves['f'] = new Array("F", "F'", "F2");
+        moves['b'] = new Array("B", "B'", "B2");
+        moves['Rw'] = new Array("Rw", "Rw'", "Rw2");
+        moves['Lw'] = new Array("Lw", "Lw'", "Lw2");
+        moves['Uw'] = new Array("Uw", "Uw'", "Uw2");
+        moves['Dw'] = new Array("Dw", "Dw'", "Dw2");
+        moves['Fw'] = new Array("Fw", "Fw'", "Fw2");
+        moves['Bw'] = new Array("B", "B'", "B2");
+        keys = new Array("r", "Rw", "l", "Lw", "u", "Uw", "d", "Dw", "f", "Fw");
+        limit = 60;
+        scrambleFontSize = "16px";
+        if (autoFontSize) {
+            document.querySelector('#scramble').style.fontSize = '16px';
+        }
+        getScramble();
+    }
+    if (puzzleTypeSelector.value == "6x6") {
+        moves = new Array();
+        moves['r'] = new Array("R", "R'", "R2");
+        moves['l'] = new Array("L", "L'", "L2");
+        moves['u'] = new Array("U", "U'", "U2");
+        moves['d'] = new Array("D", "D'", "D2");
+        moves['f'] = new Array("F", "F'", "F2");
+        moves['b'] = new Array("B", "B'", "B2");
+        moves['Rw'] = new Array("Rw", "Rw'", "Rw2");
+        moves['Lw'] = new Array("Lw", "Lw'", "Lw2");
+        moves['Uw'] = new Array("Uw", "Uw'", "Uw2");
+        moves['Dw'] = new Array("Dw", "Dw'", "Dw2");
+        moves['Fw'] = new Array("Fw", "Fw'", "Fw2");
+        moves['Bw'] = new Array("Bw", "Bw'", "Bw2");
+        moves['3Rw'] = new Array("3Rw", "3Rw'", "3Rw2");
+        moves['3Lw'] = new Array("3Lw", "3Lw'", "3Lw2");
+        moves['3Uw'] = new Array("3Uw", "3Uw'", "3Uw2");
+        moves['3Dw'] = new Array("3Dw", "3Dw'", "3Dw2");
+        moves['3Fw'] = new Array("3Fw", "3Fw'", "3Fw2");
+        moves['3Bw'] = new Array("3Bw", "3Bw'", "3Bw2");
+        keys = new Array("r", "Rw", "l", "Lw", "u", "Uw", "d", "Dw", "f", "Fw", "3Rw", "3Lw", "3Uw", "3Dw", "3Fw", "3Bw");
+        limit = 80;
+        scrambleFontSize = "15px";
+        if (autoFontSize) {
+            document.querySelector('#scramble').style.fontSize = '15px';
+        }
+        getScramble();
+    }
+    if (puzzleTypeSelector.value == "7x7") {
+        moves = new Array();
+        moves['r'] = new Array("R", "R'", "R2");
+        moves['l'] = new Array("L", "L'", "L2");
+        moves['u'] = new Array("U", "U'", "U2");
+        moves['d'] = new Array("D", "D'", "D2");
+        moves['f'] = new Array("F", "F'", "F2");
+        moves['b'] = new Array("B", "B'", "B2");
+        moves['Rw'] = new Array("Rw", "Rw'", "Rw2");
+        moves['Lw'] = new Array("Lw", "Lw'", "Lw2");
+        moves['Uw'] = new Array("Uw", "Uw'", "Uw2");
+        moves['Dw'] = new Array("Dw", "Dw'", "Dw2");
+        moves['Fw'] = new Array("Fw", "Fw'", "Fw2");
+        moves['Bw'] = new Array("Bw", "Bw'", "Bw2");
+        moves['3Rw'] = new Array("3Rw", "3Rw'", "3Rw2");
+        moves['3Lw'] = new Array("3Lw", "3Lw'", "3Lw2");
+        moves['3Uw'] = new Array("3Uw", "3Uw'", "3Uw2");
+        moves['3Dw'] = new Array("3Dw", "3Dw'", "3Dw2");
+        moves['3Fw'] = new Array("3Fw", "3Fw'", "3Fw2");
+        moves['3Bw'] = new Array("3Bw", "3Bw'", "3Bw2");
+        keys = new Array("r", "Rw", "l", "Lw", "u", "Uw", "d", "Dw", "f", "Fw", "3Rw", "3Lw", "3Uw", "3Dw", "3Fw", "3Bw");
+        limit = 100;
+        scrambleFontSize = "14px";
+        if (autoFontSize) {
+            document.querySelector('#scramble').style.fontSize = '14px';
+        }
+        getScramble();
+    }
+    localStorage['puzzleTypeSelector'] = puzzleTypeSelector.value;
+}
+
+function loadSessions() {
+    document.querySelector('#myDropdown').innerHTML = ''
+    sessions.forEach(function (session) {
+        
+        document.querySelector('#myDropdown').innerHTML += `<div tabindex="1" class="dropdown-item dark">${session.name}</div>`
+    });
+    document.querySelector('#myDropdown').innerHTML += '<input class="dropdown-item dark" placeholder="Add new session">'
+}
+
+function selectSession() {
+    activeSession = document.activeElement.innerText;
+    console.log(activeSession)
+    // console.log(sessions[sessions.indexOf({name: activeSession})])
+    a = sessions.map(object => object.name).indexOf('5x5')
+    console.log(a)
+}
+
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("showing");
+    selectopened = !selectopened;
+    if (selectopened) { e = 'expand_less'; loadSessions(); } else { e = 'expand_more' };
+    document.querySelectorAll('.dropdown-item')[1].focus();
+    setSoftkey({
+        left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
+        middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">' + e + '</i>',
+        right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">delete</i>'
+    });
 }

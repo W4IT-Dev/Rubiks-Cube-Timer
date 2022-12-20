@@ -58,7 +58,7 @@ body {
 
 #comment {
     position: fixed;
-    top: 65%;
+    top: 72%;
     left: 50%;
     opacity: 0;
     height: 22px;
@@ -73,7 +73,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 25px;
+    height: 27px;
     width: auto;
 }
 
@@ -223,8 +223,9 @@ input:checked+.slider:before {
 
 
 /* remove outline for focus */
-:focus {
+*:focus {
     outline: none;
+    box-shadow: none !important;
 }
 
 .kui-toast {
@@ -403,4 +404,41 @@ th {
 
 .show {
     display: flex;
+}
+
+
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 60px;
+    max-width: 120px;
+    overflow: auto;
+    z-index: 1;
+}
+
+.dropdown-item {
+    font-size: inherit;
+    padding: 10px;
+    height: 15px;
+    display: block;
+}
+
+.dropdown-item:focus {
+    background-color: #ddd;
+}
+
+.showing {
+    display: block;
+}
+
+.dropbtn {
+    position: relative;
+    padding: 1px;
+    height: 27px;
+    font-size: 16px;
+    margin-right: 5px;
+    display: flex;
+    align-items: center;
 }
