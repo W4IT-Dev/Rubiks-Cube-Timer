@@ -60,11 +60,3 @@
 #timestable td.dark:focus {
     background-color: #545454;
 }
-
-.dropdown-item.dark {
-    background-color: #545454;
-}
-
-.dropdown-item.dark:focus {
-    background-color: #323232;
-}

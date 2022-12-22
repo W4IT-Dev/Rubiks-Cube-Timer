@@ -72,17 +72,9 @@ td.light {
 }
 
 td.light:focus {
-    background-color: #ddd;
+    background-color: #c5c3c3;
 }
 
 .divider>.line.light {
     background-color: #171717;
-}
-
-.dropdown-item.light {
-    background-color: #ebe8e8;
-}
-
-.dropdown-item.light:focus {
-    background-color: #bfbfbf;
 }

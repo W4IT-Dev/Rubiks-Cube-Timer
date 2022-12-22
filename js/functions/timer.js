@@ -23,11 +23,11 @@ function startTimer() {
     time = setInterval(() => {
         timeIn100MS++;
         first.innerHTML++;
-        if (first.innerHTML == 9) return firstsecond.innerHTML++, first.innerHTML = 0;
+        if (first.innerHTML == 10) firstsecond.innerHTML++, first.innerHTML = 0;
 
-        if (firstsecond.innerHTML == 9) return tensecond.innerHTML++, firstsecond.innerHTML = 0;
+        if (firstsecond.innerHTML == 10) firstsecond.innerHTML = 0, tensecond.innerHTML++
 
-        if (tensecond.innerHTML == 6) return document.querySelector('.point').innerHTML = ':', minutes.innerHTML++, tensecond.innerHTML = 0, firstsecond.innerHTML = 0;
+        if (tensecond.innerHTML == 6) document.querySelector('.point').innerHTML = ':', minutes.innerHTML++, tensecond.innerHTML = 0, firstsecond.innerHTML = 0;
     }, 100)
 }
 
