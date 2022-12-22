@@ -1,7 +1,5 @@
-// === KEY DOWN ===
-document.addEventListener('keydown', handleKeydown);
-
 document.addEventListener("keydown", e => {
+    handleKeydown(e);
     if (loadScreen.style.display == 'none' && !spacedown) {
         // === STOP TIME ===
         if (timing) {
@@ -19,7 +17,7 @@ document.addEventListener("keydown", e => {
                 comment.style.opacity = 1;
             }
             //Add DNF
-            if (e.key == 'SoftLeft') return clearTimeout(bacjankdakhkdakdiuadkkj), allTimes[0].status = 'DNF', canChange = false, showToast('Changed Status to DNF  ', 2000), setSoftkey({
+            if (e.key == 'SoftLeft') return clearTimeout(bacjankdakhkdakdiuadkkj), sessions[activeSession.index].times[0].status = 'DNF', canChange = false, showToast('Changed Status to DNF  ', 2000), setSoftkey({
                 left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
                 middle: 'Session',
                 right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
@@ -31,22 +29,21 @@ document.addEventListener("keydown", e => {
                 right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
             });
             //Add +2
-            if (e.key == 'SoftRight') return clearTimeout(bacjankdakhkdakdiuadkkj), allTimes[0].status = '+2', canChange = false, showToast('Changed Status to +2', 2000), setSoftkey({
+            if (e.key == 'SoftRight') return clearTimeout(bacjankdakhkdakdiuadkkj), sessions[activeSession.index].times[0].status = '+2', canChange = false, showToast('Changed Status to +2', 2000), setSoftkey({
                 left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
                 middle: 'Session',
                 right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
             });
-
         }
         // ==== ENTER ====
         if (e.key == 'Enter') {
             // ==== ADD COMMENT ====
             if (document.activeElement.id == 'comment') {
                 document.activeElement.style.opacity = 0;
-                allTimes[0].comment = document.activeElement.value;
+                sessions[activeSession.index].times[0].comment = document.activeElement.value;
                 document.activeElement.value = "";
                 document.activeElement.blur();
-                localStorage['allTimes'] = JSON.stringify(allTimes);
+                localStorage['sessions'] = JSON.stringify(sessions);
                 showToast('Added Comment', 2000);
                 return;
             }
@@ -64,9 +61,34 @@ document.addEventListener("keydown", e => {
                 return
             }
             if (session.style.display == 'block' && editTime.style.display == 'none' && document.activeElement !== sessionSelectDiv) {
-                if (document.activeElement.classList.contains('dropdown-item') && document.activeElement.id !== 'sessionSelectDiv' && document.activeElement.id !== 'newSessionInput') {
-                    activeSession = document.activeElement.innerText;
-                    console.log(activeSession)
+                if (document.activeElement.id == 'newsessioninput') {
+                    sessions.push({
+                        name: document.querySelector('#newsessioninput').value,
+                        times: []
+                    });
+                    activeSession.name = document.querySelector('#newsessioninput').value;
+                    activeSession.index = sessions.map(function (e) { return e.name; }).indexOf(activeSession.name);
+                    loadTable();
+                    document.querySelector('#newsessioninput').value = '';
+                    loadSessions();
+                    document.querySelectorAll('.td')[0].focus();
+                    document.getElementById("myDropdown").classList.toggle("showing");
+                    selectopened = false;
+                    document.querySelector('#sessionSelectDiv').innerHTML = `${activeSession.name}<span
+                        class="material-icons">
+                        expand_more
+                    </span>`;
+                    showToast('Added Session', 1500)
+                    localStorage['sessions'] = JSON.stringify(sessions);
+                    return;
+                }
+                if (document.activeElement.classList.contains('notinput')) {
+                    activeSession.name = document.activeElement.innerText;
+                    activeSession.index = sessions.map(function (e) { return e.name; }).indexOf(activeSession.name);
+                    document.querySelector('#sessionSelectDiv').innerHTML = `${activeSession.name}<span
+                        class="material-icons">
+                        expand_more
+                    </span>`;
                 }
                 if (document.activeElement.classList.contains('td')) {
                     lastFocused = document.activeElement;
@@ -91,13 +113,12 @@ document.addEventListener("keydown", e => {
         }
         // ==== SOFTLEFT ====
         if (e.key == 'SoftLeft') {
-            if (editTime.style.display == 'block') return console.log('NOOO'), editTime.style.display = 'none', setSoftkey({
+            if (editTime.style.display == 'block') return editTime.style.display = 'none', setSoftkey({
                 left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
                 middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">edit</i>',
                 right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
             }), lastFocused.focus();
             if (session.style.display == 'block') {
-                console.log('YOYYOIYO')
                 session.style.display = 'none';
                 document.activeElement.blur();
                 setSoftkey({

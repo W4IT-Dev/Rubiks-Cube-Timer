@@ -15,17 +15,9 @@ let sessions = [
     {
         name: "Session 1",
         times: []
-    },
-    {
-        name: "5x5",
-        times: []
-    },
-    {
-        name: "3x3",
-        times: []
     }
 ];
-let activeSession = "Session 1"
+let activeSession = { name: "Session 1", index: 0 };
 let allTimes = [];
 let Ao5 = {
     current: 0,
@@ -47,7 +39,8 @@ let Ao12 = {
     ao12: document.querySelector('#ao12')
 };
 
-let everydrpdwnitm = document.querySelectorAll('.dropdown-item');
+let everydrpdwnitm = document.querySelectorAll('.notinput');
+let everytd = document.querySelectorAll('td')
 let allelem = document.querySelectorAll('#resetButton, #resetSession, .dropdown-item, .dropbtn #comment, .scramble, #scramble, .setting, select, input, #timerBox, body, #settings, #softkeys, #session, td, th, #sessions, #divider, .line');
 
 let settingsOpened = false;

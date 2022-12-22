@@ -33,8 +33,10 @@ allSelectElems.forEach(function (elem) {
 });
 
 reset.addEventListener('click', () => {
-    allTimes = [];
-    localStorage['allTimes'] = JSON.stringify(allTimes);
+    a = confirm("Are you sure you wan't to delete this session's times?\nThis can NOT be undone.");
+    if (!a) return
+    sessions[activeSession.index].times = [];
+    localStorage['sessions'] = JSON.stringify(sessions);
     showToast('Deleted', 1000), loadTable();
 });
 
@@ -43,7 +45,7 @@ window.addEventListener('error', e => {
     console.error(e)
 })
 
-document.querySelectorAll('.dropdown-item')[0].addEventListener('focus', () => {
+document.querySelector('.dropdown-item').addEventListener('focus', () => {
     if (selectopened) { e = 'expand_less' } else { e = 'expand_more' };
     setSoftkey({
         left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
@@ -52,10 +54,23 @@ document.querySelectorAll('.dropdown-item')[0].addEventListener('focus', () => {
     });
 });
 
-document.querySelectorAll('.dropdown-item')[1].addEventListener('focus', () => {
-    setSoftkey({
-        left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
-        middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">check</i>',
-        right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">delete</i>'
+
+everydrpdwnitm.forEach((item) => {
+    item.addEventListener('focus', () => {
+        setSoftkey({
+            left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
+            middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">check</i>',
+            right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">delete</i>'
+        });
+    });
+});
+
+everytd.forEach((item) => {
+    item.addEventListener('focus', () => {
+        setSoftkey({
+            left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
+            middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">edit</i>',
+            right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">delete</i>'
+        });
     });
 });

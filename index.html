@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="/css/dark.css">
     <link rel="stylesheet" href="/css/light.css">
     <script src="/js/variables.js" defer></script>
-    <script src="/js/functions.js" defer></script>
+    <script src="/js/functions/functions.js" defer></script>
+    <script src="/js/functions/timer.js" defer></script>
     <script src="/js/eventListener/keyEvents/key.js" defer></script>
     <script src="/js/eventListener/other events/eventListeners.js" defer></script>
     <script src="/js/script.js" defer></script>
@@ -67,15 +68,11 @@
     <div id="session" class="dark">
         <div style="margin-top: 7px; display: flex; justify-content: center;">
             <div tabindex="1">
-                <button id="sessionSelectDiv" onclick="myFunction()" class="dropdown-item dropbtn dark ">Session 1<span
+                <button id="sessionSelectDiv" onclick="openDropdown()" class="dropdown-item dropbtn dark ">Session 1<span
                         class="material-icons">
                         expand_more
                     </span></button>
                 <div id="myDropdown" class="dropdown-content">
-                    <div tabindex="1" class="dropdown-item dark">Session 1</div>
-                    <div tabindex="1" class="dropdown-item dark">Session 2</div>
-                    <div tabindex="1" class="dropdown-item dark">Session 3</div>
-                    <input id="newSessionInput" class="dropdown-item dark" placeholder="Add new session">
                 </div>
             </div>
 
@@ -100,16 +97,7 @@
                 <td class="dark" id="ao12best">0.0</td>
             </tr>
         </table>
-        <table id="timestable">
-            <tr>
-                <th class="dark">Time</th>
-                <th class="dark">Status</th>
-            </tr>
-            <tr>
-                <td class="td dark">Begin timing</td>
-                <td class="dark">none</td>
-            </tr>
-        </table>
+        <table id="timestable"></table>
     </div>
     <div id="settings" class="dark">
         <h1 style="border-bottom: 2px #888 solid;">Settings</h1>
@@ -217,9 +205,7 @@
             <span class="material-icons"
                 style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</span>
         </div>
-
         <div id="softMiddle">Session</div>
-
         <div id="softRight"><span class="material-icons"
                 style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</span></div>
     </footer>

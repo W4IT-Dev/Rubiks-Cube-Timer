@@ -72,7 +72,7 @@ td.light {
 }
 
 td.light:focus {
-    background-color: #ccc;
+    background-color: #ddd;
 }
 
 .divider>.line.light {

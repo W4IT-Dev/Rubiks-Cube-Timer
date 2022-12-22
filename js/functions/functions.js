@@ -1,77 +1,3 @@
-function start() {
-    if (ready) return timer.style.color = '', startTimer();
-
-    if (!spacedown) return timer.style.color = '';
-
-    if (spacedown) timer.style.color = 'red';
-
-    waitToStart = setTimeout(() => {
-        ready = true;
-        timer.style.color = 'green';
-        Ao5.ao5.style.display = 'none', Ao12.ao12.style.display = 'none';
-        scrambleOnDom.style.display = 'none', setSoftkey({ left: '', middle: '', right: '', });
-        minutes.innerHTML = '', document.querySelector('.point').innerHTML = '', tensecond.innerHTML = '';
-        firstsecond.innerHTML = 0, first.innerHTML = 0;
-    }, 550)
-}
-
-function startTimer() {
-    // document.querySelector('.ad').style.display = 'block';
-    // document.querySelectorAll('.ad')[1].style.display = 'block';
-    timing = true;
-    timeIn100MS = 0;
-    time = setInterval(() => {
-        timeIn100MS++;
-        first.innerHTML++;
-        if (first.innerHTML == 9) return firstsecond.innerHTML++, first.innerHTML = 0;
-
-        if (firstsecond.innerHTML == 9) return tensecond.innerHTML++, firstsecond.innerHTML = 0;
-
-        if (tensecond.innerHTML == 6) return document.querySelector('.point').innerHTML = ':', minutes.innerHTML++, tensecond.innerHTML = 0, firstsecond.innerHTML = 0;
-    }, 100)
-}
-
-function stop() {//stop timer
-    clearInterval(time);
-    timing = false;
-    allTimes.unshift({
-        time: timer.innerText.replace(/\s/g, ''),
-        timeInMS: timeIn100MS,
-        scramble: document.querySelector('#scramble').innerText,
-        status: '-',
-        comment: ''
-    });
-    if (allTimes.length >= 5) {
-        calcAo5();
-    }
-    if (allTimes.length >= 12) {
-        calcAo12();
-    }
-    getScramble();
-    Ao5.ao5.style.display = 'block';
-    Ao12.ao12.style.display = 'block';
-    document.querySelector('.scramble').style.display = 'block';
-    // document.querySelector('.ad').style.display = 'none';
-    // document.querySelectorAll('.ad')[1].style.display = 'none';
-    canChange = true;
-    setSoftkey({
-        left: 'DNF',
-        middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">check</i>',
-        right: '+2'
-    });
-    bacjankdakhkdakdiuadkkj = setTimeout(() => {
-        canChange = false;
-        if (!settingsOpened && session.style.display == 'none') {
-            setSoftkey({
-                left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
-                middle: 'Session',
-                right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
-            });
-        }
-    }, 1500);
-    localStorage['allTimes'] = JSON.stringify(allTimes);
-}
-
 function getScramble() {
     var last = "";
     var scramble = "";
@@ -104,6 +30,8 @@ function handleKeydown(e) {
                 nav(-1, "." + document.activeElement.classList[0]);
             }
             break;
+
+
         case 'ArrowDown':
             if (document.activeElement == sessionSelectDiv || document.activeElement == document.querySelector('#resetSession')) {
                 if (!selectopened) document.querySelectorAll('.td')[0].focus();
@@ -114,9 +42,12 @@ function handleKeydown(e) {
                 nav(1, "." + document.activeElement.classList[0]);
             }
             break;
+
+
         case 'ArrowRight':
-            if (document.activeElement == sessionSelectDiv) document.querySelector('#resetSession').focus();
+            if (document.activeElement == sessionSelectDiv && !selectopened) document.querySelector('#resetSession').focus();
             break;
+
         case 'ArrowLeft':
             if (document.activeElement == document.querySelector('#resetSession')) sessionSelectDiv.focus();
             break;
@@ -212,6 +143,7 @@ function getStoredData() {
     }
     if (localStorage.scrambleSizeInput) scrambleSizeInput.value = localStorage.scrambleSizeInput;
     if (localStorage.allTimes) allTimes = JSON.parse(localStorage['allTimes']);
+    if (localStorage.sessions) sessions = JSON.parse(localStorage['sessions']);
     if (allTimes.length >= 5) calcAo5();
     if (allTimes.length >= 12) calcAo12();
 }
@@ -229,67 +161,44 @@ function showToast(text, time) {//thanks cyan
 }
 
 function loadTable() {
-    if (allTimes.length == 0) {//TODO make dark a variable so you can do this `${darkyesorno}`
-        if (localStorage.getItem('darkmode') == 'true') {
-            document.getElementById("timestable").innerHTML = `
+    if (localStorage.getItem('darkmode') == 'true') { e = 'dark' } else { e = 'light' }
+    if (sessions[activeSession.index].times.length == 0) {
+        document.getElementById("timestable").innerHTML = `
             <tr>
-                <th class="dark">Time</th>
-                <th class="dark">Status</th>
+                <th class="${e}">Time</th>
+                <th class="${e}">Status</th>
             </tr>
             <tr>
-                <td class="td dark" tabindex="0">Begin timing</td>
-                <td class="dark">-</td>
+                <td class="td ${e}" tabindex="0">Begin timing</td> 
+                <td class="${e}">-</td>
             </tr>`
-        } else if (localStorage.getItem('darkmode') == 'false') {
-            document.getElementById("timestable").innerHTML = `
-            <tr>
-                <th class="light">Time</th>
-                <th class="light">Status</th>
-            </tr>
-            <tr>
-                <td class="td light" tabindex="0">Begin timing</td>
-                <td class="light">-</td>
-            </tr>`
-        }
-    } else {
-        if (localStorage.getItem('darkmode') == 'true') {
-            document.getElementById("timestable").innerHTML = `
-            <tr>
-                <th class="dark">Time</th>
-                <th class="dark">Status</th>
-            </tr>`
-        } else if (localStorage.getItem('darkmode') == 'false') {
-            document.getElementById("timestable").innerHTML = `
-            <tr>
-                <th class="light">Time</th>
-                <th class="light">Status</th>
-            </tr>`
-        }
+        return
     }
-    for (let i = 0; i < allTimes.length; i++) {
-        var table = document.getElementById("timestable");
-        var row = table.insertRow(-1);
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-        var cell3 = row.insertCell(2);
-        var cell4 = row.insertCell(3);
+    document.getElementById("timestable").innerHTML = `
+            <tr>
+                <th class="${e}">Time</th>
+                <th class="${e}">Status</th>
+            </tr>`
+
+    for (let i = 0; i < sessions[activeSession.index].times.length; i++) {
+        table = document.getElementById("timestable");
+        row = table.insertRow(-1);
+        cell1 = row.insertCell(0);
+        cell2 = row.insertCell(1);
+        cell3 = row.insertCell(2);
+        cell4 = row.insertCell(3);
         row.id = i;
         cell1.tabIndex = i;
         cell3.classList.add('invisTd');
         cell4.classList.add('invisTd');
 
-        if (localStorage.getItem('darkmode') == 'true') {
-            cell1.classList.add("td", "dark");
-            cell2.classList.add('dark')
-        } else if (localStorage.getItem('darkmode') == 'false') {
-            cell1.classList.add("td", "light");
-            cell2.classList.add('light')
-        }
+        cell1.classList.add("td", e);
+        cell2.classList.add(e)
 
-        cell1.innerHTML = allTimes[i].time;
-        cell2.innerHTML = allTimes[i].status;
-        cell3.innerHTML = allTimes[i].scramble;
-        cell4.innerHTML = allTimes[i].comment;
+        cell1.innerHTML = sessions[activeSession.index].times[i].time;
+        cell2.innerHTML = sessions[activeSession.index].times[i].status;
+        cell3.innerHTML = sessions[activeSession.index].times[i].scramble;
+        cell4.innerHTML = sessions[activeSession.index].times[i].comment;
     }
 }
 
@@ -405,7 +314,7 @@ function convert($time) {
 }
 
 function calcAo5() {
-    times = allTimes.slice(0, 5);
+    times = sessions[activeSession.index].times.slice(0, 5);
     let Ao5times = [];
     for (let i = 0; i < times.length; i++) {
         Ao5times.push(times[i].timeInMS)
@@ -429,7 +338,7 @@ function addAo5(time, timeinMS) {
 }
 
 function calcAo12() {
-    times = allTimes.slice(0, 12);
+    times = sessions[activeSession.index].times.slice(0, 12);
     let Ao12times = [];
     for (let i = 0; i < times.length; i++) {
         Ao12times.push(times[i].timeInMS)
@@ -591,29 +500,33 @@ function setPuzzleType() {
 
 function loadSessions() {
     document.querySelector('#myDropdown').innerHTML = ''
-    sessions.forEach(function (session) {
-        
-        document.querySelector('#myDropdown').innerHTML += `<div tabindex="1" class="dropdown-item dark">${session.name}</div>`
+    sessions.forEach((session) => {
+        document.querySelector('#myDropdown').innerHTML += `<div tabindex="1" class="dropdown-item notinput dark">${session.name}</div>`
     });
-    document.querySelector('#myDropdown').innerHTML += '<input class="dropdown-item dark" placeholder="Add new session">'
+    document.querySelector('#myDropdown').innerHTML += '<input id="newsessioninput" class="dropdown-item dark" placeholder="Add session">'
 }
 
 function selectSession() {
     activeSession = document.activeElement.innerText;
     console.log(activeSession)
-    // console.log(sessions[sessions.indexOf({name: activeSession})])
     a = sessions.map(object => object.name).indexOf('5x5')
     console.log(a)
 }
 
-function myFunction() {
+function openDropdown() {
     document.getElementById("myDropdown").classList.toggle("showing");
     selectopened = !selectopened;
-    if (selectopened) { e = 'expand_less'; loadSessions(); } else { e = 'expand_more' };
-    document.querySelectorAll('.dropdown-item')[1].focus();
-    setSoftkey({
-        left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
-        middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">' + e + '</i>',
-        right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">delete</i>'
-    });
+    if (selectopened) {
+        e = 'expand_less'; loadSessions(); setSoftkey({
+            left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
+            middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">' + e + '</i>',
+            right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">delete</i>'
+        });
+    } else {
+        e = 'expand_more'; setSoftkey({
+            left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
+            middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">' + e + '</i>',
+            right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">delete</i>'
+        });
+    };
 }
