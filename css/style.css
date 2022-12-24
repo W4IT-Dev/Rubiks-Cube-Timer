@@ -407,6 +407,8 @@ th {
     display: flex;
 }
 
+
+
 .dropdown-content {
     display: none;
     position: absolute;
@@ -423,6 +425,8 @@ th {
     padding: 10px;
     height: 15px;
     display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .dropdown-item:focus {
@@ -437,8 +441,15 @@ th {
     position: relative;
     padding: 1px;
     height: 27px;
+    width: 90px;
+    text-align: left;
     font-size: 16px;
     margin-right: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
     display: flex;
-    align-items: center;
+}
+
+#newsessioninput {
+    width: 100px;
 }

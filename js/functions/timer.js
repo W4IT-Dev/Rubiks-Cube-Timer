@@ -31,16 +31,9 @@ function startTimer() {
     }, 100)
 }
 
-function stop() {//stop timer
+function stop() {
     clearInterval(time);
     timing = false;
-    allTimes.unshift({
-        time: timer.innerText.replace(/\s/g, ''),
-        timeInMS: timeIn100MS,
-        scramble: document.querySelector('#scramble').innerText,
-        status: '-',
-        comment: ''
-    });
     sessions[activeSession.index].times.unshift({
         time: timer.innerText.replace(/\s/g, ''),
         timeInMS: timeIn100MS,
@@ -48,7 +41,6 @@ function stop() {//stop timer
         status: '-',
         comment: ''
     });
-    console.log(sessions)
     if (sessions[activeSession.index].times.length >= 5) {
         calcAo5();
     }

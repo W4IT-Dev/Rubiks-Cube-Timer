@@ -4,6 +4,10 @@
     color: #fefefe;
 }
 
+.dark:focus {
+    background-color: #151515;
+}
+
 #session.dark {
     background-color: #333;
     color: #fefefe;
@@ -59,4 +63,11 @@
 
 #timestable td.dark:focus {
     background-color: #545454;
+}
+
+.dropdown-item.dark {
+    background-color: #333;
+}
+.dropdown-item.dark:focus {
+    background-color: #252525;
 }

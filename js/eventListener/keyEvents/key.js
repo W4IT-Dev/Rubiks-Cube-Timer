@@ -35,167 +35,44 @@ document.addEventListener("keydown", e => {
                 right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
             });
         }
-        // ==== ENTER ====
-        if (e.key == 'Enter') {
-            // ==== ADD COMMENT ====
-            if (document.activeElement.id == 'comment') {
-                document.activeElement.style.opacity = 0;
-                sessions[activeSession.index].times[0].comment = document.activeElement.value;
-                document.activeElement.value = "";
-                document.activeElement.blur();
-                localStorage['sessions'] = JSON.stringify(sessions);
-                showToast('Added Comment', 2000);
-                return;
-            }
-
-            if (settingsOpened) return select();
-            if (session.style.display == 'none') {
-                session.style.display = 'block';
-                loadTable();
-                document.querySelectorAll('.td')[0].focus();
-                setSoftkey({
-                    left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
-                    middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">edit</i>',
-                    right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
-                });
-                return
-            }
-            if (session.style.display == 'block' && editTime.style.display == 'none' && document.activeElement !== sessionSelectDiv) {
-                if (document.activeElement.id == 'newsessioninput') {
-                    sessions.push({
-                        name: document.querySelector('#newsessioninput').value,
-                        times: []
-                    });
-                    activeSession.name = document.querySelector('#newsessioninput').value;
-                    activeSession.index = sessions.map(function (e) { return e.name; }).indexOf(activeSession.name);
-                    loadTable();
-                    document.querySelector('#newsessioninput').value = '';
-                    loadSessions();
-                    document.querySelectorAll('.td')[0].focus();
-                    document.getElementById("myDropdown").classList.toggle("showing");
-                    selectopened = false;
-                    document.querySelector('#sessionSelectDiv').innerHTML = `${activeSession.name}<span
-                        class="material-icons">
-                        expand_more
-                    </span>`;
-                    showToast('Added Session', 1500)
-                    localStorage['sessions'] = JSON.stringify(sessions);
-                    return;
-                }
-                if (document.activeElement.classList.contains('notinput')) {
-                    activeSession.name = document.activeElement.innerText;
-                    activeSession.index = sessions.map(function (e) { return e.name; }).indexOf(activeSession.name);
-                    document.querySelector('#sessionSelectDiv').innerHTML = `${activeSession.name}<span
-                        class="material-icons">
-                        expand_more
-                    </span>`;
-                }
-                if (document.activeElement.classList.contains('td')) {
-                    lastFocused = document.activeElement;
-                    editTimeTime.innerHTML = `Time: ${document.activeElement.parentElement.firstChild.innerText}`
-                    editTimeStatus.innerHTML = `Status: ${document.activeElement.parentElement.children[1].innerText}`
-                    editTimeScramble.innerHTML = `Scramble: <br> ${document.activeElement.parentElement.children[2].innerText}`
-                    editTimeComment.value = document.activeElement.parentElement.children[3].innerText;
-                    editTime.style.display = 'block';
-                    editTimeTime.focus();
+        
+        if (!timing) {
+            if (e.key == 'ArrowDown' || e.key == 'ArrowUp') {
+                if (document.activeElement == editTimeTime || document.activeElement == editTimeScramble) {
                     setSoftkey({
                         left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
                         middle: '',
                         right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
                     });
                 }
-                if (document.activeElement = editTimeScramble) {
-                    if (editTimeScramble.style.maxHeight == '90px') return editTimeScramble.style.maxHeight = "1000px", editTimeScramble.style.overflow = 'visible';
-                    editTimeScramble.style.maxHeight = '90px';
-                    editTimeScramble.style.overflow = 'hidden'
+                if (document.activeElement == editTimeStatus) {
+                    setSoftkey({
+                        left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
+                        middle: 'Select',
+                        right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
+                    });
                 }
             }
-        }
-        // ==== SOFTLEFT ====
-        if (e.key == 'SoftLeft') {
-            if (editTime.style.display == 'block') return editTime.style.display = 'none', setSoftkey({
-                left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
-                middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">edit</i>',
-                right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
-            }), lastFocused.focus();
-            if (session.style.display == 'block') {
-                session.style.display = 'none';
-                document.activeElement.blur();
-                setSoftkey({
-                    left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
-                    middle: 'Session',
-                    right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
-                });
-                return
+            if (settings.style.display == 'none' && session.style.display == 'none') {
+                if (e.key == 'ArrowDown') return scrambleOnDom.style.maxHeight = '280px';
+                scrambleOnDom.style.maxHeight = '100px';
             }
-            if (settings.style.display == 'none') {
-                settings.style.display = 'block';
-                wholeSite.style.filter = 'blur(5px)';
-                startKeyDiv.focus();
-                setSoftkey({
-                    left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2px; left: 2px">arrow_back</i>',
-                    middle: 'Select',
-                    right: '<i class="material-icons" style="font-size: 21px; position: relative; color: #44f;  top: 2px; right: 2px">question_mark</i>'
-                });
-                settingsOpened = true;
-            } else if (settings.style.display == 'block' && startKeyDiv.style.borderWidth !== '1px' && document.activeElement.id !== 'timerSize' && document.activeElement.id !== 'scrambleSizeInput') {
-                settings.style.display = 'none';
-                wholeSite.style.filter = 'none';
-                document.activeElement.blur();
-                searchField.value = '';
-                search();
-                setSoftkey({
-                    left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
-                    middle: 'Session',
-                    right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
-                });
-                settingsOpened = false;
-            }
-        }
-    
-    // ==== SOFTRIGHT ====
-    if (e.key == 'SoftRight') {
-        if (!settingsOpened && session.style.display != 'block') return window.close();
-        if (document.activeElement == timerSize) return timerSize.value = timerSize.value.slice(0, -1);
-        if (settingsOpened) return info();
-    }
-    if (!timing) {
-        if (e.key == 'ArrowDown' || e.key == 'ArrowUp') {
-            if (document.activeElement == editTimeTime || document.activeElement == editTimeScramble) {
-                setSoftkey({
-                    left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
-                    middle: '',
-                    right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
-                });
-            }
-            if (document.activeElement == editTimeStatus) {
-                setSoftkey({
-                    left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
-                    middle: 'Select',
-                    right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
-                });
-            }
-        }
-        if (settings.style.display == 'none' && session.style.display == 'none') {
-            if (e.key == 'ArrowDown') return scrambleOnDom.style.maxHeight = '280px';
-            scrambleOnDom.style.maxHeight = '100px';
-        }
 
-    }
-    //Start Key changing in settings
-    if (startKey.style.borderWidth == '1px') {
-        if (e.key != 'MicrophoneToggle' && e.key != 'Enter' && e.key != 'SoftLeft' && e.key != 'SoftRight' && e.key != 'Backspace' && e.key != 'EndCall') {
-            startKeyName = e.key;
-            startKey.value = e.key;
         }
-        return
+        //Start Key changing in settings
+        if (startKey.style.borderWidth == '1px') {
+            if (e.key != 'MicrophoneToggle' && e.key != 'Enter' && e.key != 'SoftLeft' && e.key != 'SoftRight' && e.key != 'Backspace' && e.key != 'EndCall') {
+                startKeyName = e.key;
+                startKey.value = e.key;
+            }
+            return
+        }
+        //Timing
+        if (e.key === startKeyName && document.activeElement == document.body) {
+            spacedown = true;
+            start();
+        }
     }
-    //Timing
-    if (e.key === startKeyName && document.activeElement == document.body) {
-        spacedown = true;
-        start();
-    }
-}
 });
 
 // ==== KEY UP ====

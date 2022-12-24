@@ -14,26 +14,43 @@ let canChange = false;
 let sessions = [
     {
         name: "Session 1",
-        times: []
+        times: [],
+        averages: {
+            currents: {
+                single: '-',
+                mo3: '-',
+                ao5: '-',
+                ao12: '-',
+                ms: {
+                    single: '-',
+                    mo3: '-',
+                    ao5: '-',
+                    ao12: '-'
+                }
+            },
+            bests: {
+                single: '-',
+                mo3: '-',
+                ao5: '-',
+                ao12: '-',
+                ms: {
+                    single: '-',
+                    mo3: '-',
+                    ao5: '-',
+                    ao12: '-'
+                }
+            }
+        }
     }
 ];
 let activeSession = { name: "Session 1", index: 0 };
-let allTimes = [];
 let Ao5 = {
-    current: 0,
-    currentMS: 0,
-    best: 0,
-    bestMS: 0,
     ao5current: document.querySelector('#ao5current'),
     ao5best: document.querySelector('#ao5best'),
     ao5: document.querySelector('#ao5')
 };
 
 let Ao12 = {
-    current: 0,
-    currentMS: 0,
-    best: 0,
-    bestMS: 0,
     ao12current: document.querySelector('#ao12current'),
     ao12best: document.querySelector('#ao12best'),
     ao12: document.querySelector('#ao12')

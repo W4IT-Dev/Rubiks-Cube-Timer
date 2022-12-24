@@ -13,6 +13,9 @@
     <script src="/js/variables.js" defer></script>
     <script src="/js/functions/functions.js" defer></script>
     <script src="/js/functions/timer.js" defer></script>
+    <script src="/js/eventListener/keyEvents/enter.js" defer></script>
+    <script src="/js/eventListener/keyEvents/softleft.js" defer></script>
+    <script src="/js/eventListener/keyEvents/softright.js" defer></script>
     <script src="/js/eventListener/keyEvents/key.js" defer></script>
     <script src="/js/eventListener/other events/eventListeners.js" defer></script>
     <script src="/js/script.js" defer></script>
@@ -31,7 +34,9 @@
         <!-- <div class="ad adtop">Ad here</div>
         <div class="ad adbottom">Ad here</div> -->
         <div class='scramble dark'>
-            <p style="font-size: 15px; margin: 0px 0 -10px 0;">Session 1 - 3x3</p>
+            <p style="font-size: 15px; margin: 0px 0 -10px 0;"><span id="sessionname">Session 1</span> - <span
+                    id="puzzleTypename">3x3</span>
+            </p>
             <p tabindex="1" style="margin-bottom: 2px;" class="dark" id="scramble">scramble...</p>
         </div>
 
@@ -45,8 +50,8 @@
                 <h1 id="first">0</h1>
             </span>
             <span id="averages">
-                <p id="ao5">Ao5: 0.00</p>
-                <p id="ao12">Ao12: 0.00</p>
+                <p id="ao5">Ao5: -</p>
+                <p id="ao12">Ao12: -</p>
             </span>
         </div>
         <input id="comment" placeholder="Comment">
@@ -68,8 +73,8 @@
     <div id="session" class="dark">
         <div style="margin-top: 7px; display: flex; justify-content: center;">
             <div tabindex="1">
-                <button id="sessionSelectDiv" onclick="openDropdown()" class="dropdown-item dropbtn dark ">Session 1<span
-                        class="material-icons">
+                <button id="sessionSelectDiv" onclick="openDropdown()" class="dropdown-item dropbtn dark">Session 1<span
+                        class="material-icons" style="float: right;">
                         expand_more
                     </span></button>
                 <div id="myDropdown" class="dropdown-content">
@@ -86,15 +91,20 @@
                 <th class="dark">Current</th>
                 <th class="dark">Best</th>
             </tr>
+            <!-- <tr>
+                <td class="dark">Single</td>
+                <td class="dark" id="singlecurrent">-</td>
+                <td class="dark" id="singlebest">-</td>
+            </tr> -->
             <tr>
                 <td class="dark">Ao5</td>
-                <td class="dark" id="ao5current">0.0</td>
-                <td class="dark" id="ao5best">0.0</td>
+                <td class="dark" id="ao5current">-</td>
+                <td class="dark" id="ao5best">-</td>
             </tr>
             <tr>
                 <td class="dark">Ao12</td>
-                <td class="dark" id="ao12current">0.0</td>
-                <td class="dark" id="ao12best">0.0</td>
+                <td class="dark" id="ao12current">-</td>
+                <td class="dark" id="ao12best">-</td>
             </tr>
         </table>
         <table id="timestable"></table>

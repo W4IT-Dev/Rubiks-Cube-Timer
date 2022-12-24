@@ -4,6 +4,10 @@
     color: #222;
 }
 
+.light:focus {
+    background-color: #d0d0d0;
+}
+
 body.light {
     background-color: #f7f7f7;
 }
@@ -77,4 +81,12 @@ td.light:focus {
 
 .divider>.line.light {
     background-color: #171717;
+}
+
+.dropdown-item.light {
+    background-color: #ebe8e8;
+}
+
+.dropdown-item.light:focus {
+    background-color: #ddd;
 }

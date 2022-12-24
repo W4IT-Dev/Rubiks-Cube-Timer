@@ -19,7 +19,6 @@ function shuffle(o) {
     return o;
 };
 
-//  ====== NAVIGATE & SELECT ======
 function handleKeydown(e) {
     switch (e.key) {
         case 'ArrowUp':
@@ -34,7 +33,7 @@ function handleKeydown(e) {
 
         case 'ArrowDown':
             if (document.activeElement == sessionSelectDiv || document.activeElement == document.querySelector('#resetSession')) {
-                if (!selectopened) document.querySelectorAll('.td')[0].focus();
+                if (!selectopened) document.querySelector('.td').focus();
             }
             if (document.activeElement.classList.contains('setting') || document.activeElement.classList.contains('editTimeItems')) {
                 nav(1, "." + document.activeElement.classList[0] + ".show");
@@ -42,7 +41,6 @@ function handleKeydown(e) {
                 nav(1, "." + document.activeElement.classList[0]);
             }
             break;
-
 
         case 'ArrowRight':
             if (document.activeElement == sessionSelectDiv && !selectopened) document.querySelector('#resetSession').focus();
@@ -104,7 +102,6 @@ function select() {
     if (document.activeElement == addPartDiv) return addPart.checked = !addPart.checked, letItSnow();
 }
 
-// ====== SET ======
 function setSoftkey(object) {
     softLeft.innerHTML = object.left;
     softMiddle.innerHTML = object.middle;
@@ -142,13 +139,13 @@ function getStoredData() {
         if (localStorage.scrambleSize == 'auto') scrambleSizeInputDiv.classList.remove('show', 'nos'), autoFontSize = true, actualScramble.style.fontSize = scrambleFontSize;
     }
     if (localStorage.scrambleSizeInput) scrambleSizeInput.value = localStorage.scrambleSizeInput;
-    if (localStorage.allTimes) allTimes = JSON.parse(localStorage['allTimes']);
     if (localStorage.sessions) sessions = JSON.parse(localStorage['sessions']);
-    if (allTimes.length >= 5) calcAo5();
-    if (allTimes.length >= 12) calcAo12();
+    if (localStorage.activeSession) activeSession = JSON.parse(localStorage['activeSession']);
+    if (sessions[activeSession.index].times.length >= 5) calcAo5();
+    if (sessions[activeSession.index].times.length >= 12) calcAo12();
 }
 
-function showToast(text, time) {//thanks cyan
+function showToast(text, time) {
     document.querySelector(".kui-toast").style.display = "block";
     document.querySelector(".kui-pri").innerHTML = text;
     setTimeout(function () {
@@ -187,12 +184,12 @@ function loadTable() {
         cell2 = row.insertCell(1);
         cell3 = row.insertCell(2);
         cell4 = row.insertCell(3);
-        row.id = i;
-        cell1.tabIndex = i;
+        cell1.tabIndex = 1;
+        cell1.id = i;
         cell3.classList.add('invisTd');
         cell4.classList.add('invisTd');
 
-        cell1.classList.add("td", e);
+        cell1.classList.add("td", "time", e);
         cell2.classList.add(e)
 
         cell1.innerHTML = sessions[activeSession.index].times[i].time;
@@ -270,7 +267,6 @@ function letItSnow() {
                 for (var i = 0; i < snowParticles; i++) {
                     var f = flakes[i];
 
-                    //update the snowflakes coordinates
                     f.y += Math.cos(angle + f.density) + 1 + f.radius / 2;
                     f.x += Math.sin(angle) * 2;
 
@@ -329,14 +325,21 @@ function calcAo5() {
 }
 
 function addAo5(time, timeinMS) {
-    if (Ao5.best == 0) Ao5.best = time, Ao5.bestMS = timeinMS, Ao5.ao5best.innerHTML = Ao5.best;
-    Ao5.current = time;
-    Ao5.currentMS = timeinMS;
-    Ao5.ao5current.innerHTML = Ao5.current;
+    if (sessions[activeSession.index].averages.bests.ao5 == '-') {
+        sessions[activeSession.index].averages.bests.ao5 = time;
+        sessions[activeSession.index].averages.bests.ms.ao5 = timeinMS;
+        Ao5.ao5best.innerHTML = time;
+    }
+    sessions[activeSession.index].averages.currents.ao5 = time;
+    sessions[activeSession.index].averages.currents.ms.ao5 = timeinMS;
+    Ao5.ao5current.innerHTML = time
     Ao5.ao5.innerHTML = `Ao5: ${time}`;
-    if (Ao5.currentMS < Ao5.bestMS) Ao5.bestMS = Ao5.currentMS, Ao5.best = Ao5.current, Ao5.ao5best.innerHTML = Ao5.best;
+    if (sessions[activeSession.index].averages.currents.ms.ao5 < sessions[activeSession.index].averages.bests.ms.ao5) {
+        sessions[activeSession.index].averages.bests.ms.ao5 = timeinMS;
+        sessions[activeSession.index].averages.bests.ao5 = time;
+        Ao5.ao5best.innerHTML = time
+    }
 }
-
 function calcAo12() {
     times = sessions[activeSession.index].times.slice(0, 12);
     let Ao12times = [];
@@ -353,16 +356,20 @@ function calcAo12() {
 }
 
 function addAo12(time, timeinMS) {
-    if (Ao12.best == 0) {
-        Ao12.best = time;
-        Ao12.bestMS = timeinMS;
-        Ao12.ao12best.innerHTML = Ao12.best;
+    if (sessions[activeSession.index].averages.bests.ao12 == '-') {
+        sessions[activeSession.index].averages.bests.ao12 = time;
+        sessions[activeSession.index].averages.bests.ms.ao12 = timeinMS;
+        Ao12.ao12best.innerHTML = time;
     }
-    Ao12.current = time;
-    Ao12.currentMS = timeinMS;
-    Ao12.ao12current.innerHTML = Ao12.current;
+    sessions[activeSession.index].averages.currents.ao12 = time;
+    sessions[activeSession.index].averages.currents.ms.ao12 = timeinMS;
+    Ao12.ao12current.innerHTML = time
     Ao12.ao12.innerHTML = `Ao12: ${time}`;
-    if (Ao12.currentMS < Ao12.bestMS) Ao12.bestMS = Ao12.currentMS, Ao12.best = Ao12.current, Ao12.ao12best.innerHTML = Ao12.best;
+    if (sessions[activeSession.index].averages.currents.ms.ao12 < sessions[activeSession.index].averages.bests.ms.ao12) {
+        sessions[activeSession.index].averages.bests.ms.ao12 = timeinMS;
+        sessions[activeSession.index].averages.bests.ao12 = time;
+        Ao12.ao12best.innerHTML = time;
+    }
 }
 
 function setPuzzleType() {
@@ -499,18 +506,13 @@ function setPuzzleType() {
 }
 
 function loadSessions() {
+    i = 0;
     document.querySelector('#myDropdown').innerHTML = ''
     sessions.forEach((session) => {
-        document.querySelector('#myDropdown').innerHTML += `<div tabindex="1" class="dropdown-item notinput dark">${session.name}</div>`
+        document.querySelector('#myDropdown').innerHTML += `<div tabindex="1" class="dropdown-item notinput dark" id="${i}">${session.name}</div>`
+        i++
     });
     document.querySelector('#myDropdown').innerHTML += '<input id="newsessioninput" class="dropdown-item dark" placeholder="Add session">'
-}
-
-function selectSession() {
-    activeSession = document.activeElement.innerText;
-    console.log(activeSession)
-    a = sessions.map(object => object.name).indexOf('5x5')
-    console.log(a)
 }
 
 function openDropdown() {
@@ -522,6 +524,7 @@ function openDropdown() {
             middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">' + e + '</i>',
             right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">delete</i>'
         });
+        document.querySelector('.notinput').focus();
     } else {
         e = 'expand_more'; setSoftkey({
             left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
