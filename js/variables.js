@@ -11,38 +11,36 @@ let selectopened = false;
 
 let canChange = false;
 
-let sessions = [
-    {
-        name: "Session 1",
-        times: [],
-        averages: {
-            currents: {
+let sessions = [{
+    name: "Session 1",
+    times: [],
+    averages: {
+        currents: {
+            single: '-',
+            mo3: '-',
+            ao5: '-',
+            ao12: '-',
+            ms: {
                 single: '-',
                 mo3: '-',
                 ao5: '-',
-                ao12: '-',
-                ms: {
-                    single: '-',
-                    mo3: '-',
-                    ao5: '-',
-                    ao12: '-'
-                }
-            },
-            bests: {
+                ao12: '-'
+            }
+        },
+        bests: {
+            single: '-',
+            mo3: '-',
+            ao5: '-',
+            ao12: '-',
+            ms: {
                 single: '-',
                 mo3: '-',
                 ao5: '-',
-                ao12: '-',
-                ms: {
-                    single: '-',
-                    mo3: '-',
-                    ao5: '-',
-                    ao12: '-'
-                }
+                ao12: '-'
             }
         }
     }
-];
+}];
 let activeSession = { name: "Session 1", index: 0 };
 let Ao5 = {
     ao5current: document.querySelector('#ao5current'),

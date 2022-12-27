@@ -5,6 +5,10 @@ body {
     justify-content: center;
     align-items: center;
 }
+@font-face {
+    font-family: Digital2;
+    src: url(/digital-7.regular.ttf);
+}
 
 /* Ads */
 .ad {
@@ -42,6 +46,7 @@ body {
     top: 50%;
     display: flex;
     justify-content: space-between;
+    /* font-family: Digital2; */
     font-family: 'Orbitron';
     font-size: 16px;
     transform: translate(-50%, -50%);
@@ -230,8 +235,9 @@ input:checked+.slider:before {
 
 .kui-toast {
     animation: toaster 0.48s;
-    height: 42px;
-    line-height: 42px;
+    height: auto;
+    padding: 4px;
+    line-height: 25px;
     color: #fff;
     text-align: center;
     background-color: rgba(50, 50, 50, 0.99);

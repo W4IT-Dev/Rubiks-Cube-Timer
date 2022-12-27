@@ -3,11 +3,11 @@ document.addEventListener('keydown', e => {
         if (!settingsOpened && session.style.display != 'block') return window.close();
         if (document.activeElement == timerSize) return timerSize.value = timerSize.value.slice(0, -1);
         if (settingsOpened) return info();
-        if (document.getElementById('myDropdown').classList.contains('showing')) {
+        if (document.activeElement.classList.contains('notinput')) {
             if (sessions.length == 1) return alert("You can't delelte the last session!");
             a = confirm('Are you sure you want to delelte this session?');
             if (a) sessions.splice(document.activeElement.id, 1);
-            localStorage['sessions'] = JSON.stringify(sessions);
+            localStorage.sessions = JSON.stringify(sessions);
             activeSession.index = 0;
             activeSession.name = sessions[0].name;
             document.querySelector('#sessionSelectDiv').innerHTML = `${activeSession.name}<span
@@ -21,8 +21,7 @@ document.addEventListener('keydown', e => {
             return
         }
         if (session.style.display == 'block' && document.activeElement.classList.contains('time')) { 
-            a = confirm('Are you sure you want to delelte this session?');
-            
+            a = confirm('Are you sure you want to delete this session?');
             if (a) sessions[activeSession.index].times.splice(document.activeElement.id, 1);
             loadTable();
             document.querySelector('.td').focus();

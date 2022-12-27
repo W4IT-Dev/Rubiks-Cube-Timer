@@ -69,5 +69,5 @@ function stop() {
             });
         }
     }, 1500);
-    localStorage['sessions'] = JSON.stringify(sessions);
+    localStorage.sessions = JSON.stringify(sessions);
 }

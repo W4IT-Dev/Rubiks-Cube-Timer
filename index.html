@@ -73,11 +73,12 @@
     <div id="session" class="dark">
         <div style="margin-top: 7px; display: flex; justify-content: center;">
             <div tabindex="1">
-                <button id="sessionSelectDiv" onclick="openDropdown()" class="dropdown-item dropbtn dark">Session 1<span
+                <button id="sessionSelectDiv" onclick="openDropdown()" class="dropdown-item dropbtn dark">Session 1<i
                         class="material-icons" style="float: right;">
                         expand_more
-                    </span></button>
+                    </i></button>
                 <div id="myDropdown" class="dropdown-content">
+                    <input id="newsessioninput" class="dropdown-item dark" placeholder="Add session">
                 </div>
             </div>
 
@@ -152,10 +153,10 @@
         <div tabindex='1' class="setting nos show dark" id="timerFontDiv">
             <label for="timerFont">Timer Font:</label>
             <select name="timerFont" id="timerFont">
-                <option value="2x2">Arial</option>
-                <option value="3x3" selected>Digital 1</option>
-                <option value="4x4">Digital 2</option>
-                <option value="5x5">Digital 3</option>
+                <option value="Arial">Arial</option>
+                <option value="Orbitron" selected>Orbitron</option>
+                <option value="Digital2">Digital 2</option>
+                <option value="Digital 3">Digital 3</option>
             </select>
         </div>
 

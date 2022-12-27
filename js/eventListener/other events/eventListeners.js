@@ -2,6 +2,11 @@ puzzleTypeSelector.addEventListener('change', () => {
     setPuzzleType();
 });
 
+timerFontSelector.addEventListener('change', () => {
+    timer.style.fontFamily = timerFontSelector.value;
+    if (timerFontSelector.value == 'Digital2') timer.style.fontSize += 10;
+});
+
 document.getElementById('timerSize').addEventListener('input', () => {
     timer.style.fontSize = document.getElementById('timerSize').value + 'px';
     localStorage['timerSize'] = document.getElementById('timerSize').value;
@@ -33,10 +38,10 @@ allSelectElems.forEach(function (elem) {
 });
 
 reset.addEventListener('click', () => {
-    a = confirm("Are you sure you wan't to delete this session's times?\nThis can NOT be undone.");
+    a = confirm("Are you sure you wan't to delete this session's times?");
     if (!a) return
     sessions[activeSession.index].times = [];
-    localStorage['sessions'] = JSON.stringify(sessions);
+    localStorage.sessions = JSON.stringify(sessions);
     showToast('Deleted', 1000), loadTable();
 });
 
@@ -54,23 +59,10 @@ document.querySelector('.dropdown-item').addEventListener('focus', () => {
     });
 });
 
-
-everydrpdwnitm.forEach((item) => {
-    item.addEventListener('focus', () => {
-        setSoftkey({
-            left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
-            middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">check</i>',
-            right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">delete</i>'
-        });
-    });
-});
-
-everytd.forEach((item) => {
-    item.addEventListener('focus', () => {
-        setSoftkey({
-            left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
-            middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">edit</i>',
-            right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">delete</i>'
-        });
+document.querySelector('#newsessioninput').addEventListener('focus', () => {
+    setSoftkey({
+        left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
+        middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">add</i>',
+        right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">delete</i>'
     });
 });

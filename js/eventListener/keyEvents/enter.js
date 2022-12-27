@@ -6,7 +6,7 @@ document.addEventListener('keydown', e => {
             sessions[activeSession.index].times[0].comment = document.activeElement.value;
             document.activeElement.value = "";
             document.activeElement.blur();
-            localStorage['sessions'] = JSON.stringify(sessions);
+            localStorage.sessions = JSON.stringify(sessions);
             showToast('Added Comment', 2000);
             return;
         }
@@ -25,6 +25,7 @@ document.addEventListener('keydown', e => {
         }
         if (session.style.display == 'block' && editTime.style.display == 'none' && document.activeElement !== sessionSelectDiv) {
             if (document.activeElement.id == 'newsessioninput') {
+                if (!document.activeElement.value) return showToast('Please input a name for the session', 1750);
                 sessions.push({
                     name: document.querySelector('#newsessioninput').value,
                     times: [],
@@ -58,7 +59,7 @@ document.addEventListener('keydown', e => {
 
                 activeSession.name = document.querySelector('#newsessioninput').value;
                 activeSession.index = sessions.map(function (e) { return e.name; }).indexOf(activeSession.name);
-                localStorage['activeSession'] = JSON.stringify(activeSession);
+                localStorage.activeSession = JSON.stringify(activeSession);
                 loadTable();
                 document.querySelector('#newsessioninput').value = '';
                 loadSessions();
@@ -71,13 +72,13 @@ document.addEventListener('keydown', e => {
                     </span>`;
                 document.querySelector('#sessionname').innerText = activeSession.name;
                 showToast('Added Session', 1500)
-                localStorage['sessions'] = JSON.stringify(sessions);
+                localStorage.sessions = JSON.stringify(sessions);
                 return;
             }
             if (document.activeElement.classList.contains('notinput')) {
                 activeSession.name = document.activeElement.innerText;
                 activeSession.index = sessions.map(function (e) { return e.name; }).indexOf(activeSession.name);
-                localStorage['activeSession'] = JSON.stringify(activeSession);
+                localStorage.activeSession = JSON.stringify(activeSession);
                 document.querySelector('#sessionSelectDiv').innerHTML = `${activeSession.name}<span
                         class="material-icons" >
                         expand_more
