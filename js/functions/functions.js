@@ -323,7 +323,6 @@ function calcAo5() {
     Ao5converted = convert(Ao5inMS);
     addAo5(Ao5converted, Ao5inMS)
 }
-
 function addAo5(time, timeinMS) {
     if (sessions[activeSession.index].averages.bests.ao5 == '-') {
         sessions[activeSession.index].averages.bests.ao5 = time;
@@ -340,6 +339,7 @@ function addAo5(time, timeinMS) {
         Ao5.ao5best.innerHTML = time
     }
 }
+
 function calcAo12() {
     times = sessions[activeSession.index].times.slice(0, 12);
     let Ao12times = [];
@@ -354,7 +354,6 @@ function calcAo12() {
     Ao12converted = convert(Ao12inMS);
     addAo12(Ao12converted, Ao12inMS);
 }
-
 function addAo12(time, timeinMS) {
     if (sessions[activeSession.index].averages.bests.ao12 == '-') {
         sessions[activeSession.index].averages.bests.ao12 = time;
@@ -503,6 +502,7 @@ function setPuzzleType() {
         getScramble();
     }
     localStorage['puzzleTypeSelector'] = puzzleTypeSelector.value;
+    document.querySelector('#puzzleTypename').innerText = puzzleTypeSelector.value;
 }
 
 function loadSessions() {

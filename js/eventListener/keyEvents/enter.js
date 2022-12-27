@@ -25,12 +25,12 @@ document.addEventListener('keydown', e => {
         }
         if (session.style.display == 'block' && editTime.style.display == 'none' && document.activeElement !== sessionSelectDiv) {
             if (document.activeElement.id == 'newsessioninput') {
-                if (!document.activeElement.value) return showToast('Please input a name for the session', 1750);
+                if (!document.activeElement.value) return showToast('Please input a name for the session', 1600);
                 sessions.push({
                     name: document.querySelector('#newsessioninput').value,
                     times: [],
                     averages: {
-                        times: {
+                        currents: {
                             single: '-',
                             mo3: '-',
                             ao5: '-',
@@ -56,7 +56,6 @@ document.addEventListener('keydown', e => {
                         }
                     }
                 });
-
                 activeSession.name = document.querySelector('#newsessioninput').value;
                 activeSession.index = sessions.map(function (e) { return e.name; }).indexOf(activeSession.name);
                 localStorage.activeSession = JSON.stringify(activeSession);
@@ -73,6 +72,11 @@ document.addEventListener('keydown', e => {
                 document.querySelector('#sessionname').innerText = activeSession.name;
                 showToast('Added Session', 1500)
                 localStorage.sessions = JSON.stringify(sessions);
+                Ao5.ao5current.innerHTML = '-';
+                Ao5.ao5best.innerHTML = '-';
+                Ao12.ao12current.innerHTML = '-';
+                Ao12.ao12best.innerHTML = '-';
+                Ao5.ao5.innerText = 'Ao5: -'
                 return;
             }
             if (document.activeElement.classList.contains('notinput')) {
@@ -88,6 +92,20 @@ document.addEventListener('keydown', e => {
                 document.querySelectorAll('.td')[0].focus();
                 document.getElementById("myDropdown").classList.toggle("showing");
                 selectopened = false;
+                if (sessions[activeSession.index].times.length >= 5) {
+                    calcAo5();
+                } else {
+                    Ao5.ao5current.innerHTML = '-';
+                    Ao5.ao5best.innerHTML = '-';
+                    Ao5.ao5.innerText = 'Ao5: -'
+                }
+                if (sessions[activeSession.index].times.length >= 12) {
+                    calcAo12();
+                } else {
+                    Ao12.ao12current.innerHTML = '-';
+                    Ao12.ao12best.innerHTML = '-';
+                    Ao12.ao12.innerText = 'Ao12: -'
+                }
                 return
             }
             if (document.activeElement.classList.contains('time')) {
@@ -111,5 +129,4 @@ document.addEventListener('keydown', e => {
             }
         }
     }
-
 });
