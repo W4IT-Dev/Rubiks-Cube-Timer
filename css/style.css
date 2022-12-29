@@ -298,7 +298,7 @@ input:checked+.slider:before {
     z-index: 100;
     border: 5px solid;
     border-radius: 10px;
-    overflow: auto;
+    overflow: hidden;
     text-align: center;
 }
 
@@ -443,7 +443,7 @@ th {
     display: block;
 }
 
-.dropbtn {
+#dropDownButton {
     position: relative;
     padding: 1px;
     height: 27px;

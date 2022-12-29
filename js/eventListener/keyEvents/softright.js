@@ -10,7 +10,7 @@ document.addEventListener('keydown', e => {
             localStorage.sessions = JSON.stringify(sessions);
             activeSession.index = 0;
             activeSession.name = sessions[0].name;
-            document.querySelector('#sessionSelectDiv').innerHTML = `${activeSession.name}<span
+            dropDownButton.innerHTML = `${activeSession.name}<span
                         class="material-icons">
                         expand_more
                     </span>`;

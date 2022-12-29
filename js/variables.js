@@ -90,7 +90,7 @@ let statusChange = document.querySelector('#statusChange');
 let startKey = document.querySelector('#startKey');
 let addPartDiv = document.querySelector('#addPartDiv');
 let addPart = document.querySelector('#addPart');
-let sessionSelectDiv = document.querySelector('#sessionSelectDiv');
+let dropDownButton = document.querySelector('#dropDownButton');
 let reset = document.querySelector('#resetSession');
 
 let lastFocused;

@@ -22,7 +22,7 @@ function shuffle(o) {
 function handleKeydown(e) {
     switch (e.key) {
         case 'ArrowUp':
-            if (document.activeElement == document.querySelectorAll('.td')[0]) return sessionSelectDiv.focus();
+            if (document.activeElement == document.querySelector('.time')) return dropDownButton.focus();
             if (document.activeElement.classList.contains('setting') || document.activeElement.classList.contains('editTimeItems')) {
                 nav(-1, "." + document.activeElement.classList[0] + ".show");
             } else {
@@ -32,8 +32,8 @@ function handleKeydown(e) {
 
 
         case 'ArrowDown':
-            if (document.activeElement == sessionSelectDiv || document.activeElement == document.querySelector('#resetSession')) {
-                if (!selectopened) document.querySelector('.td').focus();
+            if (document.activeElement == dropDownButton || document.activeElement == document.querySelector('#resetSession')) {
+                if (!selectopened) document.querySelector('.time').focus();
             }
             if (document.activeElement.classList.contains('setting') || document.activeElement.classList.contains('editTimeItems')) {
                 nav(1, "." + document.activeElement.classList[0] + ".show");
@@ -43,11 +43,11 @@ function handleKeydown(e) {
             break;
 
         case 'ArrowRight':
-            if (document.activeElement == sessionSelectDiv && !selectopened) document.querySelector('#resetSession').focus();
+            if (document.activeElement == dropDownButton && !selectopened) document.querySelector('#resetSession').focus();
             break;
 
         case 'ArrowLeft':
-            if (document.activeElement == document.querySelector('#resetSession')) sessionSelectDiv.focus();
+            if (document.activeElement == document.querySelector('#resetSession')) dropDownButton.focus();
             break;
     }
 }
@@ -134,15 +134,20 @@ function getStoredData() {
     }
     if (localStorage.puzzleTypeSelector) puzzleTypeSelector.value = localStorage.puzzleTypeSelector, setPuzzleType();
     if (localStorage.timerSize) document.getElementById('timerSize').value = localStorage.timerSize, timer.style.fontSize = localStorage.timerSize + 'px';
+    if (localStorage.scrambleSizeInput) scrambleSizeInput.value = localStorage.scrambleSizeInput;
     if (localStorage.scrambleSize) {
         if (localStorage.scrambleSize == 'user') scrambleSize.value = 'user-defined', scrambleSizeInputDiv.classList.add('show', 'nos'); autoFontSize = false, actualScramble.style.fontSize = scrambleSizeInput.value + "px";
         if (localStorage.scrambleSize == 'auto') scrambleSizeInputDiv.classList.remove('show', 'nos'), autoFontSize = true, actualScramble.style.fontSize = scrambleFontSize;
     }
-    if (localStorage.scrambleSizeInput) scrambleSizeInput.value = localStorage.scrambleSizeInput;
     if (localStorage.sessions) sessions = JSON.parse(localStorage['sessions']);
     if (localStorage.activeSession) activeSession = JSON.parse(localStorage['activeSession']);
     if (sessions[activeSession.index].times.length >= 5) calcAo5();
     if (sessions[activeSession.index].times.length >= 12) calcAo12();
+    document.querySelector('#sessionname').innerText = activeSession.name;
+    dropDownButton.innerHTML = `${activeSession.name}<span
+                        class="material-icons" ">
+                        expand_more
+                    </span>`;
 }
 
 function showToast(text, time) {

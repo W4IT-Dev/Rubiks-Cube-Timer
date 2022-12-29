@@ -23,7 +23,7 @@ document.addEventListener('keydown', e => {
             });
             return
         }
-        if (session.style.display == 'block' && editTime.style.display == 'none' && document.activeElement !== sessionSelectDiv) {
+        if (session.style.display == 'block' && editTime.style.display == 'none' && document.activeElement !== dropDownButton) {
             if (document.activeElement.id == 'newsessioninput') {
                 if (!document.activeElement.value) return showToast('Please input a name for the session', 1600);
                 sessions.push({
@@ -65,7 +65,7 @@ document.addEventListener('keydown', e => {
                 document.querySelectorAll('.td')[0].focus();
                 document.getElementById("myDropdown").classList.toggle("showing");
                 selectopened = false;
-                document.querySelector('#sessionSelectDiv').innerHTML = `${activeSession.name}<span
+                dropDownButton.innerHTML = `${activeSession.name}<span
                         class="material-icons" ">
                         expand_more
                     </span>`;
@@ -83,7 +83,7 @@ document.addEventListener('keydown', e => {
                 activeSession.name = document.activeElement.innerText;
                 activeSession.index = sessions.map(function (e) { return e.name; }).indexOf(activeSession.name);
                 localStorage.activeSession = JSON.stringify(activeSession);
-                document.querySelector('#sessionSelectDiv').innerHTML = `${activeSession.name}<span
+                dropDownButton.innerHTML = `${activeSession.name}<span
                         class="material-icons" >
                         expand_more
                     </span>`;

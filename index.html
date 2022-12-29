@@ -73,9 +73,9 @@
         </div>
     </div>
     <div id="session" class="dark">
-        <div style="margin-top: 7px; display: flex; justify-content: center;">
-            <div tabindex="1">
-                <button id="sessionSelectDiv" onclick="openDropdown()" class="dropdown-item dropbtn dark">Session 1<i
+        <div style="position: relative;top: 5px; display: flex; justify-content: center;">
+            <div>
+                <button id="dropDownButton" onclick="openDropdown()" class="dropdown-item dark">Session 1<i
                         class="material-icons" style="float: right;">
                         expand_more
                     </i></button>
@@ -181,7 +181,7 @@
         </div>
 
         <div tabindex='1' class="setting nos show dark" id="darkModeDiv">
-            <p>Dark Mode</p>
+            <label>Dark Mode</label>
             <label class="switch">
                 <input type="checkbox" id="darkMode" checked>
                 <span class="slider"></span>
