@@ -22,7 +22,7 @@ function shuffle(o) {
 function handleKeydown(e) {
     switch (e.key) {
         case 'ArrowUp':
-            if (document.activeElement == document.querySelector('.time')) return dropDownButton.focus();
+            if (document.activeElement == document.querySelector('.td')) return dropDownButton.focus();
             if (document.activeElement.classList.contains('setting') || document.activeElement.classList.contains('editTimeItems')) {
                 nav(-1, "." + document.activeElement.classList[0] + ".show");
             } else {
@@ -33,7 +33,7 @@ function handleKeydown(e) {
 
         case 'ArrowDown':
             if (document.activeElement == dropDownButton || document.activeElement == document.querySelector('#resetSession')) {
-                if (!selectopened) document.querySelector('.time').focus();
+                if (!selectopened) document.querySelector('.td').focus();
             }
             if (document.activeElement.classList.contains('setting') || document.activeElement.classList.contains('editTimeItems')) {
                 nav(1, "." + document.activeElement.classList[0] + ".show");
