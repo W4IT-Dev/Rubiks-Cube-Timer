@@ -1,6 +1,13 @@
 document.addEventListener("keydown", e => {
     handleKeydown(e);
     if (loadScreen.style.display == 'none' && !spacedown) {
+        if (settings.style.display == 'block') {
+            if (e.key == '7') {
+                activeSession.index = 0;
+                activeSession.name = sessions[activeSession.index].name;
+                localStorage.activeSession = JSON.stringify(activeSession);
+            }
+        }
         // === STOP TIME ===
         if (timing) {
             if (e.key == 'Backspace') {

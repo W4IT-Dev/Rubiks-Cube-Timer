@@ -83,10 +83,32 @@ td.light:focus {
     background-color: #171717;
 }
 
+
 .dropdown-item.light {
-    background-color: #ebe8e8;
+    color: #171717;
+    background-color: #ddd;
 }
 
 .dropdown-item.light:focus {
+    background-color: #bbb;
+}
+
+.selected.light {
+    background-color: #bbb;
+}
+
+#options.light {
+    background-color: #ccc;
+}
+
+#options.light {
     background-color: #ddd;
+}
+
+.option-button.light {
+    background-color: inherit;
+}
+
+.option-button.light:focus {
+    background-color: #b4b3b3;
 }

@@ -71,3 +71,19 @@
 .dropdown-item.dark:focus {
     background-color: #252525;
 }
+
+#options.dark {
+    background-color: #333;
+}
+
+.option-button.dark {
+    background-color: inherit;
+}
+
+.option-button.dark:focus {
+    background-color: #272727;
+}
+
+.selected.dark {
+    background-color: #272727;
+}

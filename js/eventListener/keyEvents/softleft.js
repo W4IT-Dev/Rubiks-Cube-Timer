@@ -1,10 +1,15 @@
 document.addEventListener('keydown', e => {
     if (e.key == 'SoftLeft') {
-        if (editTime.style.display == 'block') return editTime.style.display = 'none', setSoftkey({
+        if (document.querySelector('#options').style.display == 'flex') return document.querySelector('#options').style.display = 'none', lastFocused.focus(), lastFocused.classList.toggle('selected'), setSoftkey({
+            left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
+            middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px">check</i>',
+            right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">more_horiz</i>'
+        });
+        if (editTime.style.display == 'block') return editTime.style.display = 'none', lastFocused.focus(), setSoftkey({
             left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
             middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">edit</i>',
             right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
-        }), lastFocused.focus();
+        });
         if (session.style.display == 'block') {
             session.style.display = 'none';
             document.activeElement.blur();

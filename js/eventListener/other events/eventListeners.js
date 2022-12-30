@@ -41,10 +41,25 @@ reset.addEventListener('click', () => {
     a = confirm("Are you sure you wan't to delete this session's times?");
     if (!a) return
     sessions[activeSession.index].times = [];
+    sessions[activeSession.index].averages.currents.single = '-'
+    sessions[activeSession.index].averages.currents.mo3 = '-'
+    sessions[activeSession.index].averages.currents.ao5 = '-'
+    sessions[activeSession.index].averages.currents.ao12 = '-'
+    sessions[activeSession.index].averages.currents.ms.single = '-'
+    sessions[activeSession.index].averages.currents.ms.mo3 = '-'
+    sessions[activeSession.index].averages.currents.ms.ao5 = '-'
+    sessions[activeSession.index].averages.currents.ms.ao12 = '-'
+    sessions[activeSession.index].averages.bests.single = '-'
+    sessions[activeSession.index].averages.bests.mo3 = '-'
+    sessions[activeSession.index].averages.bests.ao5 = '-'
+    sessions[activeSession.index].averages.bests.ao12 = '-'
+    sessions[activeSession.index].averages.bests.ms.single = '-'
+    sessions[activeSession.index].averages.bests.ms.mo3 = '-'
+    sessions[activeSession.index].averages.bests.ms.ao5 = '-'
+    sessions[activeSession.index].averages.bests.ms.ao12 = '-'
     localStorage.sessions = JSON.stringify(sessions);
-    showToast('Deleted', 1000), loadTable();
+    showToast(`Reseted ${sessions[activeSession.index].name} succesfully`, 1000), loadTable();
 });
-
 
 window.addEventListener('error', e => {
     console.error(e)
@@ -55,7 +70,7 @@ document.querySelector('.dropdown-item').addEventListener('focus', () => {
     setSoftkey({
         left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
         middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">' + e + '</i>',
-        right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">delete</i>'
+        right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px"></i>'
     });
 });
 
@@ -65,4 +80,24 @@ document.querySelector('#newsessioninput').addEventListener('focus', () => {
         middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">add</i>',
         right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">delete</i>'
     });
+});
+
+document.querySelector('#delete').addEventListener('click', () => {
+    if (sessions.length == 1) return showToast("Error <br> You can't delete the last session!", 1800);
+    a = confirm('Are you sure you want to delelte this session?');
+    if (!a) return
+    sessions.splice(document.querySelector('.selected').id, 1);
+    localStorage.sessions = JSON.stringify(sessions);
+    activeSession.index = 0;
+    activeSession.name = sessions[0].name;
+    localStorage.activeSession = JSON.stringify(activeSession);
+    dropDownButton.innerHTML = `${activeSession.name}<span
+                class="material-icons">
+                expand_more
+            </span>`;
+    document.querySelector('#sessionname').innerText = activeSession.name;
+    loadSessions();
+    loadTable();
+    document.querySelector('#delete').focus();
+    lastFocused = document.querySelector('.notinput');
 });

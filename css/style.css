@@ -5,10 +5,17 @@ body {
     justify-content: center;
     align-items: center;
 }
+
 @font-face {
     font-family: Digital2;
     src: url(/digital-7.regular.ttf);
 }
+
+/* 
+@font-face {
+    font-family: 'Orbitron';
+    src: url(/Orbitron-SemiBold.ttf);
+} */
 
 /* Ads */
 .ad {
@@ -46,7 +53,6 @@ body {
     top: 50%;
     display: flex;
     justify-content: space-between;
-    /* font-family: Digital2; */
     font-family: 'Orbitron';
     font-size: 16px;
     transform: translate(-50%, -50%);
@@ -219,6 +225,7 @@ input:checked+.slider:before {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    z-index: 101;
 }
 
 #softMiddle {
@@ -409,12 +416,6 @@ th {
     flex: 1;
 }
 
-.show {
-    display: flex;
-}
-
-
-
 .dropdown-content {
     display: none;
     position: absolute;
@@ -458,4 +459,36 @@ th {
 
 #newsessioninput {
     width: 100px;
+}
+
+#options {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    max-height: 190px;
+    padding-top: 9px;
+    position: absolute;
+    z-index: 1000;
+    bottom: 25px;
+    left: 2px;
+    right: 2px;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    overflow: scroll;
+}
+
+.option-button {
+    text-align: left;
+    background-image: none;
+    border: 0px;
+    margin: 1.3px;
+    position: relative;
+    padding: 1.5px;
+    font-size: 18px;
+}
+
+.show {
+    display: flex;
 }
