@@ -84,7 +84,7 @@ document.querySelector('#newsessioninput').addEventListener('focus', () => {
 
 document.querySelector('#delete').addEventListener('click', () => {
     if (sessions.length == 1) return showToast("Error <br> You can't delete the last session!", 1800);
-    a = confirm('Are you sure you want to delelte this session?');
+    a = confirm('Are you sure you want to delete this session?');
     if (!a) return
     sessions.splice(document.querySelector('.selected').id, 1);
     localStorage.sessions = JSON.stringify(sessions);
@@ -98,6 +98,7 @@ document.querySelector('#delete').addEventListener('click', () => {
     document.querySelector('#sessionname').innerText = activeSession.name;
     loadSessions();
     loadTable();
-    document.querySelector('#delete').focus();
+    document.querySelector('.notinput').focus();
+    document.querySelector('#options').style.display = 'none';
     lastFocused = document.querySelector('.notinput');
 });

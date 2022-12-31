@@ -421,13 +421,15 @@ th {
     position: absolute;
     background-color: #f1f1f1;
     min-width: 60px;
-    max-width: 120px;
-    max-height: 150px;
+    width: 110px;
+    max-height: 160px;
     overflow: hidden;
     z-index: 1;
+    border: 1px solid;
 }
 
 .dropdown-item {
+    text-align: left;
     font-size: inherit;
     padding: 10px;
     height: 15px;
@@ -458,7 +460,7 @@ th {
 }
 
 #newsessioninput {
-    width: 100px;
+    width: 90px;
 }
 
 #options {

@@ -1,6 +1,6 @@
 document.addEventListener('keydown', e => {
     if (e.key == 'SoftLeft') {
-        if (document.querySelector('#options').style.display == 'flex') return document.querySelector('#options').style.display = 'none', lastFocused.focus(), lastFocused.classList.toggle('selected'), setSoftkey({
+        if (document.querySelector('#options').style.display == 'flex') return document.querySelector('#options').style.display = 'none', lastFocused.focus(), lastFocused.classList.remove('selected'), setSoftkey({
             left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
             middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px">check</i>',
             right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">more_horiz</i>'
