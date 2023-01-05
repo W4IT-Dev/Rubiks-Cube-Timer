@@ -4,7 +4,6 @@ let time;
 let timeIn100MS = 0;
 let timing = false;
 let waitToStart;
-let startKeyName = '5';
 
 let bacjankdakhkdakdiuadkkj;
 let selectopened = false;
@@ -79,14 +78,12 @@ let scrambleSizeInputDiv = document.querySelector('#scrambleSizeInputDiv');
 let scrambleSizeInput = document.querySelector('#scrambleSizeInput')
 let searchField = document.querySelector('#search');
 let comment = document.querySelector('#comment');
-let startKeyDiv = document.querySelector('#startKeyDiv');
 let editTime = document.querySelector('#editTime');
 let editTimeTime = document.querySelector('#editTimeTime');
 let editTimeStatus = document.querySelector('#editTimeStatus');
 let editTimeScramble = document.querySelector('#editTimeScramble');
 let editTimeComment = document.querySelector('#editTimeComment');
 let statusChange = document.querySelector('#statusChange');
-let startKey = document.querySelector('#startKey');
 let addPartDiv = document.querySelector('#addPartDiv');
 let addPart = document.querySelector('#addPart');
 let dropDownButton = document.querySelector('#dropDownButton');

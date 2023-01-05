@@ -64,16 +64,6 @@ function nav(move, elems) {
 }
 
 function select() {
-    if (document.activeElement == document.getElementById('startKeyDiv')) return document.getElementById('startKeyDiv').blur(), document.getElementById('startKey').style.border = "1px solid #005", setSoftkey({
-        left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
-        middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">check</i>',
-        right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 4.5px; right: 2.5px">close</i>'
-    });
-    if (document.getElementById('startKey').style.borderWidth == '1px') return document.getElementById('startKeyDiv').focus(), document.getElementById('startKey').style.border = "none", setSoftkey({
-        left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
-        middle: 'Select',
-        right: '<i class="material-icons" style=" color: blue; font-size: 21px; position: relative; top: 2.5px; right: 2px">question_mark</i>'
-    });
     if (document.activeElement == puzzleType) return puzzleTypeSelector.focus();
     if (document.activeElement == timerFont) return timerFontSelector.focus();
     if (document.activeElement == document.getElementById('rightSoftDiv')) return document.getElementById('rightSoft').focus();
@@ -118,7 +108,6 @@ function setDarkOrLightMode() {
 }
 
 function info() {
-    if (document.activeElement == document.getElementById('startKeyDiv') && document.getElementById('startKey').style.borderWidth !== "1px") return alert('This settings changes which key you need to press to start and stop the timer.');
     if (document.activeElement == puzzleType) return alert('Here you can change the puzzle type.\n A puzzle type is as example a 3x3 or Pyraminx etc.');
     if (document.activeElement == timerFont) return alert('Timer font means how the timer looks.\n Change the font to the one you like!');
     if (document.activeElement == timerSizeDiv) return alert('Timer size will change the size of the timer.');
@@ -141,13 +130,18 @@ function getStoredData() {
     }
     if (localStorage.sessions) sessions = JSON.parse(localStorage['sessions']);
     if (localStorage.activeSession) activeSession = JSON.parse(localStorage['activeSession']);
-    if (sessions[activeSession.index].times.length >= 5) calcAo5();
-    if (sessions[activeSession.index].times.length >= 12) calcAo12();
+    for (let i = 0; i <= sessions[activeSession.index].times.length; i++) {
+        if (i >= 5) calcAo5();
+        if (i >= 12) calcAo12();
+    }
+    // if (sessions[activeSession.index].times.length >= 12) calcAo12();
     document.querySelector('#sessionname').innerText = activeSession.name;
     dropDownButton.innerHTML = `${activeSession.name}<span
                         class="material-icons" ">
                         expand_more
                     </span>`;
+    loadTable();
+    loadSessions();
 }
 
 function showToast(text, time) {
@@ -517,21 +511,23 @@ function loadSessions() {
         document.querySelector('#myDropdown').innerHTML += `<div tabindex="1" class="dropdown-item notinput dark" id="${i}">${session.name}</div>`
         i++
     });
-    document.querySelector('#myDropdown').innerHTML += '<input id="newsessioninput" class="dropdown-item dark" placeholder="Add session">'
+    document.querySelector('#myDropdown').innerHTML += '<input id="newsessioninput" class="dropdown-item dark" maxlength="50" placeholder="Add session">'
 }
 
 function openDropdown() {
     document.getElementById("myDropdown").classList.toggle("showing");
     selectopened = !selectopened;
     if (selectopened) {
-        e = 'expand_less'; loadSessions(); setSoftkey({
+        e = 'expand_less';
+        setSoftkey({
             left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
             middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">' + e + '</i>',
             right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">more_horiz</i>'
         });
         document.querySelector('.notinput').focus();
     } else {
-        e = 'expand_more'; setSoftkey({
+        e = 'expand_more';
+        setSoftkey({
             left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
             middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">' + e + '</i>',
             right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px"></i>'

@@ -63,7 +63,7 @@ body {
     position: fixed;
     text-align: center;
     left: 50%;
-    top: 160px;
+    top: 170px;
     transform: translateX(-50%);
 }
 
@@ -138,8 +138,7 @@ select,
     width: 75px;
 }
 
-#timerSize,
-#startKey {
+#timerSize {
     width: 70px;
     background-color: #666;
     border-width: 1.5px;
@@ -293,8 +292,6 @@ input:checked+.slider:before {
     display: none;
 }
 
-
-
 #session {
     display: none;
     position: fixed;
@@ -305,7 +302,7 @@ input:checked+.slider:before {
     z-index: 100;
     border: 5px solid;
     border-radius: 10px;
-    overflow: hidden;
+    overflow: auto;
     text-align: center;
 }
 
@@ -396,6 +393,7 @@ th {
     height: 30px;
     border-radius: 20px;
     border: 2px solid #999;
+    margin-bottom: 10px;
 }
 
 .divider {

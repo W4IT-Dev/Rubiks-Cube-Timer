@@ -1,6 +1,9 @@
 document.addEventListener("keydown", e => {
     handleKeydown(e);
     if (loadScreen.style.display == 'none' && !spacedown) {
+        if (settings.style.display == 'block') {
+            if (e.key == '7') return activeSession.index = 0; localStorage.activeSession = JSON.stringify(activeSession)
+        }
         // === STOP TIME ===
         if (timing) {
             if (e.key == 'Backspace') {
@@ -17,7 +20,7 @@ document.addEventListener("keydown", e => {
                 comment.style.opacity = 1;
             }
             //Add DNF
-            if (e.key == 'SoftLeft') return clearTimeout(bacjankdakhkdakdiuadkkj), sessions[activeSession.index].times[0].status = 'DNF', canChange = false, showToast('Changed Status to DNF  ', 2000), setSoftkey({
+            if (e.key == 'SoftLeft') return  clearTimeout(bacjankdakhkdakdiuadkkj), sessions[activeSession.index].times[0].status = 'DNF', canChange = false, showToast('Changed Status to DNF  ', 2000), setSoftkey({
                 left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
                 middle: 'Session',
                 right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
@@ -29,13 +32,13 @@ document.addEventListener("keydown", e => {
                 right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
             });
             //Add +2
-            if (e.key == 'SoftRight') return clearTimeout(bacjankdakhkdakdiuadkkj), sessions[activeSession.index].times[0].status = '+2', canChange = false, showToast('Changed Status to +2', 2000), setSoftkey({
+            if (e.key == 'SoftRight') return clearTimeout(bacjankdakhkdakdiuadkkj), sessions[activeSession.index].times[0].status = '+2', canChange = false, showToast('Changed Status to +2', 2000), sessions[activeSession.index].times[0].timeInMS += 20, sessions[activeSession.index].times[0].time = convert(sessions[activeSession.index].times[0].timeInMS), localStorage.sessions = JSON.stringify(sessions), setSoftkey({
                 left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
                 middle: 'Session',
                 right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
             });
         }
-        
+
         if (!timing) {
             if (e.key == 'ArrowDown' || e.key == 'ArrowUp') {
                 if (document.activeElement == editTimeTime || document.activeElement == editTimeScramble) {
@@ -59,16 +62,8 @@ document.addEventListener("keydown", e => {
             }
 
         }
-        //Start Key changing in settings
-        if (startKey.style.borderWidth == '1px') {
-            if (e.key != 'MicrophoneToggle' && e.key != 'Enter' && e.key != 'SoftLeft' && e.key != 'SoftRight' && e.key != 'Backspace' && e.key != 'EndCall') {
-                startKeyName = e.key;
-                startKey.value = e.key;
-            }
-            return
-        }
         //Timing
-        if (e.key === startKeyName && document.activeElement == document.body) {
+        if (!isNaN(parseInt(e.key)) && document.activeElement == document.body) {
             spacedown = true;
             start();
         }

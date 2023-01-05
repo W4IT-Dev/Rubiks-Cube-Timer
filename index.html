@@ -115,24 +115,6 @@
     <div id="settings" class="dark">
         <h1 style="border-bottom: 2px #888 solid;">Settings</h1>
         <input class="setting dark show" tabindex="0" type="text" id="search" placeholder="Search">
-        <div class="divider show">
-            <div class="title">Key Settings</div>
-            <div class="line"></div>
-            <span class="material-icons" id="keyset">
-                expand_less
-            </span>
-        </div>
-        <div tabindex='1' class="setting nos show dark" id="startKeyDiv">
-            <label for="startKey">Start Key:</label>
-            <input type="text" name="startKey" id="startKey" value="5" placeholder="Press any key.">
-        </div>
-        <!-- <div tabindex='2' class="setting nos show dark" id="rightSoftDiv">I DONT HAVE ANY FUNCTION FOR THIS
-            <label for="rightSoft">Right Softkey:</label>
-            <select type="text" name="rightSoft" id="rightSoft">
-                <option value="settings">Settings</option>
-                <option value="logout">Quit App</option>
-            </select>
-        </div> -->
 
         <div tabindex='1' class="setting nos show dark" id="puzzleTypeDiv">
             <label for="puzzleType">Puzzle Type:</label>
@@ -164,7 +146,7 @@
 
         <div tabindex='1' class="setting nos show dark" id="timerSizeDiv">
             <label for="timerSize">Timer Size:</label>
-            <input type="number" min="10" max="30" name="timerSize" id="timerSize" value="16">
+            <input type="number" min="10" max="40" name="timerSize" id="timerSize" value="16">
         </div>
 
         <div tabindex='1' class="setting nos show dark" id="scrambleSizeDiv">
@@ -195,7 +177,7 @@
             </span>
         </div>
         <div tabindex='1' class="setting nos show dark" id="addPartDiv">
-            <p>Add Particles</p>
+            <label>Add Particles</label>
             <label class="switch">
                 <input type="checkbox" id="addPart" checked>
                 <span class="slider"></span>

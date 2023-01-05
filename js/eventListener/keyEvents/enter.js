@@ -14,7 +14,6 @@ document.addEventListener('keydown', e => {
         if (settingsOpened) return select();
         if (session.style.display == 'none') {
             session.style.display = 'block';
-            loadTable();
             document.querySelectorAll('.td')[0].focus();
             setSoftkey({
                 left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',

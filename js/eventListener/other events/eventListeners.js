@@ -74,6 +74,7 @@ document.querySelector('.dropdown-item').addEventListener('focus', () => {
     });
 });
 
+
 document.querySelector('#newsessioninput').addEventListener('focus', () => {
     setSoftkey({
         left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',

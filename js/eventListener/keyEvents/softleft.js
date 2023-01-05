@@ -1,4 +1,6 @@
 document.addEventListener('keydown', e => {
+    if (canChange) return
+
     if (e.key == 'SoftLeft') {
         if (document.querySelector('#options').style.display == 'flex') return document.querySelector('#options').style.display = 'none', lastFocused.focus(), lastFocused.classList.remove('selected'), setSoftkey({
             left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
@@ -23,7 +25,7 @@ document.addEventListener('keydown', e => {
         if (settings.style.display == 'none') {
             settings.style.display = 'block';
             wholeSite.style.filter = 'blur(5px)';
-            startKeyDiv.focus();
+            puzzleType.focus();
             setSoftkey({
                 left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2px; left: 2px">arrow_back</i>',
                 middle: 'Select',
@@ -32,7 +34,7 @@ document.addEventListener('keydown', e => {
             settingsOpened = true;
             return;
         }
-        if (settings.style.display == 'block' && startKeyDiv.style.borderWidth !== '1px' && document.activeElement.id !== 'timerSize' && document.activeElement.id !== 'scrambleSizeInput') {
+        if (settings.style.display == 'block' && document.activeElement.id !== 'timerSize' && document.activeElement.id !== 'scrambleSizeInput') {
             settings.style.display = 'none';
             wholeSite.style.filter = 'none';
             document.activeElement.blur();

@@ -1,4 +1,5 @@
 document.addEventListener('keydown', e => {
+    if(canChange) return
     if (e.key == 'SoftRight') {
         if (!settingsOpened && session.style.display != 'block') return window.close();
         if (document.activeElement == timerSize) return timerSize.value = timerSize.value.slice(0, -1);
