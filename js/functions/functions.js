@@ -99,6 +99,8 @@ function setSoftkey(object) {
 }
 
 function setDarkOrLightMode() {
+    loadTable();
+    loadSessions();
     for (let elem of allelem) {
         elem.classList.toggle('light', !darkMode.checked);
     }
@@ -122,6 +124,7 @@ function getStoredData() {
         localStorage.setItem('darkmode', 'true');
     }
     if (localStorage.puzzleTypeSelector) puzzleTypeSelector.value = localStorage.puzzleTypeSelector, setPuzzleType();
+    if (localStorage.fontFamily) timerFontSelector.value = localStorage.fontFamily, timer.style.fontFamily = timerFontSelector.value;
     if (localStorage.timerSize) document.getElementById('timerSize').value = localStorage.timerSize, timer.style.fontSize = localStorage.timerSize + 'px';
     if (localStorage.scrambleSizeInput) scrambleSizeInput.value = localStorage.scrambleSizeInput;
     if (localStorage.scrambleSize) {
@@ -157,7 +160,7 @@ function showToast(text, time) {
 }
 
 function loadTable() {
-    if (localStorage.getItem('darkmode') == 'true') { e = 'dark' } else { e = 'light' }
+    if (darkMode.checked) { e = 'dark' } else { e = 'light' }
     if (sessions[activeSession.index].times.length == 0) {
         document.getElementById("timestable").innerHTML = `
             <tr>
@@ -315,7 +318,7 @@ function calcAo5() {
         Ao5times.push(times[i].timeInMS)
     }
     const min = Math.min(...Ao5times);
-    const max = Math.max(...Ao5times);
+    const max = Math.max(...Ao5times);//TODO add DNF to average
 
     const sum = Ao5times.reduce((a, b) => a + b, 0);
     Ao5inMS = (sum - max - min) / 3;
@@ -505,19 +508,21 @@ function setPuzzleType() {
 }
 
 function loadSessions() {
+    if (darkMode.checked) { e = 'dark' } else { e = 'light' };
     i = 0;
     document.querySelector('#myDropdown').innerHTML = ''
     sessions.forEach((session) => {
-        document.querySelector('#myDropdown').innerHTML += `<div tabindex="1" class="dropdown-item notinput dark" id="${i}">${session.name}</div>`
+        document.querySelector('#myDropdown').innerHTML += `<div tabindex="1" class="dropdown-item notinput ${e}" id="${i}">${session.name}</div>`
         i++
     });
-    document.querySelector('#myDropdown').innerHTML += '<input id="newsessioninput" class="dropdown-item dark" maxlength="50" placeholder="Add session">'
+    document.querySelector('#myDropdown').innerHTML += `<input id="newsessioninput" class="dropdown-item ${e}" maxlength="50" placeholder="Add session">`
 }
 
 function openDropdown() {
     document.getElementById("myDropdown").classList.toggle("showing");
     selectopened = !selectopened;
     if (selectopened) {
+        session.style.overflow = 'hidden';
         e = 'expand_less';
         setSoftkey({
             left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
@@ -526,6 +531,7 @@ function openDropdown() {
         });
         document.querySelector('.notinput').focus();
     } else {
+        session.style.overflow = 'auto';
         e = 'expand_more';
         setSoftkey({
             left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',

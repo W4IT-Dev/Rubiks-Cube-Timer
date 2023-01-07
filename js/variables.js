@@ -53,7 +53,6 @@ let Ao12 = {
     ao12: document.querySelector('#ao12')
 };
 
-let everytd = document.querySelectorAll('td')
 let allelem = document.querySelectorAll('#options, .option-button, #resetButton, #resetSession, .dropdown-item, .dropdown-content, #dropDownButton, #comment, .scramble, #scramble, .setting, select, input, #timerBox, body, #settings, #softkeys, #session, td, th, #sessions, #divider, .line');
 
 let settingsOpened = false;
@@ -88,6 +87,8 @@ let addPartDiv = document.querySelector('#addPartDiv');
 let addPart = document.querySelector('#addPart');
 let dropDownButton = document.querySelector('#dropDownButton');
 let reset = document.querySelector('#resetSession');
+let darkModeDiv = document.querySelector('#darkModeDiv');
+let darkMode = document.querySelector('#darkMode');
 
 let lastFocused;
 

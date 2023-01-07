@@ -4,7 +4,7 @@ puzzleTypeSelector.addEventListener('change', () => {
 
 timerFontSelector.addEventListener('change', () => {
     timer.style.fontFamily = timerFontSelector.value;
-    if (timerFontSelector.value == 'Digital2') timer.style.fontSize += 10;
+    localStorage.fontFamily = timerFontSelector.value;
 });
 
 document.getElementById('timerSize').addEventListener('input', () => {
