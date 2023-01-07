@@ -380,7 +380,7 @@ function setPuzzleType() {
         moves['u'] = new Array("U", "U'", "U2");
         moves['f'] = new Array("F", "F'", "F2");
         keys = new Array("r", "u", "f");
-        limit = 9;
+        limit = 11;
         scrambleFontSize = "20px";
         if (autoFontSize) {
             document.querySelector('#scramble').style.fontSize = '20px';
