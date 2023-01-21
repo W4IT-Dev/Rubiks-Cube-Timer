@@ -53,7 +53,7 @@ let Ao12 = {
     ao12: document.querySelector('#ao12')
 };
 
-let allelem = document.querySelectorAll('#options, .option-button, #resetButton, #resetSession, .dropdown-item, .dropdown-content, #dropDownButton, #comment, .scramble, #scramble, .setting, select, input, #timerBox, body, #settings, #softkeys, #session, td, th, #sessions, #divider, .line');
+let allelem = document.querySelectorAll('#scrambleSizeInput, #options, .option-button, #resetButton, #resetSession, .dropdown-item, .dropdown-content, #dropDownButton, #comment, .scramble, #scramble, .setting, select, input, #timerBox, body, #settings, #softkeys, #session, td, th, #sessions, #divider, .line');
 
 let settingsOpened = false;
 

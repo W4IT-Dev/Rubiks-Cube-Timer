@@ -7,15 +7,15 @@ body {
 }
 
 @font-face {
-    font-family: Digital2;
+    font-family: "Digital7";
     src: url(/digital-7.regular.ttf);
 }
 
-/* 
+
 @font-face {
     font-family: 'Orbitron';
-    src: url(/Orbitron-SemiBold.ttf);
-} */
+    src: url(/Orbitron-Regular.ttf);
+}
 
 /* Ads */
 .ad {
@@ -63,13 +63,13 @@ body {
     position: fixed;
     text-align: center;
     left: 50%;
-    top: 170px;
+    top: 166.5px;
     transform: translateX(-50%);
 }
 
 #comment {
     position: fixed;
-    top: 72%;
+    top: 74%;
     left: 50%;
     opacity: 0;
     height: 22px;

@@ -40,23 +40,25 @@ allSelectElems.forEach(function (elem) {
 reset.addEventListener('click', () => {
     a = confirm("Are you sure you wan't to delete this session's times?");
     if (!a) return
-    sessions[activeSession.index].times = [];
-    sessions[activeSession.index].averages.currents.single = '-'
-    sessions[activeSession.index].averages.currents.mo3 = '-'
-    sessions[activeSession.index].averages.currents.ao5 = '-'
-    sessions[activeSession.index].averages.currents.ao12 = '-'
-    sessions[activeSession.index].averages.currents.ms.single = '-'
-    sessions[activeSession.index].averages.currents.ms.mo3 = '-'
-    sessions[activeSession.index].averages.currents.ms.ao5 = '-'
-    sessions[activeSession.index].averages.currents.ms.ao12 = '-'
-    sessions[activeSession.index].averages.bests.single = '-'
-    sessions[activeSession.index].averages.bests.mo3 = '-'
-    sessions[activeSession.index].averages.bests.ao5 = '-'
-    sessions[activeSession.index].averages.bests.ao12 = '-'
-    sessions[activeSession.index].averages.bests.ms.single = '-'
-    sessions[activeSession.index].averages.bests.ms.mo3 = '-'
-    sessions[activeSession.index].averages.bests.ms.ao5 = '-'
-    sessions[activeSession.index].averages.bests.ms.ao12 = '-'
+    {
+        sessions[activeSession.index].times = [];
+        sessions[activeSession.index].averages.currents.single = '-'
+        sessions[activeSession.index].averages.currents.mo3 = '-'
+        sessions[activeSession.index].averages.currents.ao5 = '-'
+        sessions[activeSession.index].averages.currents.ao12 = '-'
+        sessions[activeSession.index].averages.currents.ms.single = '-'
+        sessions[activeSession.index].averages.currents.ms.mo3 = '-'
+        sessions[activeSession.index].averages.currents.ms.ao5 = '-'
+        sessions[activeSession.index].averages.currents.ms.ao12 = '-'
+        sessions[activeSession.index].averages.bests.single = '-'
+        sessions[activeSession.index].averages.bests.mo3 = '-'
+        sessions[activeSession.index].averages.bests.ao5 = '-'
+        sessions[activeSession.index].averages.bests.ao12 = '-'
+        sessions[activeSession.index].averages.bests.ms.single = '-'
+        sessions[activeSession.index].averages.bests.ms.mo3 = '-'
+        sessions[activeSession.index].averages.bests.ms.ao5 = '-'
+        sessions[activeSession.index].averages.bests.ms.ao12 = '-'
+    }
     localStorage.sessions = JSON.stringify(sessions);
     showToast(`Reseted ${sessions[activeSession.index].name} succesfully`, 1000), loadTable();
 });
@@ -102,4 +104,23 @@ document.querySelector('#delete').addEventListener('click', () => {
     document.querySelector('.notinput').focus();
     document.querySelector('#options').style.display = 'none';
     lastFocused = document.querySelector('.notinput');
+});
+
+document.querySelector('#rename').addEventListener('click', () => {
+    let idx = document.querySelector('.selected').id;
+    let a = prompt(`Please enter a new name for the session "${sessions[idx].name}"`);
+    if (!a || /^\s+$/.test(a)) return showToast('Error! <br> Can\'t rename the session to something empty.', 2300);
+    sessions[idx].name = a;
+    activeSession.name = sessions[idx].name;
+    loadSessions();
+    document.querySelectorAll('.notinput')[idx--].focus();
+    document.querySelector('#options').style.display = 'none';
+    document.querySelector('#sessionname').innerText = activeSession.name;
+    dropDownButton.innerHTML = `${activeSession.name}<span
+                        class="material-icons" ">
+                        expand_more
+                    </span>`;
+    
+    localStorage.sessions = JSON.stringify(sessions);
+    localStorage.activeSession = JSON.stringify(activeSession) 
 });

@@ -16,15 +16,26 @@ document.addEventListener("keydown", e => {
         if (canChange) {
             // Focus Comment
             if (!isNaN(parseInt(e.key))) {
-                comment.focus();
                 comment.style.opacity = 1;
+                setTimeout(() => {
+                    comment.focus();
+                }, 100)
             }
             //Add DNF
-            if (e.key == 'SoftLeft') return  clearTimeout(bacjankdakhkdakdiuadkkj), sessions[activeSession.index].times[0].status = 'DNF', canChange = false, showToast('Changed Status to DNF  ', 2000), setSoftkey({
-                left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
-                middle: 'Session',
-                right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
-            });
+            if (e.key == 'SoftLeft') {
+                clearTimeout(bacjankdakhkdakdiuadkkj);
+                sessions[activeSession.index].times[0].status = 'DNF';
+                canChange = false;
+                showToast('Changed Status to DNF  ', 2000);
+                setSoftkey({
+                    left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
+                    middle: 'Session',
+                    right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
+                });
+                calcAo5();
+                // localStorage.sessions = JSON.stringify(sessions)
+                return
+            }
             //Add OK
             if (e.key == 'Enter') return clearTimeout(bacjankdakhkdakdiuadkkj), canChange = false, setSoftkey({
                 left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',

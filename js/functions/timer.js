@@ -51,7 +51,6 @@ function stop() {
     Ao5.ao5.style.display = 'block';
     Ao12.ao12.style.display = 'block';
     document.querySelector('.scramble').style.display = 'block';
-    loadTable();
     // document.querySelector('.ad').style.display = 'none';
     // document.querySelectorAll('.ad')[1].style.display = 'none';
     canChange = true;

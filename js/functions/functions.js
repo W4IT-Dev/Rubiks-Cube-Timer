@@ -11,7 +11,7 @@ function getScramble() {
         scramble += move + " ";
         last = keys[0];
     }
-    document.querySelector('#scramble').innerText = scramble;
+    actualScramble.innerText = scramble;
 }
 
 function shuffle(o) {
@@ -29,7 +29,6 @@ function handleKeydown(e) {
                 nav(-1, "." + document.activeElement.classList[0]);
             }
             break;
-
 
         case 'ArrowDown':
             if (document.activeElement == dropDownButton || document.activeElement == document.querySelector('#resetSession')) {
@@ -160,6 +159,7 @@ function showToast(text, time) {
 }
 
 function loadTable() {
+    table = document.getElementById("timestable");
     if (darkMode.checked) { e = 'dark' } else { e = 'light' }
     if (sessions[activeSession.index].times.length == 0) {
         document.getElementById("timestable").innerHTML = `
@@ -179,25 +179,38 @@ function loadTable() {
                 <th class="${e}">Status</th>
             </tr>`
 
-    for (let i = 0; i < sessions[activeSession.index].times.length; i++) {
-        table = document.getElementById("timestable");
+    for (let i = 0; i < sessions[activeSession.index].times.length && i < 30; i++) {
+        {//insert
+            row = table.insertRow(-1);
+            cell1 = row.insertCell(0);
+            cell2 = row.insertCell(1);
+            cell3 = row.insertCell(2);
+            cell4 = row.insertCell(3);
+        }
+        cell1.tabIndex = 1;
+        cell1.id = i;
+        {//Classes
+            cell1.classList.add("td", "time", e);
+            cell2.classList.add(e)
+            cell3.classList.add('invisTd');
+            cell4.classList.add('invisTd');
+        }
+
+        {//HTML
+            cell1.innerHTML = sessions[activeSession.index].times[i].time;
+            cell2.innerHTML = sessions[activeSession.index].times[i].status;
+            cell3.innerHTML = sessions[activeSession.index].times[i].scramble;
+            cell4.innerHTML = sessions[activeSession.index].times[i].comment;
+        }
+    }
+    if (sessions[activeSession.index].times.length > 30) {
         row = table.insertRow(-1);
         cell1 = row.insertCell(0);
         cell2 = row.insertCell(1);
-        cell3 = row.insertCell(2);
-        cell4 = row.insertCell(3);
-        cell1.tabIndex = 1;
-        cell1.id = i;
-        cell3.classList.add('invisTd');
-        cell4.classList.add('invisTd');
-
-        cell1.classList.add("td", "time", e);
-        cell2.classList.add(e)
-
-        cell1.innerHTML = sessions[activeSession.index].times[i].time;
-        cell2.innerHTML = sessions[activeSession.index].times[i].status;
-        cell3.innerHTML = sessions[activeSession.index].times[i].scramble;
-        cell4.innerHTML = sessions[activeSession.index].times[i].comment;
+        // cell1.classList.add('loadMore');
+        cell1.classList.add("td", "time");
+        cell1.innerHTML = `Load more`;
+        cell2.innerHTML = `${sessions[activeSession.index].times.length - 30} more`;
     }
 }
 
@@ -220,7 +233,8 @@ function search() {
 
 function letItSnow() {
     let date = new Date();
-    if (date.getMonth() == 11) {
+    date = date.getMonth();
+    if (date == 11) {
         if (addPart.checked) {
             var canvas = document.getElementById('snow-canvas');
             var context = canvas.getContext('2d');
@@ -312,15 +326,40 @@ function convert($time) {
 }
 
 function calcAo5() {
-    times = sessions[activeSession.index].times.slice(0, 5);
-    let Ao5times = [];
+    let times = sessions[activeSession.index].times.slice(0, 5);
+    let timesInMS = [];
     for (let i = 0; i < times.length; i++) {
-        Ao5times.push(times[i].timeInMS)
+        timesInMS.push(times[i].timeInMS)
     }
-    const min = Math.min(...Ao5times);
-    const max = Math.max(...Ao5times);//TODO add DNF to average
+    let idx;
+    let DNF = DNFavg = false;
+    const min = Math.min(...timesInMS);
+    for (let i = 0; i < times.length; i++) {
+        if (times[i].status === 'DNF') {
+            idx = i;
+            if (DNF) {
+                DNFavg = true;
+            } else {
+                DNF = true;
+            }
+        }
+    }
+    if (DNFavg) {
+        sessions[activeSession.index].averages.currents.ao5 = 'DNF';
+        sessions[activeSession.index].averages.currents.ms.ao5 = 'DNF';
+        Ao5.ao5current.innerHTML = 'DNF'
+        Ao5.ao5.innerHTML = `Ao5: DNF`;
+        return
+    }
+    let max;
+    if (DNF) {
+        max = times[idx].timeInMS;//TODO add DNF to average
+    } else {
+        max = Math.max(...timesInMS);//TODO add DNF to average
+    }
 
-    const sum = Ao5times.reduce((a, b) => a + b, 0);
+
+    const sum = timesInMS.reduce((a, b) => a + b, 0);
     Ao5inMS = (sum - max - min) / 3;
     Ao5converted = convert(Ao5inMS);
     addAo5(Ao5converted, Ao5inMS)

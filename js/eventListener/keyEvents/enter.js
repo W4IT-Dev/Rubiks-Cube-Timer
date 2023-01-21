@@ -2,17 +2,21 @@ document.addEventListener('keydown', e => {
     if (e.key == 'Enter') {
         // ==== ADD COMMENT ====
         if (document.activeElement.id == 'comment') {
-            document.activeElement.style.opacity = 0;
-            sessions[activeSession.index].times[0].comment = document.activeElement.value;
-            document.activeElement.value = "";
-            document.activeElement.blur();
-            localStorage.sessions = JSON.stringify(sessions);
-            showToast('Added Comment', 2000);
+            comment.style.opacity = 0;
+            if (comment.value) {
+                sessions[activeSession.index].times[0].comment = comment.value;
+                comment.value = "";
+                showToast('Added Comment', 2000);
+                localStorage.sessions = JSON.stringify(sessions);
+            }
+            comment.blur();
+            
             return;
         }
         if (!canChange) {
             if (settingsOpened) return select();
             if (session.style.display == 'none') {
+                loadTable();
                 session.style.display = 'block';
                 document.querySelectorAll('.td')[0].focus();
                 setSoftkey({
@@ -68,7 +72,7 @@ document.addEventListener('keydown', e => {
                         class="material-icons" ">
                         expand_more
                     </span>`;
-                    document.querySelector('#sessionname').innerText = activeSession.name;
+                    document.querySelector('#sessionname').innerText = sessions[activeSession.index].name;
                     showToast('Added Session', 1500)
                     localStorage.sessions = JSON.stringify(sessions);
                     Ao5.ao5current.innerHTML = '-';
@@ -76,6 +80,7 @@ document.addEventListener('keydown', e => {
                     Ao12.ao12current.innerHTML = '-';
                     Ao12.ao12best.innerHTML = '-';
                     Ao5.ao5.innerText = 'Ao5: -'
+                    session.style.overflow = 'auto';
                     return;
                 }
                 if (document.activeElement.classList.contains('notinput')) {
@@ -105,6 +110,7 @@ document.addEventListener('keydown', e => {
                         Ao12.ao12best.innerHTML = '-';
                         Ao12.ao12.innerText = 'Ao12: -'
                     }
+                    session.style.overflow = 'auto';
                     return
                 }
                 if (document.activeElement.classList.contains('time')) {
