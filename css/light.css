@@ -58,7 +58,7 @@ body.light {
     color: #222;
 }
 
-.setting.light:focus {
+.setting.light:focus, .divider.light:focus {
     background-color: #bfbfbf;
 }
 

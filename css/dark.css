@@ -44,7 +44,7 @@
     color: #fefefe;
 }
 
-.setting.dark:focus {
+.setting.dark:focus, .divider.dark:focus {
     background-color: #272727;
 }
 

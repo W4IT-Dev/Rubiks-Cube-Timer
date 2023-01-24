@@ -156,7 +156,6 @@ select,
 }
 
 
-
 #settings p {
     margin-left: 5px;
 }
@@ -491,4 +490,9 @@ th {
 
 .show {
     display: flex;
+}
+
+
+.hide {
+    display: none;
 }

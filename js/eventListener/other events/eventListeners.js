@@ -65,6 +65,7 @@ reset.addEventListener('click', () => {
 
 window.addEventListener('error', e => {
     console.error(e)
+    alert(e);
 })
 
 document.querySelector('.dropdown-item').addEventListener('focus', () => {
@@ -75,7 +76,6 @@ document.querySelector('.dropdown-item').addEventListener('focus', () => {
         right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px"></i>'
     });
 });
-
 
 document.querySelector('#newsessioninput').addEventListener('focus', () => {
     setSoftkey({
@@ -120,7 +120,7 @@ document.querySelector('#rename').addEventListener('click', () => {
                         class="material-icons" ">
                         expand_more
                     </span>`;
-    
+
     localStorage.sessions = JSON.stringify(sessions);
-    localStorage.activeSession = JSON.stringify(activeSession) 
+    localStorage.activeSession = JSON.stringify(activeSession)
 });

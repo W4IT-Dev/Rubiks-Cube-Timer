@@ -19,37 +19,7 @@ function shuffle(o) {
     return o;
 };
 
-function handleKeydown(e) {
-    switch (e.key) {
-        case 'ArrowUp':
-            if (document.activeElement == document.querySelector('.td')) return dropDownButton.focus();
-            if (document.activeElement.classList.contains('setting') || document.activeElement.classList.contains('editTimeItems')) {
-                nav(-1, "." + document.activeElement.classList[0] + ".show");
-            } else {
-                nav(-1, "." + document.activeElement.classList[0]);
-            }
-            break;
 
-        case 'ArrowDown':
-            if (document.activeElement == dropDownButton || document.activeElement == document.querySelector('#resetSession')) {
-                if (!selectopened) document.querySelector('.td').focus();
-            }
-            if (document.activeElement.classList.contains('setting') || document.activeElement.classList.contains('editTimeItems')) {
-                nav(1, "." + document.activeElement.classList[0] + ".show");
-            } else {
-                nav(1, "." + document.activeElement.classList[0]);
-            }
-            break;
-
-        case 'ArrowRight':
-            if (document.activeElement == dropDownButton && !selectopened) document.querySelector('#resetSession').focus();
-            break;
-
-        case 'ArrowLeft':
-            if (document.activeElement == document.querySelector('#resetSession')) dropDownButton.focus();
-            break;
-    }
-}
 
 function nav(move, elems) {
     const currentIndex = document.activeElement;
@@ -63,6 +33,9 @@ function nav(move, elems) {
 }
 
 function select() {
+    if (document.activeElement.classList.contains('divider')) {
+        expand();
+    }
     if (document.activeElement == puzzleType) return puzzleTypeSelector.focus();
     if (document.activeElement == timerFont) return timerFontSelector.focus();
     if (document.activeElement == document.getElementById('rightSoftDiv')) return document.getElementById('rightSoft').focus();
@@ -223,11 +196,38 @@ function search() {
     for (i = 0; i < setting.length; i++) {
         label = setting[i].getElementsByTagName("label")[0];
         txtValue = label.textContent || label.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            setting[i].classList.add('show');
-        } else {
-            setting[i].classList.remove('show');
-        }
+        setting[i].classList.toggle('show', txtValue.toUpperCase().indexOf(filter) > -1);
+        // setting[i].classList.toggle('notShowing', !txtValue.toUpperCase().indexOf(filter) > -1);
+
+        // setting[i].classList.toggle('canSee', txtValue.toUpperCase().indexOf(filter) > -1);
+
+        // if () {
+        //     setting[i].classList.add('show');
+        // } else {
+        //     setting[i].classList.remove('show');
+        // }
+    }
+}
+
+
+function expand() {
+    elems = document.querySelectorAll('.' + document.activeElement.querySelector('.title').innerText.toLowerCase());
+    if (document.activeElement.querySelector('.material-icons').innerText == 'expand_less') {
+        elems.forEach((elem) => {
+            elem.classList.remove('show');
+            elem.classList.remove('canSee');
+
+        });
+        document.activeElement.querySelector('.material-icons').innerText = 'expand_more'
+        return
+    }
+    if (document.activeElement.querySelector('.material-icons').innerText == 'expand_more') {
+        elems.forEach((elem) => {
+            elem.classList.add('show');
+            elem.classList.add('canSee');
+        });
+        document.activeElement.querySelector('.material-icons').innerText = 'expand_less'
+
     }
 }
 
@@ -331,19 +331,21 @@ function calcAo5() {
     for (let i = 0; i < times.length; i++) {
         timesInMS.push(times[i].timeInMS)
     }
-    let idx;
+    let idx = 0;
     let DNF = DNFavg = false;
     const min = Math.min(...timesInMS);
-    for (let i = 0; i < times.length; i++) {
-        if (times[i].status === 'DNF') {
-            idx = i;
+    times.forEach(function (time) {
+        if (time.status === 'DNF') {
             if (DNF) {
                 DNFavg = true;
-            } else {
-                DNF = true;
             }
+            DNF = true;
+            idx++;
         }
-    }
+    })
+    // for (let i = 0; i < times.length; i++) {
+
+    // }
     if (DNFavg) {
         sessions[activeSession.index].averages.currents.ao5 = 'DNF';
         sessions[activeSession.index].averages.currents.ms.ao5 = 'DNF';
@@ -357,7 +359,6 @@ function calcAo5() {
     } else {
         max = Math.max(...timesInMS);//TODO add DNF to average
     }
-
 
     const sum = timesInMS.reduce((a, b) => a + b, 0);
     Ao5inMS = (sum - max - min) / 3;
@@ -382,15 +383,39 @@ function addAo5(time, timeinMS) {
 }
 
 function calcAo12() {
-    times = sessions[activeSession.index].times.slice(0, 12);
-    let Ao12times = [];
+    let times = sessions[activeSession.index].times.slice(0, 5);
+    let timesInMS = [];
     for (let i = 0; i < times.length; i++) {
-        Ao12times.push(times[i].timeInMS)
+        timesInMS.push(times[i].timeInMS)
     }
-    const min = Math.min(...Ao12times);
-    const max = Math.max(...Ao12times);
+    const min = Math.min(...timesInMS);
 
-    const sum = Ao12times.reduce((a, b) => a + b, 0);
+
+    let idx = 0;
+    let DNF = DNFavg = false;
+    times.forEach(function (time) {
+        if (time.status === 'DNF') {
+            if (DNF) {
+                DNFavg = true;
+            }
+            DNF = true;
+            idx++;
+        }
+    })
+    if (DNFavg) {
+        sessions[activeSession.index].averages.currents.ao12 = 'DNF';
+        sessions[activeSession.index].averages.currents.ms.ao12 = 'DNF';
+        Ao12.ao12current.innerHTML = 'DNF'
+        Ao12.ao12.innerHTML = `Ao12: DNF`;
+        return
+    }
+    let max;
+    if (DNF) {
+        max = times[idx].timeInMS;//TODO add DNF to average
+    } else {
+        max = Math.max(...timesInMS);//TODO add DNF to average
+    }
+    const sum = timesInMS.reduce((a, b) => a + b, 0);
     Ao12inMS = (sum - max - min) / 10;
     Ao12converted = convert(Ao12inMS);
     addAo12(Ao12converted, Ao12inMS);
@@ -562,19 +587,17 @@ function openDropdown() {
     selectopened = !selectopened;
     if (selectopened) {
         session.style.overflow = 'hidden';
-        e = 'expand_less';
         setSoftkey({
             left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
-            middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">' + e + '</i>',
+            middle: 'Select',
             right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">more_horiz</i>'
         });
         document.querySelector('.notinput').focus();
     } else {
         session.style.overflow = 'auto';
-        e = 'expand_more';
         setSoftkey({
             left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
-            middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">' + e + '</i>',
+            middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">expand_more</i>',
             right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px"></i>'
         });
     };

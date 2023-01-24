@@ -1,5 +1,5 @@
 document.addEventListener("keydown", e => {
-    handleKeydown(e);
+    
     if (loadScreen.style.display == 'none' && !spacedown) {
         if (settings.style.display == 'block') {
             if (e.key == '7') return activeSession.index = 0; localStorage.activeSession = JSON.stringify(activeSession)
