@@ -65,7 +65,7 @@ reset.addEventListener('click', () => {
 
 window.addEventListener('error', e => {
     console.error(e)
-    alert(e);
+    alert(e.message);
 })
 
 document.querySelector('.dropdown-item').addEventListener('focus', () => {
@@ -94,10 +94,10 @@ document.querySelector('#delete').addEventListener('click', () => {
     activeSession.index = 0;
     activeSession.name = sessions[0].name;
     localStorage.activeSession = JSON.stringify(activeSession);
-    dropDownButton.innerHTML = `${activeSession.name}<span
-                class="material-icons">
-                expand_more
-            </span>`;
+    dropDownButton.innerHTML = `${activeSession.name}<i
+                        class="material-icons" style="float: right; position: absolute; right: 2px;">
+                        expand_more
+                    </i>`;
     document.querySelector('#sessionname').innerText = activeSession.name;
     loadSessions();
     loadTable();
@@ -116,10 +116,10 @@ document.querySelector('#rename').addEventListener('click', () => {
     document.querySelectorAll('.notinput')[idx--].focus();
     document.querySelector('#options').style.display = 'none';
     document.querySelector('#sessionname').innerText = activeSession.name;
-    dropDownButton.innerHTML = `${activeSession.name}<span
-                        class="material-icons" ">
+    dropDownButton.innerHTML = `${activeSession.name}<i
+                        class="material-icons" style="float: right; position: absolute; right: 2px;">
                         expand_more
-                    </span>`;
+                    </i>`;
 
     localStorage.sessions = JSON.stringify(sessions);
     localStorage.activeSession = JSON.stringify(activeSession)

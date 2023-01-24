@@ -10,7 +10,7 @@ document.addEventListener('keydown', e => {
                 localStorage.sessions = JSON.stringify(sessions);
             }
             comment.blur();
-            
+
             return;
         }
         if (!canChange) {
@@ -45,18 +45,6 @@ document.addEventListener('keydown', e => {
                                     ao12: '-'
                                 }
                             },
-                            bests: {
-                                single: '-',
-                                mo3: '-',
-                                ao5: '-',
-                                ao12: '-',
-                                ms: {
-                                    single: '-',
-                                    mo3: '-',
-                                    ao5: '-',
-                                    ao12: '-'
-                                }
-                            }
                         }
                     });
                     activeSession.name = document.querySelector('#newsessioninput').value;
@@ -68,10 +56,10 @@ document.addEventListener('keydown', e => {
                     document.querySelectorAll('.td')[0].focus();
                     document.getElementById("myDropdown").classList.toggle("showing");
                     selectopened = false;
-                    dropDownButton.innerHTML = `${activeSession.name}<span
-                        class="material-icons" ">
+                    dropDownButton.innerHTML = `${activeSession.name}<i
+                        class="material-icons" style="float: right; position: absolute; right: 2px;">
                         expand_more
-                    </span>`;
+                    </i>`;
                     document.querySelector('#sessionname').innerText = sessions[activeSession.index].name;
                     showToast('Added Session', 1500)
                     localStorage.sessions = JSON.stringify(sessions);
@@ -87,24 +75,40 @@ document.addEventListener('keydown', e => {
                     activeSession.name = document.activeElement.innerText;
                     activeSession.index = sessions.map(function (e) { return e.name; }).indexOf(activeSession.name);
                     localStorage.activeSession = JSON.stringify(activeSession);
-                    dropDownButton.innerHTML = `${activeSession.name}<span
-                        class="material-icons" >
+                    dropDownButton.innerHTML = `${activeSession.name}<i
+                        class="material-icons" style="float: right; position: absolute; right: 2px;">
                         expand_more
-                    </span>`;
+                    </i>`;
                     document.querySelector('#sessionname').innerText = activeSession.name;
                     loadTable();
                     document.querySelectorAll('.td')[0].focus();
                     document.getElementById("myDropdown").classList.toggle("showing");
                     selectopened = false;
+                    bestAverages = {
+                        single: '-',
+                        mo3: '-',
+                        ao5: '-',
+                        ao12: '-',
+                        ms: {
+                            single: '-',
+                            mo3: '-',
+                            ao5: '-',
+                            ao12: '-'
+                        }
+                    }
                     if (sessions[activeSession.index].times.length >= 5) {
-                        calcAo5();
+                        for (let i = 0; i < sessions[activeSession.index].times.length; i++) {
+                            calcAo5();
+                        }
                     } else {
                         Ao5.ao5current.innerHTML = '-';
                         Ao5.ao5best.innerHTML = '-';
                         Ao5.ao5.innerText = 'Ao5: -'
                     }
                     if (sessions[activeSession.index].times.length >= 12) {
-                        calcAo12();
+                        for (let i = 0; i < sessions[activeSession.index].times.length; i++) {
+                            calcAo12();
+                        }
                     } else {
                         Ao12.ao12current.innerHTML = '-';
                         Ao12.ao12best.innerHTML = '-';

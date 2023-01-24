@@ -25,22 +25,22 @@ let sessions = [{
                 ao5: '-',
                 ao12: '-'
             }
-        },
-        bests: {
-            single: '-',
-            mo3: '-',
-            ao5: '-',
-            ao12: '-',
-            ms: {
-                single: '-',
-                mo3: '-',
-                ao5: '-',
-                ao12: '-'
-            }
         }
     }
 }];
 let activeSession = { name: "Session 1", index: 0 };
+let bestAverages = {
+    single: '-',
+    mo3: '-',
+    ao5: '-',
+    ao12: '-',
+    ms: {
+        single: '-',
+        mo3: '-',
+        ao5: '-',
+        ao12: '-'
+    }
+}
 let Ao5 = {
     ao5current: document.querySelector('#ao5current'),
     ao5best: document.querySelector('#ao5best'),

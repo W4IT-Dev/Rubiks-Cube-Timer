@@ -105,16 +105,22 @@ function getStoredData() {
     }
     if (localStorage.sessions) sessions = JSON.parse(localStorage['sessions']);
     if (localStorage.activeSession) activeSession = JSON.parse(localStorage['activeSession']);
-    for (let i = 0; i <= sessions[activeSession.index].times.length; i++) {
-        if (i >= 5) calcAo5();
-        if (i >= 12) calcAo12();
+    if (sessions[activeSession.index].times.length >= 5) {
+        for (let i = 0; i <= sessions[activeSession.index].times.length; i++) {
+            calcAo5();
+        }
     }
-    // if (sessions[activeSession.index].times.length >= 12) calcAo12();
+    if (sessions[activeSession.index].times.length >= 12) {
+        for (let i = 0; i <= sessions[activeSession.index].times.length; i++) {
+            calcAo12();
+        }
+    }
+
     document.querySelector('#sessionname').innerText = activeSession.name;
-    dropDownButton.innerHTML = `${activeSession.name}<span
-                        class="material-icons" ">
+    dropDownButton.innerHTML = `${activeSession.name}<i
+                        class="material-icons" style="float: right; position: absolute; right: 2px;">
                         expand_more
-                    </span>`;
+                    </i>`;
     loadTable();
     loadSessions();
 }
@@ -181,7 +187,7 @@ function loadTable() {
         cell1 = row.insertCell(0);
         cell2 = row.insertCell(1);
         // cell1.classList.add('loadMore');
-        cell1.classList.add("td", "time");
+        cell1.classList.add("td", "times");
         cell1.innerHTML = `Load more`;
         cell2.innerHTML = `${sessions[activeSession.index].times.length - 30} more`;
     }
@@ -366,24 +372,25 @@ function calcAo5() {
     addAo5(Ao5converted, Ao5inMS)
 }
 function addAo5(time, timeinMS) {
-    if (sessions[activeSession.index].averages.bests.ao5 == '-') {
-        sessions[activeSession.index].averages.bests.ao5 = time;
-        sessions[activeSession.index].averages.bests.ms.ao5 = timeinMS;
-        Ao5.ao5best.innerHTML = time;
-    }
     sessions[activeSession.index].averages.currents.ao5 = time;
     sessions[activeSession.index].averages.currents.ms.ao5 = timeinMS;
     Ao5.ao5current.innerHTML = time
     Ao5.ao5.innerHTML = `Ao5: ${time}`;
-    if (sessions[activeSession.index].averages.currents.ms.ao5 < sessions[activeSession.index].averages.bests.ms.ao5) {
-        sessions[activeSession.index].averages.bests.ms.ao5 = timeinMS;
-        sessions[activeSession.index].averages.bests.ao5 = time;
+    if (bestAverages.ao5 === '-') {
+        bestAverages.ao5 = time;
+        bestAverages.ms.ao5 = timeinMS;
+        Ao5.ao5best.innerHTML = time;
+        return
+    }
+    if (sessions[activeSession.index].averages.currents.ms.ao5 < bestAverages.ms.ao5) {
+        bestAverages.ms.ao5 = timeinMS;
+        bestAverages.ao5 = time;
         Ao5.ao5best.innerHTML = time
     }
 }
 
 function calcAo12() {
-    let times = sessions[activeSession.index].times.slice(0, 5);
+    let times = sessions[activeSession.index].times.slice(0, 12);
     let timesInMS = [];
     for (let i = 0; i < times.length; i++) {
         timesInMS.push(times[i].timeInMS)
@@ -421,18 +428,20 @@ function calcAo12() {
     addAo12(Ao12converted, Ao12inMS);
 }
 function addAo12(time, timeinMS) {
-    if (sessions[activeSession.index].averages.bests.ao12 == '-') {
-        sessions[activeSession.index].averages.bests.ao12 = time;
-        sessions[activeSession.index].averages.bests.ms.ao12 = timeinMS;
-        Ao12.ao12best.innerHTML = time;
-    }
+
     sessions[activeSession.index].averages.currents.ao12 = time;
     sessions[activeSession.index].averages.currents.ms.ao12 = timeinMS;
     Ao12.ao12current.innerHTML = time
     Ao12.ao12.innerHTML = `Ao12: ${time}`;
-    if (sessions[activeSession.index].averages.currents.ms.ao12 < sessions[activeSession.index].averages.bests.ms.ao12) {
-        sessions[activeSession.index].averages.bests.ms.ao12 = timeinMS;
-        sessions[activeSession.index].averages.bests.ao12 = time;
+    if (bestAverages.ao12 === '-') {
+        bestAverages.ao12 = time;
+        bestAverages.ms.ao12 = timeinMS;
+        Ao12.ao12best.innerHTML = time;
+        return
+    }
+    if (sessions[activeSession.index].averages.currents.ms.ao12 < bestAverages.ms.ao12) {
+        bestAverages.ms.ao12 = timeinMS;
+        bestAverages.ao12 = time;
         Ao12.ao12best.innerHTML = time;
     }
 }
@@ -570,7 +579,13 @@ function setPuzzleType() {
     localStorage['puzzleTypeSelector'] = puzzleTypeSelector.value;
     document.querySelector('#puzzleTypename').innerText = puzzleTypeSelector.value;
 }
-
+function a() {
+    setSoftkey({
+        left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
+        middle: 'Add',
+        right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px"> </i>'
+    });
+}
 function loadSessions() {
     if (darkMode.checked) { e = 'dark' } else { e = 'light' };
     i = 0;
@@ -579,7 +594,8 @@ function loadSessions() {
         document.querySelector('#myDropdown').innerHTML += `<div tabindex="1" class="dropdown-item notinput ${e}" id="${i}">${session.name}</div>`
         i++
     });
-    document.querySelector('#myDropdown').innerHTML += `<input id="newsessioninput" class="dropdown-item ${e}" maxlength="50" placeholder="Add session">`
+    
+    document.querySelector('#myDropdown').innerHTML += `<input onfocus='a();' id="newsessioninput" class="dropdown-item ${e}" maxlength="50" placeholder="Add session">`
 }
 
 function openDropdown() {
