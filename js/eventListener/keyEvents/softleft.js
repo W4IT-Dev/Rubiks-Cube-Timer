@@ -2,16 +2,21 @@ document.addEventListener('keydown', e => {
     if (!canChange) {
 
         if (e.key == 'SoftLeft') {
-            if (document.querySelector('#options').style.display == 'flex') return document.querySelector('#options').style.display = 'none', lastFocused.focus(), lastFocused.classList.remove('selected'), setSoftkey({
-                left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
-                middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px">check</i>',
-                right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">more_horiz</i>'
-            });
-            if (editTime.style.display == 'block') return editTime.style.display = 'none', lastFocused.focus(), setSoftkey({
-                left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
-                middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">edit</i>',
-                right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
-            });
+            if (document.querySelector('#options').style.display == 'flex') return document.querySelector('#options').style.display = 'none', lastFocused.focus(), lastFocused.classList.remove('selected');
+            if (editTime.style.display == 'block') return editTime.style.display = 'none', lastFocused.focus();
+            if (selectopened) {
+                dropDownButton.focus();
+                document.querySelector('#expandArrow').innerText = 'expand_more'
+                document.getElementById("myDropdown").classList.toggle("showing");
+                selectopened = !selectopened;
+                session.style.overflow = 'auto';
+                setSoftkey({
+                    left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
+                    middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">expand_more</i>',
+                    right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px"></i>'
+                });
+                return
+            }
             if (session.style.display == 'block') {
                 session.style.display = 'none';
                 document.activeElement.blur();

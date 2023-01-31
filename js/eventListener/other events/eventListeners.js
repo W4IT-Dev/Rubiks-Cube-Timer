@@ -37,27 +37,34 @@ allSelectElems.forEach(function (elem) {
     });
 });
 
+reset.onfocus = () => {
+    setSoftkey({
+        left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2px; left: 2px">arrow_back</i>',
+        middle: 'Select',
+        right: ''
+    });
+}
 reset.addEventListener('click', () => {
     a = confirm("Are you sure you wan't to delete this session's times?");
     if (!a) return
     {
         sessions[activeSession.index].times = [];
-        sessions[activeSession.index].averages.currents.single = '-'
-        sessions[activeSession.index].averages.currents.mo3 = '-'
-        sessions[activeSession.index].averages.currents.ao5 = '-'
-        sessions[activeSession.index].averages.currents.ao12 = '-'
-        sessions[activeSession.index].averages.currents.ms.single = '-'
-        sessions[activeSession.index].averages.currents.ms.mo3 = '-'
-        sessions[activeSession.index].averages.currents.ms.ao5 = '-'
-        sessions[activeSession.index].averages.currents.ms.ao12 = '-'
-        sessions[activeSession.index].averages.bests.single = '-'
-        sessions[activeSession.index].averages.bests.mo3 = '-'
-        sessions[activeSession.index].averages.bests.ao5 = '-'
-        sessions[activeSession.index].averages.bests.ao12 = '-'
-        sessions[activeSession.index].averages.bests.ms.single = '-'
-        sessions[activeSession.index].averages.bests.ms.mo3 = '-'
-        sessions[activeSession.index].averages.bests.ms.ao5 = '-'
-        sessions[activeSession.index].averages.bests.ms.ao12 = '-'
+        allAverages.currents.single = '-'
+        allAverages.currents.mo3 = '-'
+        allAverages.currents.ao5 = '-'
+        allAverages.currents.ao12 = '-'
+        allAverages.currents.ms.single = '-'
+        allAverages.currents.ms.mo3 = '-'
+        allAverages.currents.ms.ao5 = '-'
+        allAverages.currents.ms.ao12 = '-'
+        allAverages.bests.single = '-'
+        allAverages.bests.mo3 = '-'
+        allAverages.bests.ao5 = '-'
+        allAverages.bests.ao12 = '-'
+        allAverages.bests.ms.single = '-'
+        allAverages.bests.ms.mo3 = '-'
+        allAverages.bests.ms.ao5 = '-'
+        allAverages.bests.ms.ao12 = '-'
     }
     localStorage.sessions = JSON.stringify(sessions);
     showToast(`Reseted ${sessions[activeSession.index].name} succesfully`, 1000), loadTable();
@@ -95,7 +102,7 @@ document.querySelector('#delete').addEventListener('click', () => {
     activeSession.name = sessions[0].name;
     localStorage.activeSession = JSON.stringify(activeSession);
     dropDownButton.innerHTML = `${activeSession.name}<i
-                        class="material-icons" style="float: right; position: absolute; right: 2px;">
+                        class="material-icons" id="expandArrow" style="float: right; position: absolute; right: 2px;">
                         expand_more
                     </i>`;
     document.querySelector('#sessionname').innerText = activeSession.name;
@@ -117,7 +124,7 @@ document.querySelector('#rename').addEventListener('click', () => {
     document.querySelector('#options').style.display = 'none';
     document.querySelector('#sessionname').innerText = activeSession.name;
     dropDownButton.innerHTML = `${activeSession.name}<i
-                        class="material-icons" style="float: right; position: absolute; right: 2px;">
+                        class="material-icons" id="expandArrow" style="float: right; position: absolute; right: 2px;">
                         expand_more
                     </i>`;
 

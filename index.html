@@ -61,16 +61,16 @@
     </div>
     <div id="editTime">
         <div id="editInfos">
-            <div tabindex="1" id="editTimeTime" class="editTimeItems show">Time: undefined</div>
+            <div tabindex="1" id="editTimeTime" class="editTimeItems ">Time: undefined</div>
             <label style="display: flex; justify-content: space-between;">
-            <div tabindex="1" id="editTimeStatus" class="editTimeItems show">Status:</div>
-            <select id="statusChange">
-                <option value="OK">OK</option>
-                <option value="DNF">DNF</option>
-                <option value="+2">+2</option>
-            </select>
+                <div tabindex="1" id="editTimeStatus" class="editTimeItems ">Status:</div>
+                <select id="statusChange">
+                    <option value="OK">OK</option>
+                    <option value="DNF">DNF</option>
+                    <option value="+2">+2</option>
+                </select>
             </label>
-            <div tabindex="1" id="editTimeScramble" class="editTimeItems show">Scramble: undefined</div>
+            <div tabindex="1" id="editTimeScramble" class="editTimeItems ">Scramble: undefined</div>
             <label for="comment">Comment</label>
             <input tabindex="1" type="text" name="comment" class="editTimeItems" id="editTimeComment" value="lololol">
         </div>
@@ -79,7 +79,7 @@
         <div style="position: relative;top: 5px; display: flex; justify-content: center;">
             <div>
                 <button id="dropDownButton" onclick="openDropdown()" class="dropdown-item dark">Session 1<i
-                        class="material-icons" style="float: right; position: absolute; right: 2px;">
+                        class="material-icons" id="expandArrow" style="float: right; position: absolute; right: 2px;">
                         expand_more
                     </i></button>
                 <div id="myDropdown" class="dropdown-content dark">
@@ -133,23 +133,23 @@
         <div tabindex='1' class="setting divider show dark canSee">
             <div class="title">Style</div>
             <div class="line"></div>
-            <span class="material-icons" id="style">
+            <!-- <span class="material-icons" id="style">
                 expand_less
-            </span>
+            </span> -->
         </div>
         <div tabindex='1' class="setting nos show dark style canSee" id="timerFontDiv">
             <label for="timerFont">Timer Font:</label>
             <select name="timerFont" id="timerFont">
                 <option value="Arial">Arial</option>
-                <option value="Orbitron" selected>Orbitron</option>
-                <option value="Digital7">Digital 7</option>
+                <option value="Orbitron">Orbitron</option>
+                <option value="Digital7" selected>Digital 7</option>
                 <option value="Digital 3">Digital 3</option>
             </select>
         </div>
 
         <div tabindex='1' class="setting nos show dark style canSee" id="timerSizeDiv">
             <label for="timerSize">Timer Size:</label>
-            <input type="number" min="10" max="35" name="timerSize" id="timerSize" value="16">
+            <input type="number" min="10" max="35" name="timerSize" id="timerSize" value="30">
         </div>
 
         <div tabindex='1' class="setting nos show dark style canSee" id="scrambleSizeDiv">
@@ -176,9 +176,9 @@
         <div tabindex='1' class="setting divider show dark canSee">
             <div class="title">Season</div>
             <div class="line"></div>
-            <span class="material-icons" id="style">
+            <!-- <span class="material-icons" id="style">
                 expand_less
-            </span>
+            </span> -->
         </div>
         <div tabindex='1' class="setting nos show dark canSee season" id="addPartDiv">
             <label>Add Particles</label>
@@ -189,9 +189,9 @@
         </div>
         <div id="credits">
             <h2>Credits</h2>
-            Scramble Generator: <a href="https://codepen.io/ET23/pen/ExdrNz">https://codepen.io/ET23/pen/ExdrNz</a>
-            <br>
-            Snow Flakes: <a href="https://codepen.io/ns_bob/pen/BoMqqR">https://codepen.io/ns_bob/pen/BoMqqR</a>
+            Scramble Generator: <a class="setting show" href="https://codepen.io/ET23/pen/ExdrNz" target="_blank">https://codepen.io/ET23/pen/ExdrNz</a>
+            <!-- <br>
+            Snow Flakes: <a href="https://codepen.io/ns_bob/pen/BoMqqR">https://codepen.io/ns_bob/pen/BoMqqR</a> -->
         </div>
     </div>
 

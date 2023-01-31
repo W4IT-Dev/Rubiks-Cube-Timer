@@ -41,11 +41,11 @@ function stop() {
         status: '-',
         comment: ''
     });
-    if (sessions[activeSession.index].times.length >= 5) {
-        calcAo5();
+    if (sessions[activeSession.index].times.length - 5 > 0) {
+        calcAo5(5);
     }
     if (sessions[activeSession.index].times.length >= 12) {
-        calcAo12();
+        calcAo12(12);
     }
     getScramble();
     Ao5.ao5.style.display = 'block';

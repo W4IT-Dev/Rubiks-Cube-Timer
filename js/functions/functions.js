@@ -33,9 +33,9 @@ function nav(move, elems) {
 }
 
 function select() {
-    if (document.activeElement.classList.contains('divider')) {
-        expand();
-    }
+    // if (document.activeElement.classList.contains('divider')) {
+    //     expand();
+    // }
     if (document.activeElement == puzzleType) return puzzleTypeSelector.focus();
     if (document.activeElement == timerFont) return timerFontSelector.focus();
     if (document.activeElement == document.getElementById('rightSoftDiv')) return document.getElementById('rightSoft').focus();
@@ -105,20 +105,19 @@ function getStoredData() {
     }
     if (localStorage.sessions) sessions = JSON.parse(localStorage['sessions']);
     if (localStorage.activeSession) activeSession = JSON.parse(localStorage['activeSession']);
-    if (sessions[activeSession.index].times.length >= 5) {
-        for (let i = 0; i <= sessions[activeSession.index].times.length; i++) {
-            calcAo5();
-        }
+
+    console.log(sessions[activeSession.index].times.length)
+    for (let i = sessions[activeSession.index].times.length; i > 0; i--) {
+        if (i - 5 >= 0) calcAo5(i);
     }
-    if (sessions[activeSession.index].times.length >= 12) {
-        for (let i = 0; i <= sessions[activeSession.index].times.length; i++) {
-            calcAo12();
-        }
+
+    for (let i = sessions[activeSession.index].times.length; i > 0; i--) {
+        if (i - 12 >= 0) calcAo12(i);
     }
 
     document.querySelector('#sessionname').innerText = activeSession.name;
     dropDownButton.innerHTML = `${activeSession.name}<i
-                        class="material-icons" style="float: right; position: absolute; right: 2px;">
+                        class="material-icons" id="expandArrow" style="float: right; position: absolute; right: 2px;">
                         expand_more
                     </i>`;
     loadTable();
@@ -159,27 +158,33 @@ function loadTable() {
             </tr>`
 
     for (let i = 0; i < sessions[activeSession.index].times.length && i < 30; i++) {
-        {//insert
-            row = table.insertRow(-1);
-            cell1 = row.insertCell(0);
-            cell2 = row.insertCell(1);
-            cell3 = row.insertCell(2);
-            cell4 = row.insertCell(3);
-        }
+        row = table.insertRow(-1);
+        cell1 = row.insertCell(0);
+        cell2 = row.insertCell(1);
+        cell3 = row.insertCell(2);
+        cell4 = row.insertCell(3);
+
         cell1.tabIndex = 1;
         cell1.id = i;
-        {//Classes
-            cell1.classList.add("td", "time", e);
-            cell2.classList.add(e)
-            cell3.classList.add('invisTd');
-            cell4.classList.add('invisTd');
-        }
 
-        {//HTML
-            cell1.innerHTML = sessions[activeSession.index].times[i].time;
-            cell2.innerHTML = sessions[activeSession.index].times[i].status;
-            cell3.innerHTML = sessions[activeSession.index].times[i].scramble;
-            cell4.innerHTML = sessions[activeSession.index].times[i].comment;
+        cell1.classList.add("td", "time", e);
+        cell2.classList.add(e)
+        cell3.classList.add('invisTd');
+        cell4.classList.add('invisTd');
+
+
+
+        cell1.innerHTML = sessions[activeSession.index].times[i].time;
+        cell2.innerHTML = sessions[activeSession.index].times[i].status;
+        cell3.innerHTML = sessions[activeSession.index].times[i].scramble;
+        cell4.innerHTML = sessions[activeSession.index].times[i].comment;
+
+        cell1.onfocus = () => {
+            setSoftkey({
+                left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
+                middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">edit</i>',
+                right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
+            });
         }
     }
     if (sessions[activeSession.index].times.length > 30) {
@@ -203,39 +208,31 @@ function search() {
         label = setting[i].getElementsByTagName("label")[0];
         txtValue = label.textContent || label.innerText;
         setting[i].classList.toggle('show', txtValue.toUpperCase().indexOf(filter) > -1);
-        // setting[i].classList.toggle('notShowing', !txtValue.toUpperCase().indexOf(filter) > -1);
-
-        // setting[i].classList.toggle('canSee', txtValue.toUpperCase().indexOf(filter) > -1);
-
-        // if () {
-        //     setting[i].classList.add('show');
-        // } else {
-        //     setting[i].classList.remove('show');
-        // }
-    }
-}
-
-
-function expand() {
-    elems = document.querySelectorAll('.' + document.activeElement.querySelector('.title').innerText.toLowerCase());
-    if (document.activeElement.querySelector('.material-icons').innerText == 'expand_less') {
-        elems.forEach((elem) => {
-            elem.classList.remove('show');
-            elem.classList.remove('canSee');
-
-        });
-        document.activeElement.querySelector('.material-icons').innerText = 'expand_more'
-        return
-    }
-    if (document.activeElement.querySelector('.material-icons').innerText == 'expand_more') {
-        elems.forEach((elem) => {
-            elem.classList.add('show');
-            elem.classList.add('canSee');
-        });
-        document.activeElement.querySelector('.material-icons').innerText = 'expand_less'
 
     }
 }
+
+
+// function expand() {
+//     elems = document.querySelectorAll('.' + document.activeElement.querySelector('.title').innerText.toLowerCase());
+//     if (document.activeElement.querySelector('.material-icons').innerText == 'expand_less') {
+//         elems.forEach((elem) => {
+//             elem.classList.remove('show');
+//             elem.classList.remove('canSee');
+
+//         });
+//         document.activeElement.querySelector('.material-icons').innerText = 'expand_more'
+//         return
+//     }
+//     if (document.activeElement.querySelector('.material-icons').innerText == 'expand_more') {
+//         elems.forEach((elem) => {
+//             elem.classList.add('show');
+//             elem.classList.add('canSee');
+//         });
+//         document.activeElement.querySelector('.material-icons').innerText = 'expand_less'
+
+//     }
+// }
 
 function letItSnow() {
     let date = new Date();
@@ -331,12 +328,13 @@ function convert($time) {
     return (timeToReturn)
 }
 
-function calcAo5() {
-    let times = sessions[activeSession.index].times.slice(0, 5);
+function calcAo5(a) {
+    let times = sessions[activeSession.index].times.slice(a - 5, 5);
     let timesInMS = [];
     for (let i = 0; i < times.length; i++) {
         timesInMS.push(times[i].timeInMS)
     }
+    // console.log(times)
     let idx = 0;
     let DNF = DNFavg = false;
     const min = Math.min(...timesInMS);
@@ -349,19 +347,18 @@ function calcAo5() {
             idx++;
         }
     })
-    // for (let i = 0; i < times.length; i++) {
 
-    // }
     if (DNFavg) {
-        sessions[activeSession.index].averages.currents.ao5 = 'DNF';
-        sessions[activeSession.index].averages.currents.ms.ao5 = 'DNF';
+        allAverages.currents.ao5 = 'DNF';
+        allAverages.currents.ms.ao5 = 'DNF';
         Ao5.ao5current.innerHTML = 'DNF'
         Ao5.ao5.innerHTML = `Ao5: DNF`;
         return
     }
     let max;
     if (DNF) {
-        max = times[idx].timeInMS;//TODO add DNF to average
+        // console.log(times.length)
+        max = times[idx].timeInMS;
     } else {
         max = Math.max(...timesInMS);//TODO add DNF to average
     }
@@ -370,27 +367,33 @@ function calcAo5() {
     Ao5inMS = (sum - max - min) / 3;
     Ao5converted = convert(Ao5inMS);
     addAo5(Ao5converted, Ao5inMS)
-}
-function addAo5(time, timeinMS) {
-    sessions[activeSession.index].averages.currents.ao5 = time;
-    sessions[activeSession.index].averages.currents.ms.ao5 = timeinMS;
-    Ao5.ao5current.innerHTML = time
-    Ao5.ao5.innerHTML = `Ao5: ${time}`;
-    if (bestAverages.ao5 === '-') {
-        bestAverages.ao5 = time;
-        bestAverages.ms.ao5 = timeinMS;
-        Ao5.ao5best.innerHTML = time;
-        return
-    }
-    if (sessions[activeSession.index].averages.currents.ms.ao5 < bestAverages.ms.ao5) {
-        bestAverages.ms.ao5 = timeinMS;
-        bestAverages.ao5 = time;
-        Ao5.ao5best.innerHTML = time
-    }
+    // console.log(Ao5converted)
 }
 
-function calcAo12() {
-    let times = sessions[activeSession.index].times.slice(0, 12);
+function addAo5(time, timeinMS) {
+    allAverages.currents.ao5 = time;
+    allAverages.currents.ms.ao5 = timeinMS;
+    Ao5.ao5current.innerText = time;
+    Ao5.ao5.innerHTML = `Ao5: ${time}`
+
+    if (allAverages.bests.ao5 === "-") {
+        allAverages.bests.ao5 = time;
+        allAverages.bests.ms.ao5 = timeinMS;
+        Ao5.ao5best.innerText = time;
+        // return console.log(allAverages);
+    }
+
+    if (allAverages.currents.ms.ao5 < allAverages.bests.ms.ao5) {
+        allAverages.bests.ao5 = time;
+        allAverages.bests.ms.ao5 = timeinMS;
+        Ao5.ao5best.innerText = time;
+    }
+
+    // localStorage.setItem(allAverages, JSON.stringify(allAverages));
+}
+
+function calcAo12(a) {
+    let times = sessions[activeSession.index].times.slice(a - 12, 12);
     let timesInMS = [];
     for (let i = 0; i < times.length; i++) {
         timesInMS.push(times[i].timeInMS)
@@ -410,8 +413,8 @@ function calcAo12() {
         }
     })
     if (DNFavg) {
-        sessions[activeSession.index].averages.currents.ao12 = 'DNF';
-        sessions[activeSession.index].averages.currents.ms.ao12 = 'DNF';
+        allAverages.currents.ao12 = 'DNF';
+        allAverages.currents.ms.ao12 = 'DNF';
         Ao12.ao12current.innerHTML = 'DNF'
         Ao12.ao12.innerHTML = `Ao12: DNF`;
         return
@@ -429,21 +432,23 @@ function calcAo12() {
 }
 function addAo12(time, timeinMS) {
 
-    sessions[activeSession.index].averages.currents.ao12 = time;
-    sessions[activeSession.index].averages.currents.ms.ao12 = timeinMS;
+    allAverages.currents.ao12 = time;
+    allAverages.currents.ms.ao12 = timeinMS;
     Ao12.ao12current.innerHTML = time
     Ao12.ao12.innerHTML = `Ao12: ${time}`;
-    if (bestAverages.ao12 === '-') {
-        bestAverages.ao12 = time;
-        bestAverages.ms.ao12 = timeinMS;
+    if (allAverages.bests.ao12 === '-') {
+        allAverages.bests.ao12 = time;
+        allAverages.bests.ms.ao12 = timeinMS;
         Ao12.ao12best.innerHTML = time;
-        return
+
     }
-    if (sessions[activeSession.index].averages.currents.ms.ao12 < bestAverages.ms.ao12) {
-        bestAverages.ms.ao12 = timeinMS;
-        bestAverages.ao12 = time;
+    if (allAverages.currents.ms.ao12 < allAverages.bests.ms.ao12) {
+        allAverages.bests.ms.ao12 = timeinMS;
+        allAverages.bests.ao12 = time;
         Ao12.ao12best.innerHTML = time;
     }
+    localStorage.setItem(allAverages, JSON.stringify(allAverages));
+
 }
 
 function setPuzzleType() {
@@ -579,37 +584,45 @@ function setPuzzleType() {
     localStorage['puzzleTypeSelector'] = puzzleTypeSelector.value;
     document.querySelector('#puzzleTypename').innerText = puzzleTypeSelector.value;
 }
-function a() {
+function a(a) {
+    if (a) {
+        setSoftkey({
+            left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">expand_less</i>',
+            middle: 'Select',
+            right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">more_horiz</i>'
+        });
+        return
+    }
     setSoftkey({
-        left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
+        left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">expand_less</i>',
         middle: 'Add',
-        right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px"> </i>'
+        right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px"></i>'
     });
+
 }
 function loadSessions() {
     if (darkMode.checked) { e = 'dark' } else { e = 'light' };
     i = 0;
     document.querySelector('#myDropdown').innerHTML = ''
     sessions.forEach((session) => {
-        document.querySelector('#myDropdown').innerHTML += `<div tabindex="1" class="dropdown-item notinput ${e}" id="${i}">${session.name}</div>`
+        document.querySelector('#myDropdown').innerHTML += `<div tabindex="1" onfocus='a(true);' class="dropdown-item notinput ${e}" id="${i}">${session.name}</div>`
         i++
     });
-    
+
     document.querySelector('#myDropdown').innerHTML += `<input onfocus='a();' id="newsessioninput" class="dropdown-item ${e}" maxlength="50" placeholder="Add session">`
 }
 
+
 function openDropdown() {
+    let arrow = document.querySelector('#expandArrow')
     document.getElementById("myDropdown").classList.toggle("showing");
     selectopened = !selectopened;
     if (selectopened) {
+        arrow.innerText = 'expand_less'
         session.style.overflow = 'hidden';
-        setSoftkey({
-            left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
-            middle: 'Select',
-            right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">more_horiz</i>'
-        });
         document.querySelector('.notinput').focus();
     } else {
+        arrow.innerText = 'expand_more'
         session.style.overflow = 'auto';
         setSoftkey({
             left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',

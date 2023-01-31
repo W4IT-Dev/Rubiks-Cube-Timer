@@ -53,8 +53,8 @@ body {
     top: 50%;
     display: flex;
     justify-content: space-between;
-    font-family: 'Orbitron';
-    font-size: 16px;
+    font-family: 'Digital7';
+    font-size: 30px;
     transform: translate(-50%, -50%);
 }
 
@@ -92,10 +92,10 @@ body {
 #settings {
     display: none;
     position: fixed;
-    top: 11px;
-    bottom: 36px;
-    left: 10px;
-    right: 10px;
+    top: 5px;
+    bottom: 35px;
+    left: 9px;
+    right: 9px;
     border-radius: 13px;
     overflow: auto;
     overflow-x: hidden;
@@ -136,6 +136,14 @@ select,
     color: #ebe8e8;
     padding-top: 0px;
     width: 75px;
+}
+
+ a {
+    color: rgb(21, 143, 230) !important;
+}
+
+ a:focus {
+    color: blue !important ;
 }
 
 #timerSize {
@@ -235,7 +243,6 @@ input:checked+.slider:before {
 /* remove outline for focus */
 *:focus {
     outline: none;
-    box-shadow: none !important;
 }
 
 .kui-toast {
@@ -294,13 +301,13 @@ input:checked+.slider:before {
 #session {
     display: none;
     position: fixed;
-    top: 13px;
-    left: 10px;
-    bottom: 37px;
-    right: 10px;
+    top: 5px;
+    left: 9px;
+    bottom: 35px;
+    right: 9px;
     z-index: 100;
     border: 5px solid;
-    border-radius: 10px;
+    border-radius: 15px;
     overflow: auto;
     text-align: center;
 }

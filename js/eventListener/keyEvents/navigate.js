@@ -22,4 +22,4 @@ document.addEventListener('keydown', e => {
     if (e.key === 'ArrowLeft') {
         if (document.activeElement == reset) return dropDownButton.focus();
     }
-})
+});

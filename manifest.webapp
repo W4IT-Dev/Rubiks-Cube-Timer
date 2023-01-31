@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "name": "Rubik's Cube Timer",
-  "description": "A simple Rubik's Cube Timer",
+  "description": "Time your Rubik's Cube solves.",
   "type": "web",
   "launch_path": "/index.html",
   "icons": {
@@ -15,8 +15,8 @@
   "locales": {
     "en-US": {
       "name": "Rubik's Cube Timer",
-      "subtitle": "This Rubik's Cube Timer is compatible for most of the Cube's out there! Have fun solving!",
-      "description": "A simple app to time your Rubik's Cube Solves."
+      "subtitle": "Time your Rubik's Cube solves.",
+      "description": "Time your Rubik's Cube solves with this app. This app has many other usefull function for Rubik's Cube solving."
     }
   },
   "default_locale": "en-US"

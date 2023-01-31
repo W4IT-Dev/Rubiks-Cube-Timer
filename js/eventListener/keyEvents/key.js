@@ -1,5 +1,5 @@
 document.addEventListener("keydown", e => {
-    
+
     if (loadScreen.style.display == 'none' && !spacedown) {
         if (settings.style.display == 'block') {
             if (e.key == '7') return activeSession.index = 0; localStorage.activeSession = JSON.stringify(activeSession)
@@ -32,7 +32,7 @@ document.addEventListener("keydown", e => {
                     middle: 'Session',
                     right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
                 });
-                calcAo5();
+                calcAo5(sessions[activeSession.index].times.length);
                 // localStorage.sessions = JSON.stringify(sessions)
                 return
             }

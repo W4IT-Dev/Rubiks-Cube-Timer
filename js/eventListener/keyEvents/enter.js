@@ -57,7 +57,7 @@ document.addEventListener('keydown', e => {
                     document.getElementById("myDropdown").classList.toggle("showing");
                     selectopened = false;
                     dropDownButton.innerHTML = `${activeSession.name}<i
-                        class="material-icons" style="float: right; position: absolute; right: 2px;">
+                        class="material-icons" id="expandArrow" style="float: right; position: absolute; right: 2px;">
                         expand_more
                     </i>`;
                     document.querySelector('#sessionname').innerText = sessions[activeSession.index].name;
@@ -76,7 +76,7 @@ document.addEventListener('keydown', e => {
                     activeSession.index = sessions.map(function (e) { return e.name; }).indexOf(activeSession.name);
                     localStorage.activeSession = JSON.stringify(activeSession);
                     dropDownButton.innerHTML = `${activeSession.name}<i
-                        class="material-icons" style="float: right; position: absolute; right: 2px;">
+                        class="material-icons" id="expandArrow" style="float: right; position: absolute; right: 2px;">
                         expand_more
                     </i>`;
                     document.querySelector('#sessionname').innerText = activeSession.name;
@@ -84,22 +84,37 @@ document.addEventListener('keydown', e => {
                     document.querySelectorAll('.td')[0].focus();
                     document.getElementById("myDropdown").classList.toggle("showing");
                     selectopened = false;
-                    bestAverages = {
-                        single: '-',
-                        mo3: '-',
-                        ao5: '-',
-                        ao12: '-',
-                        ms: {
+                    allAverages = {
+                        currents: {
                             single: '-',
                             mo3: '-',
                             ao5: '-',
-                            ao12: '-'
+                            ao12: '-',
+                            ms: {
+                                single: '-',
+                                mo3: '-',
+                                ao5: '-',
+                                ao12: '-'
+                            }
+                        },
+                        bests: {
+                            single: '-',
+                            mo3: '-',
+                            ao5: '-',
+                            ao12: '-',
+                            ms: {
+                                single: '-',
+                                mo3: '-',
+                                ao5: '-',
+                                ao12: '-'
+                            }
                         }
+
                     }
                     if (sessions[activeSession.index].times.length >= 5) {
-                        for (let i = 0; i < sessions[activeSession.index].times.length; i++) {
-                            calcAo5();
-                        }
+                        // for (let i = sessions[activeSession.index].times.length; i == 0; i--) {
+                        calcAo5(5);
+                        // }
                     } else {
                         Ao5.ao5current.innerHTML = '-';
                         Ao5.ao5best.innerHTML = '-';
@@ -107,7 +122,7 @@ document.addEventListener('keydown', e => {
                     }
                     if (sessions[activeSession.index].times.length >= 12) {
                         for (let i = 0; i < sessions[activeSession.index].times.length; i++) {
-                            calcAo12();
+                            calcAo12(12);
                         }
                     } else {
                         Ao12.ao12current.innerHTML = '-';
