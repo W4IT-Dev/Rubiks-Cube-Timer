@@ -28,7 +28,7 @@ document.addEventListener('keydown', e => {
             }
             if (session.style.display == 'block' && editTime.style.display == 'none' && document.activeElement !== dropDownButton) {
                 if (document.activeElement.id == 'newsessioninput') {
-                    if (!document.activeElement.value) return showToast('Please input a name for the session', 1600);
+                    if (!document.activeElement.value || /^\s+$/.test(document.activeElement.value)) return showToast('Please input a name for the session', 1600);
                     sessions.push({
                         name: document.querySelector('#newsessioninput').value,
                         times: [],
@@ -56,10 +56,7 @@ document.addEventListener('keydown', e => {
                     document.querySelectorAll('.td')[0].focus();
                     document.getElementById("myDropdown").classList.toggle("showing");
                     selectopened = false;
-                    dropDownButton.innerHTML = `${activeSession.name}<i
-                        class="material-icons" id="expandArrow" style="float: right; position: absolute; right: 2px;">
-                        expand_more
-                    </i>`;
+                    sessionname.innerText = activeSession.name;
                     document.querySelector('#sessionname').innerText = sessions[activeSession.index].name;
                     showToast('Added Session', 1500)
                     localStorage.sessions = JSON.stringify(sessions);
@@ -75,10 +72,7 @@ document.addEventListener('keydown', e => {
                     activeSession.name = document.activeElement.innerText;
                     activeSession.index = sessions.map(function (e) { return e.name; }).indexOf(activeSession.name);
                     localStorage.activeSession = JSON.stringify(activeSession);
-                    dropDownButton.innerHTML = `${activeSession.name}<i
-                        class="material-icons" id="expandArrow" style="float: right; position: absolute; right: 2px;">
-                        expand_more
-                    </i>`;
+                    sessionname.innerText = activeSession.name
                     document.querySelector('#sessionname').innerText = activeSession.name;
                     loadTable();
                     document.querySelectorAll('.td')[0].focus();

@@ -101,10 +101,7 @@ document.querySelector('#delete').addEventListener('click', () => {
     activeSession.index = 0;
     activeSession.name = sessions[0].name;
     localStorage.activeSession = JSON.stringify(activeSession);
-    dropDownButton.innerHTML = `${activeSession.name}<i
-                        class="material-icons" id="expandArrow" style="float: right; position: absolute; right: 2px;">
-                        expand_more
-                    </i>`;
+    sessionname.innerText = activeSession.name;
     document.querySelector('#sessionname').innerText = activeSession.name;
     loadSessions();
     loadTable();
@@ -116,17 +113,14 @@ document.querySelector('#delete').addEventListener('click', () => {
 document.querySelector('#rename').addEventListener('click', () => {
     let idx = document.querySelector('.selected').id;
     let a = prompt(`Please enter a new name for the session "${sessions[idx].name}"`);
-    if (!a || /^\s+$/.test(a)) return showToast('Error! <br> Can\'t rename the session to something empty.', 2300);
+    if (!a || /^\s+$/.test(a)) return showToast('Error! <br> Something went wrong', 2300);
     sessions[idx].name = a;
     activeSession.name = sessions[idx].name;
     loadSessions();
     document.querySelectorAll('.notinput')[idx--].focus();
     document.querySelector('#options').style.display = 'none';
     document.querySelector('#sessionname').innerText = activeSession.name;
-    dropDownButton.innerHTML = `${activeSession.name}<i
-                        class="material-icons" id="expandArrow" style="float: right; position: absolute; right: 2px;">
-                        expand_more
-                    </i>`;
+    sessionname.innerText = activeSession.name;
 
     localStorage.sessions = JSON.stringify(sessions);
     localStorage.activeSession = JSON.stringify(activeSession)

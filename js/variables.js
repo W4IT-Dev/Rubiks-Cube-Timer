@@ -74,6 +74,7 @@ let puzzleTypeSelector = document.getElementById('puzzleType');
 let timerFont = document.getElementById('timerFontDiv');
 let timerFontSelector = document.getElementById('timerFont');
 let session = document.querySelector('#session');
+let sessionname = document.querySelector('#sessionnameatbutton');
 let scrambleSizeDiv = document.querySelector('#scrambleSizeDiv');
 let scrambleSize = document.querySelector('#scrambleSize')
 let scrambleSizeInputDiv = document.querySelector('#scrambleSizeInputDiv');
@@ -93,6 +94,7 @@ let reset = document.querySelector('#resetSession');
 let darkModeDiv = document.querySelector('#darkModeDiv');
 let darkMode = document.querySelector('#darkMode');
 let lastFocused;
+let adDisplaying = false;
 
 let autoFontSize = true;
 let scrambleFontSize = "17px";

@@ -17,6 +17,16 @@ body {
     src: url(/Orbitron-Regular.ttf);
 }
 
+#button {
+    position: absolute;
+    opacity: 0;
+}
+
+#ad-container {
+    position: absolute;
+    z-index: 1000000;
+}
+
 /* Ads */
 .ad {
     position: absolute;
@@ -138,12 +148,12 @@ select,
     width: 75px;
 }
 
- a {
+a {
     color: rgb(21, 143, 230) !important;
 }
 
- a:focus {
-    color: blue !important ;
+a:focus {
+    color: blue !important;
 }
 
 #timerSize {
@@ -406,6 +416,7 @@ th {
     padding: 10px 7px 10px 7px;
     align-items: center;
     height: 24px;
+    border-bottom: 1.5px #888 solid;
 }
 
 .divider>.title {
@@ -454,13 +465,19 @@ th {
     position: relative;
     padding: 1px;
     height: 27px;
-    width: 90px;
+    width: 95px;
     text-align: left;
     font-size: 16px;
     margin-right: 5px;
+
+    display: flex;
+}
+
+#sessionnameatbutton {
+    max-width: 85px;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    display: flex;
 }
 
 #newsessioninput {

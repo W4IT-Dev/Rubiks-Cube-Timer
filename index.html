@@ -22,9 +22,11 @@
     <script src="/js/eventListener/other events/eventListeners.js" defer></script>
 
     <script src="/js/script.js" defer></script>
+    <script src="https://static.kaiads.com/ads-sdk/ads-sdk.v5.min.js"></script>
 </head>
 
 <body onload="getScramble(); getStoredData(); letItSnow();" class="dark">
+    <div id='ad-container'></div>
     <canvas id="snow-canvas"></canvas>
     <div id="loadScreen"
         style="height: 295px; width: 240px; display: block; background-color: white; position: fixed; top: 0; left: 0; z-index: 1000000; text-align: center;">
@@ -78,8 +80,9 @@
     <div id="session" class="dark">
         <div style="position: relative;top: 5px; display: flex; justify-content: center;">
             <div>
-                <button id="dropDownButton" onclick="openDropdown()" class="dropdown-item dark">Session 1<i
-                        class="material-icons" id="expandArrow" style="float: right; position: absolute; right: 2px;">
+                <button id="dropDownButton" onclick="openDropdown()" class="dropdown-item dark"><span
+                        id="sessionnameatbutton">Session 1</span><i class="material-icons" id="expandArrow"
+                        style="float: right; position: absolute; right: -2px; top: 1px">
                         expand_more
                     </i></button>
                 <div id="myDropdown" class="dropdown-content dark">
@@ -119,7 +122,7 @@
         <h1 style="border-bottom: 2px #888 solid;">Settings</h1>
         <input class="setting dark show" tabindex="0" type="text" id="search" placeholder="Search">
 
-        <div tabindex='1' class="setting nos show dark canSee" id="puzzleTypeDiv">
+        <div tabindex='1' class="setting nos show dark  " id="puzzleTypeDiv">
             <label for="puzzleType">Puzzle Type:</label>
             <select name="puzzleType" id="puzzleType">
                 <option value="3x3">3x3x3</option>
@@ -130,14 +133,14 @@
                 <option value="7x7">7x7x7</option>
             </select>
         </div>
-        <div tabindex='1' class="setting divider show dark canSee">
+        <div tabindex='1' class=" divider show   ">
             <div class="title">Style</div>
             <div class="line"></div>
             <!-- <span class="material-icons" id="style">
                 expand_less
             </span> -->
         </div>
-        <div tabindex='1' class="setting nos show dark style canSee" id="timerFontDiv">
+        <div tabindex='1' class="setting nos show dark style  " id="timerFontDiv">
             <label for="timerFont">Timer Font:</label>
             <select name="timerFont" id="timerFont">
                 <option value="Arial">Arial</option>
@@ -147,12 +150,12 @@
             </select>
         </div>
 
-        <div tabindex='1' class="setting nos show dark style canSee" id="timerSizeDiv">
+        <div tabindex='1' class="setting nos show dark style  " id="timerSizeDiv">
             <label for="timerSize">Timer Size:</label>
             <input type="number" min="10" max="35" name="timerSize" id="timerSize" value="30">
         </div>
 
-        <div tabindex='1' class="setting nos show dark style canSee" id="scrambleSizeDiv">
+        <div tabindex='1' class="setting nos show dark style  " id="scrambleSizeDiv">
             <label for="scrambleSize">Scramble Size:</label>
             <select name="scrambleSize" id="scrambleSize">
                 <option value="auto">Auto</option>
@@ -160,27 +163,27 @@
             </select>
         </div>
 
-        <div tabindex='1' class="setting dark style hide canSee" id="scrambleSizeInputDiv">
+        <div tabindex='1' class="setting dark style hide  " id="scrambleSizeInputDiv">
             <label for="scrambleSizeInput">Size:</label>
             <input type="number" min="10" max="25" name="scrambleSizeInput" id="scrambleSizeInput" value="16"
                 class="dark">
         </div>
 
-        <div tabindex='1' class="setting nos show dark style canSee" id="darkModeDiv">
+        <div tabindex='1' class="setting nos show dark style  " id="darkModeDiv">
             <label>Dark Mode</label>
             <label class="switch">
                 <input type="checkbox" id="darkMode" checked>
                 <span class="slider"></span>
             </label>
         </div>
-        <div tabindex='1' class="setting divider show dark canSee">
+        <div tabindex='1' class="divider show">
             <div class="title">Season</div>
             <div class="line"></div>
             <!-- <span class="material-icons" id="style">
                 expand_less
             </span> -->
         </div>
-        <div tabindex='1' class="setting nos show dark canSee season" id="addPartDiv">
+        <div tabindex='1' class="setting nos show dark season" id="addPartDiv">
             <label>Add Particles</label>
             <label class="switch">
                 <input type="checkbox" id="addPart" checked>
@@ -189,7 +192,8 @@
         </div>
         <div id="credits">
             <h2>Credits</h2>
-            Scramble Generator: <a class="setting show" href="https://codepen.io/ET23/pen/ExdrNz" target="_blank">https://codepen.io/ET23/pen/ExdrNz</a>
+            Scramble Generator: <a class="setting show" href="https://codepen.io/ET23/pen/ExdrNz"
+                target="_blank">https://codepen.io/ET23/pen/ExdrNz</a>
             <!-- <br>
             Snow Flakes: <a href="https://codepen.io/ns_bob/pen/BoMqqR">https://codepen.io/ns_bob/pen/BoMqqR</a> -->
         </div>

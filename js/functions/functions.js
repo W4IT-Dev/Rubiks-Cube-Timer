@@ -116,10 +116,7 @@ function getStoredData() {
     }
 
     document.querySelector('#sessionname').innerText = activeSession.name;
-    dropDownButton.innerHTML = `${activeSession.name}<i
-                        class="material-icons" id="expandArrow" style="float: right; position: absolute; right: 2px;">
-                        expand_more
-                    </i>`;
+    sessionname.innerText = activeSession.name;
     loadTable();
     loadSessions();
 }
@@ -218,7 +215,7 @@ function search() {
 //     if (document.activeElement.querySelector('.material-icons').innerText == 'expand_less') {
 //         elems.forEach((elem) => {
 //             elem.classList.remove('show');
-//             elem.classList.remove('canSee');
+//             elem.classList.remove(' ');
 
 //         });
 //         document.activeElement.querySelector('.material-icons').innerText = 'expand_more'
@@ -227,7 +224,7 @@ function search() {
 //     if (document.activeElement.querySelector('.material-icons').innerText == 'expand_more') {
 //         elems.forEach((elem) => {
 //             elem.classList.add('show');
-//             elem.classList.add('canSee');
+//             elem.classList.add(' ');
 //         });
 //         document.activeElement.querySelector('.material-icons').innerText = 'expand_less'
 
@@ -304,6 +301,10 @@ function letItSnow() {
             }
             let snowing = setInterval(drawFlakes, 33);
         }
+    } else {
+        document.querySelectorAll('.divider')[1].style.display = 'none';
+        addPartDiv.style.display = 'none';
+        addPartDiv.classList.remove('show');
     }
 }
 

@@ -31,3 +31,34 @@ function softkey(e) {
 
 document.addEventListener("keyup", softkey, true);
 document.addEventListener("keydown", softkey, true);
+
+// document.addEventListener("DOMContentLoaded", () => {
+
+//     getKaiAd({
+//         publisher: 'fe2d9134-74be-48d8-83b9-96f6d803efef',
+//         app: 'Rubik\'s Cube Timer',
+//         slot: 'yourSlotName',
+//         h: 264,
+//         w: 240,
+//         // test: 1,
+//         // Max supported size is 240x264
+//         // container is required for responsive ads
+//         container: document.getElementById('ad-container'),
+//         onerror: err => console.error('Custom catch:', err),
+//         onready: ad => {
+
+//             // Ad is ready to be displayed
+//             // calling 'display' will display the ad
+//             ad.call('display', {
+//                 tabindex: 0,
+//                 navClass: 'items',
+//                 display: 'block',
+//             })
+//             let button = document.getElementById('#button')
+//             button.addEventListener('click', () => {
+//                 ad.close();
+//             })
+//             ad.on('display', () => { adDisplaying = true })
+//         }
+//     })
+// });
