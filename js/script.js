@@ -54,10 +54,7 @@ document.addEventListener("keydown", softkey, true);
 //                 navClass: 'items',
 //                 display: 'block',
 //             })
-//             let button = document.getElementById('#button')
-//             button.addEventListener('click', () => {
-//                 ad.close();
-//             })
+//             
 //             ad.on('display', () => { adDisplaying = true })
 //         }
 //     })
