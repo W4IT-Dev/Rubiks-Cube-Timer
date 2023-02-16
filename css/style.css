@@ -29,20 +29,14 @@ body {
 
 /* Ads */
 .ad {
+    margin: auto;
     position: absolute;
-    display: none;
-    height: 60px;
-    width: 210px;
-    background-color: #2196F3;
+    /* background-color: #2196F3; */
     border: 1px solid black;
 }
 
-.adtop {
-    top: 10px;
-}
-
-.adbottom {
-    bottom: 10px;
+.ad:focus {
+    border: #2196F3 2px solid;
 }
 
 .scramble {
@@ -110,7 +104,6 @@ body {
     overflow: auto;
     overflow-x: hidden;
 }
-
 
 #settings h1 {
     text-align: center;

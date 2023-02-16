@@ -106,7 +106,7 @@ function getStoredData() {
     if (localStorage.sessions) sessions = JSON.parse(localStorage['sessions']);
     if (localStorage.activeSession) activeSession = JSON.parse(localStorage['activeSession']);
 
-    console.log(sessions[activeSession.index].times.length)
+    // console.log(sessions[activeSession.index].times.length)
     for (let i = sessions[activeSession.index].times.length; i > 0; i--) {
         if (i - 5 >= 0) calcAo5(i);
     }

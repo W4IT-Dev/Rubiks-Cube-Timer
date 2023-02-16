@@ -26,7 +26,6 @@
 </head>
 
 <body onload="getScramble(); getStoredData(); letItSnow();" class="dark">
-    <div id='ad-container'></div>
     <canvas id="snow-canvas"></canvas>
     <div id="loadScreen"
         style="height: 295px; width: 240px; display: block; background-color: white; position: fixed; top: 0; left: 0; z-index: 1000000; text-align: center;">
@@ -36,6 +35,8 @@
         <progress id="progress" value="0" style="margin: 0px 0px 60px 10px"></progress>
     </div>
     <div id="wholeSite">
+        <!-- <div class="ad" id='ad-container1'></div> -->
+
         <!-- <div class="ad adtop">Ad here</div>
         <div class="ad adbottom">Ad here</div> -->
         <div class='scramble dark'>
@@ -117,6 +118,8 @@
             </tr>
         </table>
         <table id="timestable"></table>
+        <div class="ad" id='ad-container2'></div>
+
     </div>
     <div id="settings" class="dark">
         <h1 style="border-bottom: 2px #888 solid;">Settings</h1>
@@ -190,6 +193,7 @@
                 <span class="slider"></span>
             </label>
         </div>
+        <div tabindex="1" class=" setting show ad" id='ad-container3'></div>
         <div id="credits">
             <h2>Credits</h2>
             Scramble Generator: <a class="setting show" href="https://codepen.io/ET23/pen/ExdrNz"
