@@ -1,5 +1,4 @@
 document.addEventListener('keydown', e => {
-    // if (adDisplaying) document.getElementById('button').click(), adDisplaying = false;
     if (!canChange) {
 
         if (e.key == 'SoftLeft') {
