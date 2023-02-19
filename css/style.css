@@ -35,8 +35,8 @@ body {
     border: 1px solid black;
 }
 
-.ad:focus {
-    border: #2196F3 2px solid;
+.ad div:focus {
+    border: #2196F3 2.5px solid !important;
 }
 
 .scramble {

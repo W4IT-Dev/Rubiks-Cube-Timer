@@ -71,11 +71,11 @@ th.light {
     background-color: #ababab;
 }
 
-td.light {
+td.light, #loadMore.light {
     background-color: #eee;
 }
 
-td.light:focus {
+td.light:focus, #loadMore.light:focus {
     background-color: #c7c6c6;
 }
 

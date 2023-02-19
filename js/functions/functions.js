@@ -186,12 +186,17 @@ function loadTable() {
     }
     if (sessions[activeSession.index].times.length > 30) {
         row = table.insertRow(-1);
-        cell1 = row.insertCell(0);
-        cell2 = row.insertCell(1);
-        // cell1.classList.add('loadMore');
-        cell1.classList.add("td", "times");
-        cell1.innerHTML = `Load more`;
-        cell2.innerHTML = `${sessions[activeSession.index].times.length - 30} more`;
+        cell11 = row.insertCell(0);
+        cell11.tabIndex = 1;
+
+        cell22 = row.insertCell(1);
+        cell22.classList.add(e);
+
+        cell11.id = 'loadMore';
+
+        cell11.classList.add("td", "times", e);
+        cell11.innerHTML = `Load more`;
+        cell22.innerHTML = `${sessions[activeSession.index].times.length - 30} more`;
     }
 }
 

@@ -33,7 +33,7 @@ document.addEventListener("keyup", softkey, true);
 document.addEventListener("keydown", softkey, true);
 
 document.addEventListener("DOMContentLoaded", () => {
-    return
+    // return
     // getKaiAd({
     //     publisher: 'fe2d9134-74be-48d8-83b9-96f6d803efef',
     //     app: 'Rubik\'s Cube Timer',
@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
         publisher: 'fe2d9134-74be-48d8-83b9-96f6d803efef',
         app: 'Rubik\'s Cube Timer',
         slot: 'SettingsAd',
-        h: 70,
+        h: 80,
         w: 200,
         test: 1,
         // Max supported size is 240x264
@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // calling 'display' will display the ad
             ad.call('display', {
                 tabindex: 1,
-                navClass: 'setting',
+                navClass: 'setting show',
                 display: 'block',
             })
         }

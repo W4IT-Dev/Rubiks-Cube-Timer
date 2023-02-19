@@ -57,11 +57,12 @@
     background-color: #454545;
 }
 
-#timestable td.dark {
+#timestable td.dark, #loadMore.dark {
     background-color: #676767;
 }
 
-#timestable td.dark:focus {
+
+#timestable td.dark:focus, #loadMore.dark:focus {
     background-color: #545454;
 }
 
