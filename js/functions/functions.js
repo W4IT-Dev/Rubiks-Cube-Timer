@@ -19,8 +19,6 @@ function shuffle(o) {
     return o;
 };
 
-
-
 function nav(move, elems) {
     const currentIndex = document.activeElement;
     const items = document.querySelectorAll(elems);
@@ -210,7 +208,6 @@ function search() {
         label = setting[i].getElementsByTagName("label")[0];
         txtValue = label.textContent || label.innerText;
         setting[i].classList.toggle('show', txtValue.toUpperCase().indexOf(filter) > -1);
-
     }
 }
 
@@ -340,7 +337,6 @@ function calcAo5(a) {
     for (let i = 0; i < times.length; i++) {
         timesInMS.push(times[i].timeInMS)
     }
-    // console.log(times)
     let idx = 0;
     let DNF = DNFavg = false;
     const min = Math.min(...timesInMS);
@@ -375,7 +371,6 @@ function calcAo5(a) {
     addAo5(Ao5converted, Ao5inMS)
     // console.log(Ao5converted)
 }
-
 function addAo5(time, timeinMS) {
     allAverages.currents.ao5 = time;
     allAverages.currents.ms.ao5 = timeinMS;
@@ -617,7 +612,6 @@ function loadSessions() {
 
     document.querySelector('#myDropdown').innerHTML += `<input onfocus='a();' id="newsessioninput" class="dropdown-item ${e}" maxlength="50" placeholder="Add session">`
 }
-
 
 function openDropdown() {
     let arrow = document.querySelector('#expandArrow')

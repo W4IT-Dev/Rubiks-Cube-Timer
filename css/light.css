@@ -14,12 +14,13 @@ body.light {
 
 #session.light {
     background-color: #ddd;
-    border-color: #bbb;
+    border-color: rgb(155, 155, 155);
+
     color: #222;
 }
 
 #sessions.light {
-    border: 4px solid rgb(150, 150, 150);
+    border: #969696;
     background-color: #ebe8e8;
     color: #272727;
 }
@@ -43,7 +44,7 @@ body.light {
 
 #settings.light {
     background-color: #eee;
-    border: 4.5px solid #ccc;
+    border-color: rgb(155, 155, 155);
     color: #222;
 }
 
@@ -111,4 +112,13 @@ td.light:focus, #loadMore.light:focus {
 
 .option-button.light:focus {
     background-color: #b4b3b3;
+}
+
+#editTime.light {
+    background-color: #ddd;
+    border-color: rgb(160, 160, 160);
+}
+
+#editTime.light *:focus {
+    background-color: #bbb;
 }

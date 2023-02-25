@@ -12,11 +12,9 @@ moves['b'] = new Array("B", "B'", "B2");
 
 keys = new Array("r", "l", "u", "d", "f", "b");
 
-if (loadScreen.style.display == 'block') {
-    load = setInterval(() => { progress.value += .09 }, 150)
-} else {
-    clearInterval(load);
-}
+if (loadScreen.style.display == 'block') load = setInterval(() => { progress.value += .09 }, 150)
+else clearInterval(load);
+
 setTimeout(() => { loadScreen.style.display = 'none'; document.querySelector('footer').style.opacity = '1' }, 2300)
 
 
@@ -85,17 +83,12 @@ document.addEventListener("DOMContentLoaded", () => {
         h: 80,
         w: 200,
         test: 1,
-        // Max supported size is 240x264
-        // container is required for responsive ads
         container: document.getElementById('ad-container3'),
         onerror: err => console.error('Custom catch:', err),
         onready: ad => {
-
-            // Ad is ready to be displayed
-            // calling 'display' will display the ad
             ad.call('display', {
                 tabindex: 1,
-                navClass: 'setting show',
+                navClass: 'setting',
                 display: 'block',
             })
         }

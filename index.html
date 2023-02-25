@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/css/superdark.css">
     <link rel="stylesheet" href="/css/light.css">
     <link rel="stylesheet" href="/css/superlight.css">
+
     <script src="/js/variables.js" defer></script>
     <script src="/js/functions/functions.js" defer></script>
     <script src="/js/functions/timer.js" defer></script>
@@ -20,8 +21,8 @@
     <script src="/js/eventListener/keyEvents/key.js" defer></script>
     <script src="/js/eventListener/keyEvents/navigate.js" defer></script>
     <script src="/js/eventListener/other events/eventListeners.js" defer></script>
-
     <script src="/js/script.js" defer></script>
+
     <script src="https://static.kaiads.com/ads-sdk/ads-sdk.v5.min.js"></script>
 </head>
 
@@ -34,6 +35,7 @@
         <br>
         <progress id="progress" value="0" style="margin: 0px 0px 60px 10px"></progress>
     </div>
+
     <div id="wholeSite">
         <!-- <div class="ad" id='ad-container1'></div> -->
 
@@ -62,22 +64,24 @@
         </div>
         <input id="comment" placeholder="Comment">
     </div>
-    <div id="editTime">
+
+    <div id="editTime" class="dark">
         <div id="editInfos">
             <div tabindex="1" id="editTimeTime" class="editTimeItems ">Time: undefined</div>
-            <label style="display: flex; justify-content: space-between;">
-                <div tabindex="1" id="editTimeStatus" class="editTimeItems ">Status:</div>
-                <select id="statusChange">
+            <div tabindex="1" class="editTimeItems">
+                <label tabindex="1" id="editTimeStatus" for="statusChange">Status:</label>
+                <select id="statusChange" name="statusChange">
                     <option value="OK">OK</option>
                     <option value="DNF">DNF</option>
                     <option value="+2">+2</option>
                 </select>
-            </label>
+            </div>
             <div tabindex="1" id="editTimeScramble" class="editTimeItems ">Scramble: undefined</div>
             <label for="comment">Comment</label>
             <input tabindex="1" type="text" name="comment" class="editTimeItems" id="editTimeComment" value="lololol">
         </div>
     </div>
+
     <div id="session" class="dark">
         <div style="position: relative;top: 5px; display: flex; justify-content: center;">
             <div>
@@ -121,6 +125,7 @@
         <div class="ad" id='ad-container2'></div>
 
     </div>
+
     <div id="settings" class="dark">
         <h1 style="border-bottom: 2px #888 solid;">Settings</h1>
         <input class="setting dark show" tabindex="0" type="text" id="search" placeholder="Search">
@@ -136,7 +141,7 @@
                 <option value="7x7">7x7x7</option>
             </select>
         </div>
-        <div tabindex='1' class=" divider show   ">
+        <div tabindex='1' class=" divider show">
             <div class="title">Style</div>
             <div class="line"></div>
             <!-- <span class="material-icons" id="style">
@@ -193,7 +198,7 @@
                 <span class="slider"></span>
             </label>
         </div>
-        <div class="show" id='ad-container3'></div>
+        <div id='ad-container3'></div>
         <div id="credits">
             <h2>Credits</h2>
             Scramble Generator: <a class="setting show" href="https://codepen.io/ET23/pen/ExdrNz"
@@ -204,12 +209,14 @@
     </div>
 
     <div class="kui-toast">
-        <p class="kui-pri">Thanks Cyan</p>
+        <p class="kui-pri"></p>
     </div>
+
     <div id="options" class="dark">
         <button class="option-button dark" id="delete">Delete</button>
         <button class="option-button dark" id="rename">Rename</button>
     </div>
+
     <footer id="softkeys" class="dark" style="opacity: 0;">
         <div id="softLeft">
             <span class="material-icons"

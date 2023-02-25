@@ -35,7 +35,7 @@
 
 #settings.dark {
     background-color: #323232;
-    border: 4.5px solid #454545;
+    border-color: #454545;
     color: #fefefe;
 }
 
@@ -91,4 +91,13 @@
 
 .selected.dark {
     background-color: #272727;
+}
+
+#editTime.dark {
+    background-color: #333;
+    border: 4px solid #454545;
+}
+
+#editTime.dark *:focus {
+    background-color: #292929;
 }

@@ -16,8 +16,6 @@ function start() {
 }
 
 function startTimer() {
-    // document.querySelector('.ad').style.display = 'block';
-    // document.querySelectorAll('.ad')[1].style.display = 'block';
     timing = true;
     timeIn100MS = 0;
     time = setInterval(() => {
@@ -53,21 +51,25 @@ function stop() {
     document.querySelector('.scramble').style.display = 'block';
     // document.querySelector('.ad').style.display = 'none';
     // document.querySelectorAll('.ad')[1].style.display = 'none';
-    canChange = true;
-    setSoftkey({
-        left: 'DNF',
-        middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">check</i>',
-        right: '+2'
-    });
+
     bacjankdakhkdakdiuadkkj = setTimeout(() => {
-        canChange = false;
-        if (!settingsOpened && session.style.display == 'none') {
-            setSoftkey({
-                left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
-                middle: 'Session',
-                right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
-            });
-        }
-    }, 1500);
+        canChange = true;
+        setSoftkey({
+            left: 'DNF',
+            middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">check</i>',
+            right: '+2'
+        });
+        setTimeout(() => {
+            canChange = false;
+            if (!settingsOpened && session.style.display == 'none') {
+                setSoftkey({
+                    left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
+                    middle: 'Session',
+                    right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
+                });
+            }
+        }, 1500)
+
+    }, 150);
     localStorage.sessions = JSON.stringify(sessions);
 }
