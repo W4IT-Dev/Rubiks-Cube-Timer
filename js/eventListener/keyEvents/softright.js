@@ -11,7 +11,7 @@ document.addEventListener('keydown', e => {
             document.querySelector('.option-button').focus();
             setSoftkey({
                 left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
-                middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px">check</i>',
+                middle: 'Select',
                 right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px"></i>'
             });
         }

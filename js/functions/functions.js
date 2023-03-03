@@ -25,9 +25,7 @@ function nav(move, elems) {
     let currentElemIdx = [...items].indexOf(currentIndex);
     const next = currentElemIdx + move;
     const targetElement = items[next];
-    if (targetElement) {
-        targetElement.focus();
-    }
+    if (targetElement) targetElement.focus();
 }
 
 function select() {
@@ -50,7 +48,7 @@ function select() {
     if (document.activeElement == document.getElementById('scrambleSizeDiv')) return document.getElementById('scrambleSize').focus();
     if (document.activeElement == document.getElementById('scrambleSizeInputDiv')) return document.getElementById('scrambleSizeInput').focus(), setSoftkey({
         left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
-        middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">check</i>',
+        middle: 'Select',
         right: '<i class="material-icons" style="font-size: 17px; position: relative; top: 4.5px; right: 2.5px">backspace</i>'
     }), timerSize.setSelectionRange(2, 2);
     if (document.activeElement == document.getElementById('scrambleSizeInput')) return document.getElementById('scrambleSizeInputDiv').focus(), setSoftkey({
@@ -59,6 +57,7 @@ function select() {
         right: '<i class="material-icons" style=" color: blue; font-size: 21px; position: relative; top: 2.5px; right: 2px">question_mark</i>'
     });
     if (document.activeElement == darkModeDiv) return darkMode.checked = !darkMode.checked, setDarkOrLightMode();
+    if (document.activeElement == highContrastModeDiv) return highContrastMode.checked = !highContrastMode.checked, setDarkOrLightMode();
     if (document.activeElement == addPartDiv) return addPart.checked = !addPart.checked, letItSnow();
 }
 
@@ -71,8 +70,11 @@ function setSoftkey(object) {
 function setDarkOrLightMode() {
     loadTable();
     loadSessions();
+
     for (let elem of allelem) {
         elem.classList.toggle('light', !darkMode.checked);
+        elem.classList.toggle('highContrast', highContrastMode.checked);
+
     }
     if (darkMode.checked) return document.querySelector("meta[name='theme-color']").setAttribute('content', 'rgb(33, 33, 33)'), localStorage.setItem('darkmode', 'true');
     document.querySelector("meta[name='theme-color']").setAttribute('content', 'rgb(235, 232, 232)');
@@ -98,8 +100,8 @@ function getStoredData() {
     if (localStorage.timerSize) document.getElementById('timerSize').value = localStorage.timerSize, timer.style.fontSize = localStorage.timerSize + 'px';
     if (localStorage.scrambleSizeInput) scrambleSizeInput.value = localStorage.scrambleSizeInput;
     if (localStorage.scrambleSize) {
-        if (localStorage.scrambleSize == 'user') scrambleSize.value = 'user-defined', scrambleSizeInputDiv.classList.add('show', 'nos'); autoFontSize = false, actualScramble.style.fontSize = scrambleSizeInput.value + "px";
-        if (localStorage.scrambleSize == 'auto') scrambleSizeInputDiv.classList.remove('show', 'nos'), autoFontSize = true, actualScramble.style.fontSize = scrambleFontSize;
+        if (localStorage.scrambleSize === 'user') scrambleSize.value = 'user-defined', scrambleSizeInputDiv.classList.remove('hide', 'nos'); autoFontSize = false, actualScramble.style.fontSize = scrambleSizeInput.value + "px";
+        if (localStorage.scrambleSize === 'auto') scrambleSizeInputDiv.classList.add('hide', 'nos'), autoFontSize = true, actualScramble.style.fontSize = scrambleFontSize;
     }
     if (localStorage.sessions) sessions = JSON.parse(localStorage['sessions']);
     if (localStorage.activeSession) activeSession = JSON.parse(localStorage['activeSession']);
@@ -131,11 +133,44 @@ function showToast(text, time) {
     }, time);
 }
 
-function loadTable() {
-    table = document.getElementById("timestable");
+function loadTable(loadMore) {
     if (darkMode.checked) { e = 'dark' } else { e = 'light' }
+
+    if (loadMore) {
+        // document.querySelector('#loadMore').remove();
+        for (let i = 0; i < sessions[activeSession.index].times.length && i < currentLoadedTimes; i++) {
+            row = table.insertRow(-1);
+            cell1 = row.insertCell(0);
+            cell2 = row.insertCell(1);
+            cell3 = row.insertCell(2);
+            cell4 = row.insertCell(3);
+
+            cell1.tabIndex = 1;
+            cell1.id = i;
+
+            cell1.classList.add("td", "time", e);
+            cell2.classList.add(e)
+            cell3.classList.add('invisTd');
+            cell4.classList.add('invisTd');
+
+            cell1.innerHTML = sessions[activeSession.index].times[i].time;
+            cell2.innerHTML = sessions[activeSession.index].times[i].status;
+            cell3.innerHTML = sessions[activeSession.index].times[i].scramble;
+            cell4.innerHTML = sessions[activeSession.index].times[i].comment;
+
+            cell1.onfocus = () => {
+                setSoftkey({
+                    left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
+                    middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">edit</i>',
+                    right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
+                });
+            }
+        }
+        currentLoadedTimes += 30;
+        return
+    }
     if (sessions[activeSession.index].times.length == 0) {
-        document.getElementById("timestable").innerHTML = `
+        table.innerHTML = `
             <tr>
                 <th class="${e}">Time</th>
                 <th class="${e}">Status</th>
@@ -146,7 +181,7 @@ function loadTable() {
             </tr>`
         return
     }
-    document.getElementById("timestable").innerHTML = `
+    table.innerHTML = `
             <tr>
                 <th class="${e}">Time</th>
                 <th class="${e}">Status</th>
@@ -166,8 +201,7 @@ function loadTable() {
         cell2.classList.add(e)
         cell3.classList.add('invisTd');
         cell4.classList.add('invisTd');
-
-
+        if (highContrastMode.checked) { cell1.classList.add('highContrast'), cell2.classList.add('highContrast') }
 
         cell1.innerHTML = sessions[activeSession.index].times[i].time;
         cell2.innerHTML = sessions[activeSession.index].times[i].status;

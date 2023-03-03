@@ -1,0 +1,67 @@
+
+.light.highContrast {
+    /*general*/
+    background-color: #f9f9f9;
+    color: #000;
+}
+
+.light.highContrast:focus {
+    background-color: #eee;
+}
+
+#session.light.highContrast {
+    background-color: #eee;
+    color: #000;
+    border-color: #222;
+}
+
+.scramble.light.highContrast {
+    background-color: rgb(242, 242, 242);
+    box-shadow: 0px 0px 23px 8px rgba(6, 6, 6, 0.38)
+}
+
+#scramble.light.highContrast {
+    background-color: rgb(242, 242, 242);;
+}
+
+#timer.light.highContrast {
+    color: #000;
+}
+
+#settings.light.highContrast {
+    background-color: #fafafa;
+    border: 4.5px solid #aaa;
+}
+
+.setting.light.highContrast {
+    background-color: #fafafa;
+}
+
+.setting.light.highContrast:focus {
+    background-color: #eee;
+}
+
+#softkeys.light.highContrast {
+    background-color: #fff;
+
+}
+
+th.light.highContrast {
+    background-color: #ddd;
+}
+
+td.light.highContrast {
+    background-color: #eee;
+}
+
+td.light.highContrast:focus {
+    background-color: #dfdfdf;
+}
+
+.dropdown-item.light.highContrast {
+    background-color: #222;
+}
+
+.dropdown-item.light.highContrast:focus {
+    background-color: #171717;
+}

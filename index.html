@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/dark.css">
-    <link rel="stylesheet" href="/css/superdark.css">
+    <link rel="stylesheet" href="/css/highContrastDark.css">
     <link rel="stylesheet" href="/css/light.css">
-    <link rel="stylesheet" href="/css/superlight.css">
+    <link rel="stylesheet" href="/css/highContrastLight.css">
 
     <script src="/js/variables.js" defer></script>
     <script src="/js/functions/functions.js" defer></script>
@@ -130,7 +130,7 @@
         <h1 style="border-bottom: 2px #888 solid;">Settings</h1>
         <input class="setting dark show" tabindex="0" type="text" id="search" placeholder="Search">
 
-        <div tabindex='1' class="setting nos show dark  " id="puzzleTypeDiv">
+        <div tabindex='1' class="setting nos show dark" id="puzzleTypeDiv">
             <label for="puzzleType">Puzzle Type:</label>
             <select name="puzzleType" id="puzzleType">
                 <option value="3x3">3x3x3</option>
@@ -141,6 +141,8 @@
                 <option value="7x7">7x7x7</option>
             </select>
         </div>
+
+
         <div tabindex='1' class=" divider show">
             <div class="title">Style</div>
             <div class="line"></div>
@@ -154,36 +156,40 @@
                 <option value="Arial">Arial</option>
                 <option value="Orbitron">Orbitron</option>
                 <option value="Digital7" selected>Digital 7</option>
-                <option value="Digital 3">Digital 3</option>
             </select>
         </div>
-
-        <div tabindex='1' class="setting nos show dark style  " id="timerSizeDiv">
+        <div tabindex='1' class="setting nos show dark style" id="timerSizeDiv">
             <label for="timerSize">Timer Size:</label>
             <input type="number" min="10" max="35" name="timerSize" id="timerSize" value="30">
         </div>
-
-        <div tabindex='1' class="setting nos show dark style  " id="scrambleSizeDiv">
+        <div tabindex='1' class="setting nos show dark style" id="scrambleSizeDiv">
             <label for="scrambleSize">Scramble Size:</label>
             <select name="scrambleSize" id="scrambleSize">
                 <option value="auto">Auto</option>
                 <option value="user-defined">User Defined</option>
             </select>
         </div>
-
-        <div tabindex='1' class="setting dark style hide  " id="scrambleSizeInputDiv">
+        <div tabindex='1' class="setting show dark style hide" id="scrambleSizeInputDiv">
             <label for="scrambleSizeInput">Size:</label>
             <input type="number" min="10" max="25" name="scrambleSizeInput" id="scrambleSizeInput" value="16"
                 class="dark">
         </div>
-
-        <div tabindex='1' class="setting nos show dark style  " id="darkModeDiv">
+        <div tabindex='1' class="setting nos show dark style" id="darkModeDiv">
             <label>Dark Mode</label>
             <label class="switch">
                 <input type="checkbox" id="darkMode" checked>
                 <span class="slider"></span>
             </label>
         </div>
+        <div tabindex='1' class="setting nos show dark style" id="highContrastModeDiv">
+            <label>High Contrast</label>
+            <label class="switch">
+                <input type="checkbox" id="highContrastMode">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+
         <div tabindex='1' class="divider show">
             <div class="title">Season</div>
             <div class="line"></div>
@@ -198,6 +204,7 @@
                 <span class="slider"></span>
             </label>
         </div>
+
         <div id='ad-container3'></div>
         <div id="credits">
             <h2>Credits</h2>

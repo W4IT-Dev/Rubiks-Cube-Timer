@@ -1,0 +1,62 @@
+.dark.highContrast {
+    /*general*/
+    background-color: #131313;
+    color: #fff;
+}
+
+.dark.highContrast:focus {
+    background-color: #101010;
+}
+
+#session.dark.highContrast {
+    background-color: #181818;
+    border-color: #101010;
+}
+
+.scramble.dark.highContrast {
+    background-color: rgb(17, 17, 17);
+    box-shadow: 0px 0px 30px 8px rgba(6, 6, 6, 0.7)
+}
+
+#scramble.dark.highContrast {
+    background-color: rgb(17, 17, 17);
+}
+
+
+#settings.dark.highContrast {
+    background-color: #121212;
+    border: 4.5px solid #080808;
+}
+
+.setting.dark.highContrast {
+    background-color: #121212;
+}
+
+.setting.dark.highContrast:focus {
+    background-color: #070707;
+}
+
+#softkeys.dark.highContrast {
+    background-color: #000;
+}
+
+th.dark.highContrast {
+    background-color: #080808;
+}
+
+td.dark.highContrast {
+    background-color: #111;
+}
+
+td.dark.highContrast:focus {
+    background-color: #202020;
+}
+
+.dropdown-item.dark.highContrast {
+    background-color: #101010
+}
+
+.dropdown-item.dark.highContrast:focus {
+    background-color: #000;
+}
+

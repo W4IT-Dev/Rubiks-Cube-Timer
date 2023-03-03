@@ -14,13 +14,13 @@ document.getElementById('timerSize').addEventListener('input', () => {
 
 scrambleSize.addEventListener('change', () => {
     if (scrambleSize.value == 'auto') {
-        scrambleSizeInputDiv.classList.remove('show', 'nos');
+        scrambleSizeInputDiv.classList.add('hide', 'nos');
         autoFontSize = true;
         actualScramble.style.fontSize = scrambleFontSize;
         localStorage['scrambleSize'] = 'auto'
         return
     }
-    scrambleSizeInputDiv.classList.add('show', 'nos'); autoFontSize = false;
+    scrambleSizeInputDiv.classList.remove('hide', 'nos'); autoFontSize = false;
     actualScramble.style.fontSize = scrambleSizeInput.value + "px";
     localStorage['scrambleSize'] = 'user'
 });

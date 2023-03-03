@@ -26,7 +26,11 @@ document.addEventListener('keydown', e => {
                 });
                 return
             }
-            if (session.style.display == 'block' && editTime.style.display == 'none' && document.activeElement !== dropDownButton) {
+            if (session.style.display == 'block') {
+                if(editTime.style.display == 'block' || document.activeElement == dropDownButton) return
+
+                // if(document.activeElement.id === 'loadMore') return loadTable();
+                
                 if (document.activeElement.id == 'newsessioninput') {
                     if (!document.activeElement.value || /^\s+$/.test(document.activeElement.value)) return showToast('Please input a name for the session', 1600);
                     sessions.push({

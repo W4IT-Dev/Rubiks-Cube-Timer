@@ -59,6 +59,8 @@ let allelem = document.querySelectorAll('#editTime, #scrambleSizeInput, .divider
 
 let settingsOpened = false;
 
+let currentLoadedTimes = 30;
+let table = document.getElementById("timestable");
 let arrow = document.querySelector('#expandArrow')
 let scrambleOnDom = document.querySelector('.scramble');
 let actualScramble = document.querySelector('#scramble');
@@ -93,6 +95,8 @@ let dropDownButton = document.querySelector('#dropDownButton');
 let reset = document.querySelector('#resetSession');
 let darkModeDiv = document.querySelector('#darkModeDiv');
 let darkMode = document.querySelector('#darkMode');
+let highContrastModeDiv = document.querySelector('#highContrastModeDiv');
+let highContrastMode = document.querySelector('#highContrastMode')
 let lastFocused;
 let adDisplaying = false;
 
