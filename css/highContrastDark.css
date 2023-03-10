@@ -1,21 +1,21 @@
 .dark.highContrast {
     /*general*/
-    background-color: #131313;
+    background-color: #121212;
     color: #fff;
 }
 
 .dark.highContrast:focus {
-    background-color: #101010;
+    background-color: #080808;
 }
 
 #session.dark.highContrast {
-    background-color: #181818;
-    border-color: #101010;
+    background-color: #131313;
+    border-color: #000;
 }
 
 .scramble.dark.highContrast {
     background-color: rgb(17, 17, 17);
-    box-shadow: 0px 0px 30px 8px rgba(6, 6, 6, 0.7)
+    box-shadow: 0px 0px 20px 8px rgba(6, 6, 6, 0.45)
 }
 
 #scramble.dark.highContrast {
@@ -24,16 +24,16 @@
 
 
 #settings.dark.highContrast {
-    background-color: #121212;
-    border: 4.5px solid #080808;
+    background-color: #151515;
+    border-color: #000;
 }
 
 .setting.dark.highContrast {
-    background-color: #121212;
+    background-color: #151515;
 }
 
 .setting.dark.highContrast:focus {
-    background-color: #070707;
+    background-color: #000;
 }
 
 #softkeys.dark.highContrast {
@@ -60,3 +60,9 @@ td.dark.highContrast:focus {
     background-color: #000;
 }
 
+
+#settings input.dark.highContrast,
+#settings select.dark.highContrast {
+    background-color: #111;
+    color: #fff;
+}

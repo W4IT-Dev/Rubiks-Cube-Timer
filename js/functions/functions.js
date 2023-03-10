@@ -76,9 +76,17 @@ function setDarkOrLightMode() {
         elem.classList.toggle('highContrast', highContrastMode.checked);
 
     }
-    if (darkMode.checked) return document.querySelector("meta[name='theme-color']").setAttribute('content', 'rgb(33, 33, 33)'), localStorage.setItem('darkmode', 'true');
-    document.querySelector("meta[name='theme-color']").setAttribute('content', 'rgb(235, 232, 232)');
+    if (darkMode.checked) {
+        localStorage.setItem('darkmode', 'true');
+        if (highContrastMode.checked) return document.querySelector("meta[name='theme-color']").setAttribute('content', 'rgb(17, 17, 17)'), localStorage.setItem('highContrast', 'true');
+        localStorage.setItem('highContrast', 'false')
+        document.querySelector("meta[name='theme-color']").setAttribute('content', 'rgb(33, 33, 33)');
+        return
+    }
     localStorage.setItem('darkmode', 'false');
+    if (highContrastMode.checked) return document.querySelector("meta[name='theme-color']").setAttribute('content', 'rgb(248, 248, 248)'), localStorage.setItem('highContrast', 'true');
+    localStorage.setItem('highContrast', 'false')
+    document.querySelector("meta[name='theme-color']").setAttribute('content', 'rgb(235, 232, 232)');
 }
 
 function info() {
@@ -90,7 +98,12 @@ function info() {
 
 function getStoredData() {
     if (localStorage.darkmode) {
-        if (localStorage.getItem('darkmode') == 'true') { darkMode.checked = true; } else { darkMode.checked = false; }
+        if(localStorage.highContrast === "true") highContrastMode.checked = true;
+        if (localStorage.darkMode == "true") {
+            darkMode.checked = true;
+        } else {
+            darkMode.checked = false;
+        }
         setDarkOrLightMode();
     } else {
         localStorage.setItem('darkmode', 'true');
@@ -100,8 +113,8 @@ function getStoredData() {
     if (localStorage.timerSize) document.getElementById('timerSize').value = localStorage.timerSize, timer.style.fontSize = localStorage.timerSize + 'px';
     if (localStorage.scrambleSizeInput) scrambleSizeInput.value = localStorage.scrambleSizeInput;
     if (localStorage.scrambleSize) {
-        if (localStorage.scrambleSize === 'user') scrambleSize.value = 'user-defined', scrambleSizeInputDiv.classList.remove('hide', 'nos'); autoFontSize = false, actualScramble.style.fontSize = scrambleSizeInput.value + "px";
-        if (localStorage.scrambleSize === 'auto') scrambleSizeInputDiv.classList.add('hide', 'nos'), autoFontSize = true, actualScramble.style.fontSize = scrambleFontSize;
+        if (localStorage.scrambleSize === 'user') scrambleSize.value = 'user-defined', scrambleSizeInputDiv.classList.add('show'); autoFontSize = false, actualScramble.style.fontSize = scrambleSizeInput.value + "px";
+        if (localStorage.scrambleSize === 'auto') scrambleSizeInputDiv.classList.remove('show'), autoFontSize = true, actualScramble.style.fontSize = scrambleFontSize;
     }
     if (localStorage.sessions) sessions = JSON.parse(localStorage['sessions']);
     if (localStorage.activeSession) activeSession = JSON.parse(localStorage['activeSession']);

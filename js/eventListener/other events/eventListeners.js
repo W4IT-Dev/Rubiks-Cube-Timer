@@ -14,13 +14,13 @@ document.getElementById('timerSize').addEventListener('input', () => {
 
 scrambleSize.addEventListener('change', () => {
     if (scrambleSize.value == 'auto') {
-        scrambleSizeInputDiv.classList.add('hide', 'nos');
+        scrambleSizeInputDiv.classList.remove('show', 'nos');
         autoFontSize = true;
         actualScramble.style.fontSize = scrambleFontSize;
         localStorage['scrambleSize'] = 'auto'
         return
     }
-    scrambleSizeInputDiv.classList.remove('hide', 'nos'); autoFontSize = false;
+    scrambleSizeInputDiv.classList.add('show', 'nos'); autoFontSize = false;
     actualScramble.style.fontSize = scrambleSizeInput.value + "px";
     localStorage['scrambleSize'] = 'user'
 });
@@ -72,7 +72,7 @@ reset.addEventListener('click', () => {
 
 window.addEventListener('error', e => {
     console.error(e)
-    alert(e.message);
+    showToast(e.message, 1300);
 })
 
 document.querySelector('.dropdown-item').addEventListener('focus', () => {

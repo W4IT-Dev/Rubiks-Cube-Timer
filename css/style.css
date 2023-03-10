@@ -512,11 +512,9 @@ th {
     font-size: 18px;
 }
 
-.show {
-    display: flex;
-}
-
-
 .hide {
     display: none;
+}
+.show {
+    display: flex;
 }
