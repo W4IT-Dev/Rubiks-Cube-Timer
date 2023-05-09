@@ -98,7 +98,7 @@ function info() {
 
 function getStoredData() {
     if (localStorage.darkmode) {
-        if(localStorage.highContrast === "true") highContrastMode.checked = true;
+        if (localStorage.highContrast === "true") highContrastMode.checked = true;
         if (localStorage.darkMode == "true") {
             darkMode.checked = true;
         } else {
@@ -146,42 +146,10 @@ function showToast(text, time) {
     }, time);
 }
 
-function loadTable(loadMore) {
+function loadTable() {
     if (darkMode.checked) { e = 'dark' } else { e = 'light' }
 
-    if (loadMore) {
-        // document.querySelector('#loadMore').remove();
-        for (let i = 0; i < sessions[activeSession.index].times.length && i < currentLoadedTimes; i++) {
-            row = table.insertRow(-1);
-            cell1 = row.insertCell(0);
-            cell2 = row.insertCell(1);
-            cell3 = row.insertCell(2);
-            cell4 = row.insertCell(3);
-
-            cell1.tabIndex = 1;
-            cell1.id = i;
-
-            cell1.classList.add("td", "time", e);
-            cell2.classList.add(e)
-            cell3.classList.add('invisTd');
-            cell4.classList.add('invisTd');
-
-            cell1.innerHTML = sessions[activeSession.index].times[i].time;
-            cell2.innerHTML = sessions[activeSession.index].times[i].status;
-            cell3.innerHTML = sessions[activeSession.index].times[i].scramble;
-            cell4.innerHTML = sessions[activeSession.index].times[i].comment;
-
-            cell1.onfocus = () => {
-                setSoftkey({
-                    left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
-                    middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">edit</i>',
-                    right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
-                });
-            }
-        }
-        currentLoadedTimes += 30;
-        return
-    }
+   
     if (sessions[activeSession.index].times.length == 0) {
         table.innerHTML = `
             <tr>
@@ -201,25 +169,7 @@ function loadTable(loadMore) {
             </tr>`
 
     for (let i = 0; i < sessions[activeSession.index].times.length && i < 30; i++) {
-        row = table.insertRow(-1);
-        cell1 = row.insertCell(0);
-        cell2 = row.insertCell(1);
-        cell3 = row.insertCell(2);
-        cell4 = row.insertCell(3);
-
-        cell1.tabIndex = 1;
-        cell1.id = i;
-
-        cell1.classList.add("td", "time", e);
-        cell2.classList.add(e)
-        cell3.classList.add('invisTd');
-        cell4.classList.add('invisTd');
-        if (highContrastMode.checked) { cell1.classList.add('highContrast'), cell2.classList.add('highContrast') }
-
-        cell1.innerHTML = sessions[activeSession.index].times[i].time;
-        cell2.innerHTML = sessions[activeSession.index].times[i].status;
-        cell3.innerHTML = sessions[activeSession.index].times[i].scramble;
-        cell4.innerHTML = sessions[activeSession.index].times[i].comment;
+        insertTime(i);
 
         cell1.onfocus = () => {
             setSoftkey({
@@ -242,7 +192,30 @@ function loadTable(loadMore) {
         cell11.classList.add("td", "times", e);
         cell11.innerHTML = `Load more`;
         cell22.innerHTML = `${sessions[activeSession.index].times.length - 30} more`;
+        currentLoadedScrambles = 30;
     }
+}
+
+function insertTime(index) {
+    row = table.insertRow(-1);
+    cell1 = row.insertCell(0);
+    cell2 = row.insertCell(1);
+    cell3 = row.insertCell(2);
+    cell4 = row.insertCell(3);
+
+    cell1.tabIndex = 1;
+    cell1.id = index;
+
+    cell1.classList.add("td", "time", e);
+    cell2.classList.add(e)
+    cell3.classList.add('invisTd');
+    cell4.classList.add('invisTd');
+
+    cell1.innerHTML = sessions[activeSession.index].times[index].time;
+    cell2.innerHTML = sessions[activeSession.index].times[index].status;
+    cell3.innerHTML = sessions[activeSession.index].times[index].scramble;
+    cell4.innerHTML = sessions[activeSession.index].times[index].comment;
+
 }
 
 function search() {

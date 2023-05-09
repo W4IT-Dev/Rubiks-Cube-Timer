@@ -5,7 +5,7 @@ let timeIn100MS = 0;
 let timing = false;
 let waitToStart;
 
-let bacjankdakhkdakdiuadkkj;
+let tmeout;
 let selectopened = false;
 
 let canChange = false;
@@ -102,6 +102,9 @@ let adDisplaying = false;
 
 let autoFontSize = true;
 let scrambleFontSize = "17px";
+
+let currentLoadedScrambles = 0;
+let solves = 0;
 
 var moves = new Array();
 var limit = 20;

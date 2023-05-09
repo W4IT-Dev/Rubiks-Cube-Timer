@@ -12,10 +12,10 @@ moves['b'] = new Array("B", "B'", "B2");
 
 keys = new Array("r", "l", "u", "d", "f", "b");
 
-if (loadScreen.style.display == 'block') load = setInterval(() => { progress.value += .09 }, 150)
+if (progress.value <= 87) load = setInterval(() => { progress.value += .09 }, 120)
 else clearInterval(load);
 
-setTimeout(() => { loadScreen.style.display = 'none'; document.querySelector('footer').style.opacity = '1' }, 2300)
+// setTimeout(() => {  }, 2300)
 
 
 function softkey(e) {
@@ -31,29 +31,13 @@ document.addEventListener("keyup", softkey, true);
 document.addEventListener("keydown", softkey, true);
 
 document.addEventListener("DOMContentLoaded", () => {
-    // return
-    // getKaiAd({
-    //     publisher: 'fe2d9134-74be-48d8-83b9-96f6d803efef',
-    //     app: 'Rubik\'s Cube Timer',
-    //     slot: 'TimingAd',
-    //     h: 70,
-    //     w: 200,
-    //     test: 1,
-    //     // Max supported size is 240x264
-    //     // container is required for responsive ads
-    //     container: document.getElementById('ad-container1'),
-    //     onerror: err => console.error('Custom catch:', err),
-    //     onready: ad => {
+    progress.value = 1;
+    setTimeout(() => {
+        loadScreen.style.display = 'none'; document.querySelector('footer').style.opacity = '1'
 
-    //         // Ad is ready to be displayed
-    //         // calling 'display' will display the ad
-    //         ad.call('display', {
-    //             tabindex: 0,
-    //             navClass: 'items',
-    //             display: 'block',
-    //         })
-    //     }
-    // })
+    }, 1000)
+    fullscreenAd('afterfirstsolveAd', true, '1')
+    fullscreenAd('after50solveAd', true, '2')
     getKaiAd({
         publisher: 'fe2d9134-74be-48d8-83b9-96f6d803efef',
         app: 'Rubik\'s Cube Timer',
@@ -61,14 +45,10 @@ document.addEventListener("DOMContentLoaded", () => {
         h: 70,
         w: 200,
         test: 1,
-        // Max supported size is 240x264
-        // container is required for responsive ads
         container: document.getElementById('ad-container2'),
         onerror: err => console.error('Custom catch:', err),
         onready: ad => {
 
-            // Ad is ready to be displayed
-            // calling 'display' will display the ad
             ad.call('display', {
                 tabindex: 1,
                 navClass: 'td',
@@ -76,21 +56,26 @@ document.addEventListener("DOMContentLoaded", () => {
             })
         }
     })
+});
+
+function fullscreenAd(slotname, preload, buttonName) {
     getKaiAd({
         publisher: 'fe2d9134-74be-48d8-83b9-96f6d803efef',
         app: 'Rubik\'s Cube Timer',
-        slot: 'SettingsAd',
-        h: 80,
-        w: 200,
+        slot: slotname,
         test: 1,
-        container: document.getElementById('ad-container3'),
         onerror: err => console.error('Custom catch:', err),
         onready: ad => {
-            ad.call('display', {
-                tabindex: 1,
-                navClass: 'setting',
-                display: 'block',
-            })
+            if (preload) {
+                let button = document.querySelector('#showAd' + buttonName)
+                console.log(button)
+                button.addEventListener('click', function btnListener() {
+                    button.removeEventListener('click', btnListener)
+                    ad.call('display')
+                })
+                return
+            }
+            ad.call('display');
         }
     })
-});
+}

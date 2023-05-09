@@ -33,7 +33,7 @@
 }
 
 .setting.dark.highContrast:focus {
-    background-color: #000;
+    background-color: #252525;
 }
 
 #softkeys.dark.highContrast {
@@ -57,7 +57,7 @@ td.dark.highContrast:focus {
 }
 
 .dropdown-item.dark.highContrast:focus {
-    background-color: #000;
+    background-color: #252525;
 }
 
 

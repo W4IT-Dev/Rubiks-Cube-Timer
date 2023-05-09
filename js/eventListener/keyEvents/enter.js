@@ -27,10 +27,33 @@ document.addEventListener('keydown', e => {
                 return
             }
             if (session.style.display == 'block') {
-                if(editTime.style.display == 'block' || document.activeElement == dropDownButton) return
+                if (document.activeElement.id == "loadMore") {
+                    if (darkMode.checked) { e = 'dark' } else { e = 'light' }
+
+                    console.log('test')
+                    if (sessions[activeSession.index].times[currentLoadedScrambles + 30]) {
+                        for (let i = currentLoadedScrambles; i < currentLoadedScrambles + 30; i++) {
+                            insertTime(i);
+                        }
+                        cell22 = row.insertCell(1);
+                        cell22.classList.add(e);
+                        cell11.id = 'loadMore';
+                        cell22.innerHTML = `${sessions[activeSession.index].times.length - currentLoadedScrambles} more`;
+
+                        cell11.classList.add("td", "times", e);
+                        cell11.innerHTML = `Load more`;
+                        currentLoadedScrambles += 30;
+                    } else {
+                        for (let i = currentLoadedScrambles; i < currentLoadedScrambles.length; i++) {
+                            insertTime(i);
+                        }
+                    }
+                    return
+                }
+                if (editTime.style.display == 'block' || document.activeElement == dropDownButton) return
 
                 // if(document.activeElement.id === 'loadMore') return loadTable();
-                
+
                 if (document.activeElement.id == 'newsessioninput') {
                     if (!document.activeElement.value || /^\s+$/.test(document.activeElement.value)) return showToast('Please input a name for the session', 1600);
                     sessions.push({

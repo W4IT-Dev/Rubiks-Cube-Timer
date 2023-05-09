@@ -30,6 +30,14 @@ function startTimer() {
 }
 
 function stop() {
+    solves++;
+    if (solves == 1) setTimeout(() => { document.querySelector('#showAd1').click() }, 500)
+    if (solves == 50) {
+        setTimeout(() => { document.querySelector('#showAd2').click() }, 500)
+        fullscreenAd('after50solveAd', true, '2')
+
+        solves = 0;
+    }
     clearInterval(time);
     timing = false;
     sessions[activeSession.index].times.unshift({
@@ -52,7 +60,7 @@ function stop() {
     // document.querySelector('.ad').style.display = 'none';
     // document.querySelectorAll('.ad')[1].style.display = 'none';
 
-    bacjankdakhkdakdiuadkkj = setTimeout(() => {
+    tmeout = setTimeout(() => {
         canChange = true;
         setSoftkey({
             left: 'DNF',
