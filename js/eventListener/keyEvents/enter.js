@@ -1,7 +1,6 @@
 document.addEventListener('keydown', e => {
-    if (e.key == 'Enter') {
-        // ==== ADD COMMENT ====
-        if (document.activeElement.id == 'comment') {
+    if (e.key === 'Enter') {
+        if (document.activeElement.id === 'comment') {
             comment.style.opacity = 0;
             if (comment.value) {
                 sessions[activeSession.index].times[0].comment = comment.value;
@@ -10,12 +9,11 @@ document.addEventListener('keydown', e => {
                 localStorage.sessions = JSON.stringify(sessions);
             }
             comment.blur();
-
             return;
         }
         if (!canChange) {
             if (settingsOpened) return select();
-            if (session.style.display == 'none') {
+            if (session.style.display === 'none') {
                 loadTable();
                 session.style.display = 'block';
                 document.querySelectorAll('.td')[0].focus();
@@ -24,13 +22,12 @@ document.addEventListener('keydown', e => {
                     middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">edit</i>',
                     right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
                 });
-                return
+                return;
             }
-            if (session.style.display == 'block') {
-                if (document.activeElement.id == "loadMore") {
-                    if (darkMode.checked) { e = 'dark' } else { e = 'light' }
-
-                    console.log('test')
+            if (session.style.display === 'block') {
+                if (document.activeElement.id === "loadMore") {
+                    const e = darkMode.checked ? 'dark' : 'light';
+                    console.log('test');
                     if (sessions[activeSession.index].times[currentLoadedScrambles + 30]) {
                         for (let i = currentLoadedScrambles; i < currentLoadedScrambles + 30; i++) {
                             insertTime(i);
@@ -39,7 +36,6 @@ document.addEventListener('keydown', e => {
                         cell22.classList.add(e);
                         cell11.id = 'loadMore';
                         cell22.innerHTML = `${sessions[activeSession.index].times.length - currentLoadedScrambles} more`;
-
                         cell11.classList.add("td", "times", e);
                         cell11.innerHTML = `Load more`;
                         currentLoadedScrambles += 30;
@@ -48,13 +44,10 @@ document.addEventListener('keydown', e => {
                             insertTime(i);
                         }
                     }
-                    return
+                    return;
                 }
-                if (editTime.style.display == 'block' || document.activeElement == dropDownButton) return
-
-                // if(document.activeElement.id === 'loadMore') return loadTable();
-
-                if (document.activeElement.id == 'newsessioninput') {
+                if (editTime.style.display === 'block' || document.activeElement === dropDownButton) return;
+                if (document.activeElement.id === 'newsessioninput') {
                     if (!document.activeElement.value || /^\s+$/.test(document.activeElement.value)) return showToast('Please input a name for the session', 1600);
                     sessions.push({
                         name: document.querySelector('#newsessioninput').value,
@@ -71,11 +64,11 @@ document.addEventListener('keydown', e => {
                                     ao5: '-',
                                     ao12: '-'
                                 }
-                            },
+                            }
                         }
                     });
                     activeSession.name = document.querySelector('#newsessioninput').value;
-                    activeSession.index = sessions.map(function (e) { return e.name; }).indexOf(activeSession.name);
+                    activeSession.index = sessions.map(e => e.name).indexOf(activeSession.name);
                     localStorage.activeSession = JSON.stringify(activeSession);
                     loadTable();
                     document.querySelector('#newsessioninput').value = '';
@@ -85,21 +78,21 @@ document.addEventListener('keydown', e => {
                     selectopened = false;
                     sessionname.innerText = activeSession.name;
                     document.querySelector('#sessionname').innerText = sessions[activeSession.index].name;
-                    showToast('Added Session', 1500)
+                    showToast('Added Session', 1500);
                     localStorage.sessions = JSON.stringify(sessions);
                     Ao5.ao5current.innerHTML = '-';
                     Ao5.ao5best.innerHTML = '-';
                     Ao12.ao12current.innerHTML = '-';
                     Ao12.ao12best.innerHTML = '-';
-                    Ao5.ao5.innerText = 'Ao5: -'
+                    Ao5.ao5.innerText = 'Ao5: -';
                     session.style.overflow = 'auto';
                     return;
                 }
                 if (document.activeElement.classList.contains('notinput')) {
                     activeSession.name = document.activeElement.innerText;
-                    activeSession.index = sessions.map(function (e) { return e.name; }).indexOf(activeSession.name);
+                    activeSession.index = sessions.map(e => e.name).indexOf(activeSession.name);
                     localStorage.activeSession = JSON.stringify(activeSession);
-                    sessionname.innerText = activeSession.name
+                    sessionname.innerText = activeSession.name;
                     document.querySelector('#sessionname').innerText = activeSession.name;
                     loadTable();
                     document.querySelectorAll('.td')[0].focus();
@@ -130,16 +123,13 @@ document.addEventListener('keydown', e => {
                                 ao12: '-'
                             }
                         }
-
-                    }
+                    };
                     if (sessions[activeSession.index].times.length >= 5) {
-                        // for (let i = sessions[activeSession.index].times.length; i == 0; i--) {
                         calcAo5(5);
-                        // }
                     } else {
                         Ao5.ao5current.innerHTML = '-';
                         Ao5.ao5best.innerHTML = '-';
-                        Ao5.ao5.innerText = 'Ao5: -'
+                        Ao5.ao5.innerText = 'Ao5: -';
                     }
                     if (sessions[activeSession.index].times.length >= 12) {
                         for (let i = 0; i < sessions[activeSession.index].times.length; i++) {
@@ -148,16 +138,16 @@ document.addEventListener('keydown', e => {
                     } else {
                         Ao12.ao12current.innerHTML = '-';
                         Ao12.ao12best.innerHTML = '-';
-                        Ao12.ao12.innerText = 'Ao12: -'
+                        Ao12.ao12.innerText = 'Ao12: -';
                     }
                     session.style.overflow = 'auto';
-                    return
+                    return;
                 }
                 if (document.activeElement.classList.contains('time')) {
                     lastFocused = document.activeElement;
-                    editTimeTime.innerHTML = `Time: ${document.activeElement.parentElement.firstChild.innerText}`
-                    editTimeStatus.innerHTML = `Status: ${document.activeElement.parentElement.children[1].innerText}`
-                    editTimeScramble.innerHTML = `Scramble: <br> ${document.activeElement.parentElement.children[2].innerText}`
+                    editTimeTime.innerHTML = `Time: ${document.activeElement.parentElement.firstChild.innerText}`;
+                    editTimeStatus.innerHTML = `Status: ${document.activeElement.parentElement.children[1].innerText}`;
+                    editTimeScramble.innerHTML = `Scramble: <br> ${document.activeElement.parentElement.children[2].innerText}`;
                     editTimeComment.value = document.activeElement.parentElement.children[3].innerText;
                     editTime.style.display = 'block';
                     editTimeTime.focus();
@@ -167,10 +157,14 @@ document.addEventListener('keydown', e => {
                         right: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.1px; right: 2px">delete</i>'
                     });
                 }
-                if (document.activeElement = editTimeScramble) {
-                    if (editTimeScramble.style.maxHeight == '90px') return editTimeScramble.style.maxHeight = "1000px", editTimeScramble.style.overflow = 'visible';
-                    editTimeScramble.style.maxHeight = '90px';
-                    editTimeScramble.style.overflow = 'hidden'
+                if (document.activeElement === editTimeScramble) {
+                    if (editTimeScramble.style.maxHeight === '90px') {
+                        editTimeScramble.style.maxHeight = "1000px";
+                        editTimeScramble.style.overflow = 'visible';
+                    } else {
+                        editTimeScramble.style.maxHeight = "90px";
+                        editTimeScramble.style.overflow = 'hidden';
+                    }
                 }
             }
         }

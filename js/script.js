@@ -15,8 +15,6 @@ keys = new Array("r", "l", "u", "d", "f", "b");
 if (progress.value <= 87) load = setInterval(() => { progress.value += .09 }, 120)
 else clearInterval(load);
 
-// setTimeout(() => {  }, 2300)
-
 
 function softkey(e) {
     const { target, key, bubbles, cancelable, repeat, type } = e;
