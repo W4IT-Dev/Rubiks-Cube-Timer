@@ -12,13 +12,13 @@ body.debug * {
 
 @font-face {
     font-family: "Digital7";
-    src: url(/digital-7.regular.ttf);
+    src: url(/digital-7.regular.woff);
 }
 
 
 @font-face {
     font-family: 'Orbitron';
-    src: url(/Orbitron-Regular.ttf);
+    src: url(/orbitron-regular.woff);
 }
 
 #button {

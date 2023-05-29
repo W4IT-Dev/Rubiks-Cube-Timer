@@ -4,6 +4,7 @@ let time;
 let timeIn100MS = 0;
 let timing = false;
 let waitToStart;
+let importetTimes;
 
 let tmeout;
 let selectopened = false;

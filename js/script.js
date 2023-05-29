@@ -1,7 +1,15 @@
 settings.style.display = 'none';
 session.style.display = 'none';
 editTime.style.display = 'none';
-
+const timeRequest = new XMLHttpRequest();
+timeRequest.open("GET", "/times.json");
+timeRequest.onload = function () {
+    if (timeRequest.status === 200) {
+        importetTimes = JSON.parse(timeRequest.responseText);
+        console.log(importetTimes)
+    }
+};
+// timeRequest.send();
 
 moves['r'] = new Array("R", "R'", "R2");
 moves['l'] = new Array("L", "L'", "L2");

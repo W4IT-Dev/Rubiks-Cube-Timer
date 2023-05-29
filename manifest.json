@@ -5,8 +5,8 @@
   "type": "web",
   "launch_path": "/index.html",
   "icons": {
-    "56": "/img/app-icon.png",
-    "112": "/img/app-icon.png"
+    "56": "/img/icon.png",
+    "112": "/img/icon.png"
   },
   "developer": {
     "name": "W4IT Dev",
