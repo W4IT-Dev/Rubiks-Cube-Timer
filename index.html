@@ -5,7 +5,7 @@
     <meta name="theme-color" content="rgb(23, 23, 23)">
     <title>Rubik's Cube Timer</title>
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> -->
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/dark.css">
     <link rel="stylesheet" href="/css/highContrastDark.css">
@@ -68,8 +68,8 @@
     <div id="editTime" class="dark">
         <div id="editInfos">
             <div tabindex="1" id="editTimeTime" class="editTimeItems ">Time: undefined</div>
-            <div tabindex="1" class="editTimeItems">
-                <label tabindex="1" id="editTimeStatus" for="statusChange">Status:</label>
+            <div tabindex="1" class="editTimeItems" style="display: flex; justify-content: space-between;" id="editTimeStatus">
+                <label tabindex="1"  for="statusChange">Status:</label>
                 <select id="statusChange" name="statusChange">
                     <option value="OK">OK</option>
                     <option value="DNF">DNF</option>
@@ -77,8 +77,10 @@
                 </select>
             </div>
             <div tabindex="1" id="editTimeScramble" class="editTimeItems ">Scramble: undefined</div>
-            <label for="comment">Comment</label>
+            <div>
+            <label for="comment">Comment:</label>
             <input tabindex="1" type="text" name="comment" class="editTimeItems" id="editTimeComment" value="lololol">
+            </div>
         </div>
     </div>
 
@@ -130,7 +132,7 @@
         <h1 style="border-bottom: 2px #888 solid;">Settings</h1>
         <input class="setting dark show" tabindex="0" type="text" id="search" placeholder="Search">
 
-        <div tabindex='1' class="setting nos show dark" id="puzzleTypeDiv">
+        <div tabindex='1' data-help="What type of puzzle you want a scramble for." class="setting nos show dark" id="puzzleTypeDiv">
             <label for="puzzleType">Puzzle Type:</label>
             <select name="puzzleType" id="puzzleType">
                 <option value="3x3">3x3x3</option>
@@ -149,7 +151,7 @@
                 expand_less
             </span> -->
         </div>
-        <div tabindex='1' class="setting nos show dark style" id="timerFontDiv">
+        <div tabindex='1' data-help="Customize the font of the timer." class="setting nos show dark style" id="timerFontDiv">
             <label for="timerFont">Timer Font:</label>
             <select name="timerFont" id="timerFont">
                 <option value="Arial">Arial</option>
@@ -157,30 +159,30 @@
                 <option value="Digital7" selected>Digital 7</option>
             </select>
         </div>
-        <div tabindex='1' class="setting nos show dark style" id="timerSizeDiv">
+        <div tabindex='1' data-help="Customize the font size of the timer." class="setting nos show dark style" id="timerSizeDiv">
             <label for="timerSize">Timer Size:</label>
             <input type="number" min="10" max="35" name="timerSize" id="timerSize" value="30">
         </div>
-        <div tabindex='1' class="setting nos show dark style" id="scrambleSizeDiv">
+        <div tabindex='1' data-help="Customize the font size of the scramble. Auto: Automaitcally setes the font size to make the scrabmel fit" class="setting nos show dark style" id="scrambleSizeDiv">
             <label for="scrambleSize">Scramble Size:</label>
             <select name="scrambleSize" id="scrambleSize">
                 <option value="auto">Auto</option>
                 <option value="user-defined">User Defined</option>
             </select>
         </div>
-        <div tabindex='1' class="setting hide dark style" id="scrambleSizeInputDiv">
+        <div tabindex='1' data-help="Customize the font size of the scramble" class="setting hide dark style" id="scrambleSizeInputDiv">
             <label for="scrambleSizeInput">Size:</label>
             <input type="number" min="10" max="25" name="scrambleSizeInput" id="scrambleSizeInput" value="16"
                 class="dark">
         </div>
-        <div tabindex='1' class="setting nos show dark style" id="darkModeDiv">
+        <div tabindex='1' data-help="Dark/Light mode" class="setting nos show dark style" id="darkModeDiv">
             <label>Dark Mode</label>
             <label class="switch">
                 <input type="checkbox" id="darkMode" checked>
                 <span class="slider"></span>
             </label>
         </div>
-        <div tabindex='1' class="setting nos show dark style" id="highContrastModeDiv">
+        <div tabindex='1' data-help="High Contrast Dark/Light mode" class="setting nos show dark style" id="highContrastModeDiv">
             <label>High Contrast</label>
             <label class="switch">
                 <input type="checkbox" id="highContrastMode">
@@ -195,14 +197,14 @@
                 expand_less
             </span> -->
         </div>
-        <div tabindex='1' class="setting nos show dark season" id="addPartDiv">
+        <div tabindex='1' data-help="Add snow when its winter season" class="setting nos show dark season" id="addPartDiv">
             <label>Add Particles</label>
             <label class="switch">
                 <input type="checkbox" id="addPart" checked>
                 <span class="slider"></span>
             </label>
         </div>
-        <input class="setting now show " type="file"  name="importTime" id="importTime">
+        <!-- <input class="setting now show " type="file"  name="importTime" id="importTime"> -->
         <div id="credits">
             <h2>Credits</h2>
             Scramble Generator: <a class="setting show" href="https://codepen.io/ET23/pen/ExdrNz"

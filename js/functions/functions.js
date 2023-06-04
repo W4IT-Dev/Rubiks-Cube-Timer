@@ -90,10 +90,8 @@ function setDarkOrLightMode() {
 }
 
 function info() {
-    if (document.activeElement == puzzleType) return alert('Here you can change the puzzle type.\n A puzzle type is as example a 3x3 or Pyraminx etc.');
-    if (document.activeElement == timerFont) return alert('Timer font means how the timer looks.\n Change the font to the one you like!');
-    if (document.activeElement == timerSizeDiv) return alert('Timer size will change the size of the timer.');
-    if (document.activeElement == darkModeDiv) return alert('This changes the look of the app.');
+    if(document.activeElement.dataset.help) alert(document.activeElement.dataset.help)
+    
 }
 
 function getStoredData() {

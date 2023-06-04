@@ -125,3 +125,7 @@ document.querySelector('#rename').addEventListener('click', () => {
     localStorage.sessions = JSON.stringify(sessions);
     localStorage.activeSession = JSON.stringify(activeSession)
 });
+
+editTimeStatusSelector.addEventListener('blur', ()=>{
+    editTimeStatus.focus();
+})

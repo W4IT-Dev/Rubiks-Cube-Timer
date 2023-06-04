@@ -46,7 +46,12 @@ document.addEventListener('keydown', e => {
                     }
                     return;
                 }
-                if (editTime.style.display === 'block' || document.activeElement === dropDownButton) return;
+                if (editTime.style.display == "block") {
+                    if (document.activeElement == editTimeStatus) return editTimeStatusSelector.focus();
+                    if (document.activeElement == editTimeComment) return alert('SAVE comment')
+                    alert('E    ')
+                }
+                if (document.activeElement === dropDownButton) return
                 if (document.activeElement.id === 'newsessioninput') {
                     if (!document.activeElement.value || /^\s+$/.test(document.activeElement.value)) return showToast('Please input a name for the session', 1600);
                     sessions.push({
@@ -143,10 +148,21 @@ document.addEventListener('keydown', e => {
                     session.style.overflow = 'auto';
                     return;
                 }
+
                 if (document.activeElement.classList.contains('time')) {
                     lastFocused = document.activeElement;
                     editTimeTime.innerHTML = `Time: ${document.activeElement.parentElement.firstChild.innerText}`;
                     editTimeStatus.innerHTML = `Status: ${document.activeElement.parentElement.children[1].innerText}`;
+                    editTimeStatus.innerHTML = `
+                        <label tabindex="1"  for="statusChange">Status:</label>
+                        <select id="statusChange" name="statusChange">
+                            <option value="OK">OK</option>
+                            <option value="DNF">DNF</option>
+                            <option value="+2">+2</option>
+                        </select>
+                `
+                    editTimeStatusSelector.value = document.activeElement.parentElement.children[1].innerText
+                    console.log(document.activeElement.parentElement.children[1].innerText)
                     editTimeScramble.innerHTML = `Scramble: <br> ${document.activeElement.parentElement.children[2].innerText}`;
                     editTimeComment.value = document.activeElement.parentElement.children[3].innerText;
                     editTime.style.display = 'block';

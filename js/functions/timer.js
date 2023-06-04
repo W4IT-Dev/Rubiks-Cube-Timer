@@ -44,7 +44,7 @@ function stop() {
         time: timer.innerText.replace(/\s/g, ''),
         timeInMS: timeIn100MS,
         scramble: document.querySelector('#scramble').innerText,
-        status: '-',
+        status: 'OK',
         comment: ''
     });
     if (sessions[activeSession.index].times.length - 5 > 0) {

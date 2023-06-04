@@ -87,6 +87,7 @@ let comment = document.querySelector('#comment');
 let editTime = document.querySelector('#editTime');
 let editTimeTime = document.querySelector('#editTimeTime');
 let editTimeStatus = document.querySelector('#editTimeStatus');
+let editTimeStatusSelector = document.querySelector('#editTimeStatus select')
 let editTimeScramble = document.querySelector('#editTimeScramble');
 let editTimeComment = document.querySelector('#editTimeComment');
 let statusChange = document.querySelector('#statusChange');
