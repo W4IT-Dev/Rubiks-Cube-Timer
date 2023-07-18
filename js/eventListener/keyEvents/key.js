@@ -5,9 +5,7 @@ document.addEventListener("keydown", e => {
         }
         // === STOP TIME ===
         if (timing) {
-            if (e.key == 'Backspace') {
-                e.preventDefault();
-            }
+            e.preventDefault();
             stop();
             return
         }

@@ -44,8 +44,8 @@
     color: #fefefe;
 }
 
-.setting.dark:focus, .divider.dark:focus {
-    background-color: #272727;
+.setting.dark:focus {
+    background-color: #252525;
 }
 
 #softkeys.dark {
@@ -54,7 +54,7 @@
 }
 
 #timestable th.dark {
-    background-color: #454545;
+    background-color: #434344;
 }
 
 #timestable td.dark, #loadMore.dark {
@@ -63,7 +63,7 @@
 
 
 #timestable td.dark:focus, #loadMore.dark:focus {
-    background-color: #545454;
+    background-color: #535353;
 }
 
 .dropdown-content.dark {

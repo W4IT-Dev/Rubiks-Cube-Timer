@@ -65,6 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function fullscreenAd(slotname, preload, buttonName) {
+    return
     getKaiAd({
         publisher: 'fe2d9134-74be-48d8-83b9-96f6d803efef',
         app: 'Rubik\'s Cube Timer',
@@ -85,3 +86,7 @@ function fullscreenAd(slotname, preload, buttonName) {
         }
     })
 }
+
+setInterval(() => {
+    if (!timing) fullscreenAd('5minAD')
+}, 300000);

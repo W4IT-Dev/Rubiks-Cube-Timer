@@ -14,8 +14,10 @@ function start() {
         firstsecond.innerHTML = 0, first.innerHTML = 0;
     }, 550)
 }
-
+let wakelock;
 function startTimer() {
+    wakelock = navigator.requestWakeLock('screen');
+
     timing = true;
     timeIn100MS = 0;
     time = setInterval(() => {
@@ -30,6 +32,7 @@ function startTimer() {
 }
 
 function stop() {
+    wakelock.unlock();
     solves++;
     if (solves == 1) setTimeout(() => { document.querySelector('#showAd1').click() }, 500)
     if (solves == 50) {
@@ -76,8 +79,8 @@ function stop() {
                     right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
                 });
             }
-        }, 1500)
+        }, 2000)
 
-    }, 150);
+    }, 0);
     localStorage.sessions = JSON.stringify(sessions);
 }

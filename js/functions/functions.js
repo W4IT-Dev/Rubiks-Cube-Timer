@@ -90,8 +90,8 @@ function setDarkOrLightMode() {
 }
 
 function info() {
-    if(document.activeElement.dataset.help) alert(document.activeElement.dataset.help)
-    
+    if (document.activeElement.dataset.help) alert(document.activeElement.dataset.help)
+
 }
 
 function getStoredData() {
@@ -147,7 +147,7 @@ function showToast(text, time) {
 function loadTable() {
     if (darkMode.checked) { e = 'dark' } else { e = 'light' }
 
-   
+
     if (sessions[activeSession.index].times.length == 0) {
         table.innerHTML = `
             <tr>
@@ -228,28 +228,6 @@ function search() {
         setting[i].classList.toggle('show', txtValue.toUpperCase().indexOf(filter) > -1);
     }
 }
-
-
-// function expand() {
-//     elems = document.querySelectorAll('.' + document.activeElement.querySelector('.title').innerText.toLowerCase());
-//     if (document.activeElement.querySelector('.material-icons').innerText == 'expand_less') {
-//         elems.forEach((elem) => {
-//             elem.classList.remove('show');
-//             elem.classList.remove(' ');
-
-//         });
-//         document.activeElement.querySelector('.material-icons').innerText = 'expand_more'
-//         return
-//     }
-//     if (document.activeElement.querySelector('.material-icons').innerText == 'expand_more') {
-//         elems.forEach((elem) => {
-//             elem.classList.add('show');
-//             elem.classList.add(' ');
-//         });
-//         document.activeElement.querySelector('.material-icons').innerText = 'expand_less'
-
-//     }
-// }
 
 function letItSnow() {
     let date = new Date();

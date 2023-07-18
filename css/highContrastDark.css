@@ -22,7 +22,6 @@
     background-color: rgb(17, 17, 17);
 }
 
-
 #settings.dark.highContrast {
     background-color: #151515;
     border-color: #000;
@@ -32,8 +31,9 @@
     background-color: #151515;
 }
 
-.setting.dark.highContrast:focus {
-    background-color: #252525;
+.setting.dark.highContrast:focus,
+#search.dark.highContrast:focus {
+    background-color: #303030;
 }
 
 #softkeys.dark.highContrast {

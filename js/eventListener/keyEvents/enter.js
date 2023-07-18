@@ -47,7 +47,7 @@ document.addEventListener('keydown', e => {
                     return;
                 }
                 if (editTime.style.display == "block") {
-                    if (document.activeElement == editTimeStatus) return editTimeStatusSelector.focus();
+                    if (document.activeElement == editTimeStatus) return editTimeStatusSelector.focus(), console.log(editTimeStatusSelector.value);
                     if (document.activeElement == editTimeComment) return alert('SAVE comment')
                     alert('E    ')
                 }
@@ -130,7 +130,7 @@ document.addEventListener('keydown', e => {
                         }
                     };
                     if (sessions[activeSession.index].times.length >= 5) {
-                        calcAo5(5);
+                        calcao5(5);
                     } else {
                         Ao5.ao5current.innerHTML = '-';
                         Ao5.ao5best.innerHTML = '-';

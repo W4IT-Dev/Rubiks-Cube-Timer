@@ -12,14 +12,14 @@ body.light {
     background-color: #f7f7f7;
 }
 
-#session.light {
+body.light #session {
     background-color: #ddd;
     border-color: rgb(155, 155, 155);
 
     color: #222;
 }
 
-#sessions.light {
+body.light #sessions {
     border: #969696;
     background-color: #ebe8e8;
     color: #272727;
@@ -57,10 +57,10 @@ body.light {
 .setting.light {
     background-color: #eee;
     color: #222;
-}
+} 
 
-.setting.light:focus, .divider.light:focus {
-    background-color: #bfbfbf;
+.setting.light:focus, #search.light:focus {
+    background-color: #cdcdcd;
 }
 
 #softkeys.light {
@@ -69,7 +69,7 @@ body.light {
 }
 
 th.light {
-    background-color: #ababab;
+    background-color: #aaa;
 }
 
 td.light, #loadMore.light {
