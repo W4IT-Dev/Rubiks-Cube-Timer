@@ -1,5 +1,6 @@
 let timing = spacedown = canStart = false;
 let a;
+let times;
 document.addEventListener('keydown', e => {
     if (spacedown || timing) return
     document.querySelector('#timer-container').style.color = "red"
@@ -25,24 +26,27 @@ function start() {
     spacedown = canStart = false;
     timing = true;
     document.querySelector('#timer-container').style.color = "unset";
+    //variables
     const ms = document.querySelector('#milliseconds');
     const s = document.querySelector('#seconds');
     const min = document.querySelector('#minutes');
     const h = document.querySelector('#hours');
     const seperation = document.querySelectorAll('.seperation');
-    ms.innerText = s.innerText = min.innerText = h.innerText = 0;
-    h.style.display = "none", min.style.display = "none", seperation[0].style.display = "none", seperation[1].style.display = "none";
-    timer = setInterval(() => {
+    ms.innerText = s.innerText = min.innerText = h.innerText = 0;//reset timer;
+    h.style.display = "none", min.style.display = "none", seperation[0].style.display = "none", seperation[1].style.display = "none";//hide every number/seperator that isnt needed
+
+    timer = setInterval(() => {//timer
         ms.innerText++;
         if (ms.innerText == 9) s.innerText++, ms.innerText = 0, console.log('ms');
-        if (s.innerText == 59) min.innerText++, s.innerText = 0, console.log('s');
-        if (min.innerText == 59) h.innerText++, min.innerText = 0, console.log('min');
+        if (s.innerText == 59) min.innerText++, min.style.display = "block", seperation[1].style.display = "block", s.innerText = 0, console.log('s');
+        if (min.innerText == 59) h.innerText++,h.style.display = "block", seperation[0].style.display = "block", min.innerText = 0, console.log('min');
     }, 100)
+
     // let wakelock = navigator.requestWakeLock('screen');
     if(!timing) return
     document.addEventListener('keydown', stop)
 
-    function stop() {
+    function stop() {//stop timer
         if(!timing) return
         clearInterval(timer)
         var style = document.querySelector('#timer-container').style;
@@ -54,7 +58,7 @@ function start() {
     }
 }
 
-function getScramble() {
+function getScramble() {//scramble generator
 	var moves = new Array();
 	moves['r'] = new Array("R","R'","R2");
 	moves['l'] = new Array("L","L'","L2");

@@ -36,7 +36,11 @@ body.dark {
     font-size: 12px;
     line-height: 20px;
     height: 20px;
-    color: #ddd;
+    color: #222;
+}
+
+body.dark #top-container #session-details {
+    color: #ccc;
 }
 
 #top-container #scramble {
@@ -89,8 +93,13 @@ body.dark #top-container {
     bottom: 0;
     left: 0;
     right: 0;
+    padding: 0 3px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #111;
+    background-color: #bbb;
+}
+
+body.dark #softkeys {
+    background-color: #151515;
 }
