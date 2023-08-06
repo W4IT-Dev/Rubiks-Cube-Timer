@@ -1,4 +1,4 @@
-# Rubik's® Cube Timer
+# Rubik's® Cube Timer Rewrite
 Rubik's Cube Timer for [KaiOS](https://www.kaiostech.com).
 
 # Description
