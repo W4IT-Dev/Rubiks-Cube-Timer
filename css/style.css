@@ -62,7 +62,7 @@ body.dark #top-container {
     --color: red;
     display: flex;
     font-family: monospace;
-    font-size: 30px;
+    font-size: 35px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -72,15 +72,25 @@ body.dark #top-container {
 
 #timer-container::before {
     content: attr(data-average);
-    white-space: pre;
-    font-size: 17px;
+    white-space: pre-line;
+    font-size: 15px;
     position: absolute;
     top: 80%;
     left: 50%;
     transform: translateX(-50%);
+    text-align: center;
+    width: 150px;
+    color: #111;
+}
+
+body.dark #timer-container::before {
+    color: #ddd;
 }
 
 #timer-container::after {
+    position: absolute;
+    left: 110%;
+    top: 35%;
     content: attr(title);
     font-size: 17px;
     color: var(--color);
