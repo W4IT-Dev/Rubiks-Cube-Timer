@@ -3,6 +3,11 @@
     --dark-background-color: #202020;
 }
 
+@font-face {
+    font-family: "Digital7";
+    src: url(/digital-7.regular.woff);
+}
+
 body {
     background-color: var(--light-background-color);
     font-family: Arial, Helvetica, sans-serif;
@@ -17,26 +22,45 @@ body.dark {
     color: white;
 }
 
-#top-container {
+#loading-screen {
+    position: absolute;
+    background-color: white;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    z-index: 1;
+}
+
+#top-container {
     text-align: center;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    min-height: 60px;
     max-height: 100px;
     background-color: #ddd;
     box-shadow: #888 0 8px 3px;
     overflow: hidden;
+    transition: max-height 0.3s;
+
+}
+
+* {
+    padding: 3px;
 }
 
 #top-container #session-details {
-    font-size: 12px;
+    font-size: 14px;
     line-height: 20px;
     height: 20px;
     color: #222;
+    margin: 0 0 -15px 0;
 }
 
 body.dark #top-container #session-details {
@@ -51,6 +75,7 @@ body.dark #top-container #session-details {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 16px;
 }
 
 body.dark #top-container {
@@ -61,8 +86,8 @@ body.dark #top-container {
 #timer-container {
     --color: red;
     display: flex;
-    font-family: monospace;
-    font-size: 35px;
+    font-family: 'Digital7';
+    font-size: 50px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -81,10 +106,11 @@ body.dark #top-container {
     text-align: center;
     width: 150px;
     color: #111;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 body.dark #timer-container::before {
-    color: #ddd;
+    color: #f0f0f0;
 }
 
 #timer-container::after {
@@ -94,6 +120,7 @@ body.dark #timer-container::before {
     content: attr(title);
     font-size: 17px;
     color: var(--color);
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 #softkeys {

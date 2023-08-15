@@ -39,8 +39,8 @@ function start() {
         if (s.innerText == 59) min.innerText++, min.style.display = "block", seperation[1].style.display = "block", s.innerText = 0, console.log('s');
         if (min.innerText == 59) h.innerText++, h.style.display = "block", seperation[0].style.display = "block", min.innerText = 0, console.log('min');
     }, 100)
-
-    // let wakelock = navigator.requestWakeLock('screen');
+    let wakelock;
+    if (navigator.requestWakeLock) wakelock = navigator.requestWakeLock('screen');
     if (!timing) return
     document.addEventListener('keydown', stop);
 
@@ -52,31 +52,7 @@ function start() {
         getScramble();
         millsec = 0;
 
-        // wakelock.unlock();
+        if (wakelock) wakelock.unlock();
     }
 }
 
-function convertMS($time) {
-    function overa(modulo) {
-        time = over;
-        over = time % modulo;
-    }
-    time = $time
-    over = time % 36000
-    h = (time - over) / 36000;
-    overa(600)
-    m = (time - over) / 600;
-    overa(10)
-    s = (time - over) / 10;
-    time = Math.round(over)
-    over = time % 1;
-    ms = (time - over) / 1;
-
-    timeToReturn = ''
-    if (h) timeToReturn += h + ":"
-    if (m) timeToReturn += m + ":"
-    s ? timeToReturn += s + "." : timeToReturn += "0."
-    ms ? timeToReturn += ms: timeToReturn += "0"
-
-    return timeToReturn
-}
