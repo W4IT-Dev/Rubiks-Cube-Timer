@@ -127,7 +127,7 @@ async function getStoredItems() {
         const value = await localforage.getItem('times');
         document.querySelector('progress').value = 1
         setTimeout(document.querySelector('#loading-screen').remove(), 500)
-        if (times !== null) times = value;
+        if (value !== null) times = value;
         console.log(value);
     } catch (err) {
         // This code runs if there were any errors.
