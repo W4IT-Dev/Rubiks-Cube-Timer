@@ -50,7 +50,7 @@ function addTime(time, status, scramble, comment, fromTimer) {
     difference = times[0].time - times[1].time
     if (difference < 0) {
         difference *= -1;
-        timerContainer.title = '(-' + convertTime(difference)+ ')'
+        timerContainer.title = '(-' + convertTime(difference) + ')'
         timerContainer.style.setProperty('--color', 'green');
     } else if (difference > 0) {
         timerContainer.title = '(+' + convertTime(difference) + ')'
@@ -103,31 +103,31 @@ function convertTime(tenths, doubleZero) {
     const tenthsPerSecond = 10;
     const tenthsPerMinute = 10 * 60;
     const tenthsPerHour = 10 * 60 * 60;
-  
+
     const hours = Math.floor(tenths / tenthsPerHour);
     const minutes = Math.floor((tenths / tenthsPerMinute) % 60);
     const seconds = Math.floor((tenths / tenthsPerSecond) % 60);
     const tenthsRemaining = tenths % tenthsPerSecond;
-  
+
     if (hours > 0) {
-      return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}:${tenthsRemaining.toString().padStart(2, '0')}`;
+        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}:${tenthsRemaining.toString().padStart(2, '0')}`;
     } else if (minutes > 0) {
-      return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}:${tenthsRemaining.toString().padStart(2, '0')}`;
-    } else if(doubleZero) {
-      return `${seconds.toString().padStart(2, '0')}.${tenthsRemaining}`;
+        return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}:${tenthsRemaining.toString().padStart(2, '0')}`;
+    } else if (doubleZero) {
+        return `${seconds.toString().padStart(2, '0')}.${tenthsRemaining}`;
     } else {
-      return `${seconds}.${tenthsRemaining}`;
+        return `${seconds}.${tenthsRemaining}`;
 
     }
-  }
-  
+}
+
 
 async function getStoredItems() {
     try {
         const value = await localforage.getItem('times');
         document.querySelector('progress').value = 1
         setTimeout(document.querySelector('#loading-screen').remove(), 500)
-        times = value;
+        if (times !== null) times = value;
         console.log(value);
     } catch (err) {
         // This code runs if there were any errors.

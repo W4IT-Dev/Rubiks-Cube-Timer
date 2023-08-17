@@ -10,6 +10,7 @@ window.onerror = function (msg, url, linenumber, a, b) {
 getKaiAd({
     publisher: 'fe2d9134-74be-48d8-83b9-96f6d803efef',
     app: 'rubikscubetimerr',
+    test: 1,
     onerror: err => console.error('error getting ad:', err),
     onready: ad => {
         ad.call('display');
