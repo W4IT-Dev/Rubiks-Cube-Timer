@@ -13,6 +13,6 @@ getKaiAd({
     test: 1,
     onerror: err => console.error('error getting ad:', err),
     onready: ad => {
-        ad.call('display');
+        // ad.call('display');
     }
 })

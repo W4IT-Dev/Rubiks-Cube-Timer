@@ -37,6 +37,26 @@ body.dark {
     z-index: 1;
 }
 
+#settings {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -0%;
+    text-align: center;
+    width: 220px;
+    background-color: rgba(0, 0, 0, .9);
+    border-top-right-radius: 15px;
+    border-right: 5px solid rgb(0, 0, 0);
+    transition: left 1s;
+}
+  
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+}
+
+
 #top-container {
     text-align: center;
     position: fixed;
