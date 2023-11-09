@@ -22,6 +22,10 @@ body.dark {
     color: white;
 }
 
+.hidden {
+    display: none !important;
+}
+
 #loading-screen {
     position: absolute;
     background-color: white;
@@ -49,7 +53,7 @@ body.dark {
     border-right: 5px solid rgb(0, 0, 0);
     transition: left 1s;
 }
-  
+
 
 .setting-item {
     display: flex;
