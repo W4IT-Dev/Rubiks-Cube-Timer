@@ -7,7 +7,7 @@ function getScramble() {//scramble generator
     moves['f'] = new Array("F", "F'", "F2");
     moves['b'] = new Array("B", "B'", "B2");
 
-    var limit = 25;
+    var limit = 20;
     var last = "";
     var scrambleAlg = "";
     var keys = "";
@@ -101,10 +101,17 @@ function calcAvg(amount, oneAvg, index) {
 }
 
 function updateAvg(oneavg, index) {
-    let result = calcAvg(5, oneavg, index);
-    if(typeof result === 'string') return console.log(result)
-    if(typeof result === 'interger') {
-        console.log(result)
+    let resultOf5 = calcAvg(5, oneavg, index);
+    let resultOf12 = calcAvg(12, oneavg, index);
+    if(typeof resultOf5 === 'string') return console.log(resultOf5)
+    if(typeof resultOf5 === 'number') {
+        console.log(resultOf5)
+        timerContainer.dataset.average = `Ao5: ${convertTime(resultOf5)}\nAo12: 0:00`
+    }
+    if(typeof resultOf12 === 'string') return console.log(resultOf12)
+    if(typeof resultOf12 === 'number') {
+        console.log(resultOf12)
+        timerContainer.dataset.average = `Ao5:${convertTime(resultOf5)}\nAo12: ${convertTime(resultOf12)}`
     }
 }
 

@@ -1,6 +1,8 @@
 :root {
     --light-background-color: #fbfbfb;
     --dark-background-color: #202020;
+    --light-background-color-focus: #ededed;
+    --dark-background-color-focus: #121212;
 }
 
 @font-face {
@@ -41,20 +43,29 @@ body {
 #settings {
     position: absolute;
     top: 0;
-    bottom: 0;
+    bottom: 26px;
     left: -0%;
     text-align: center;
     width: 220px;
-    background-color: rgba(0, 0, 0, .9);
-    border-top-right-radius: 15px;
-    border-right: 5px solid rgb(0, 0, 0);
+    background-color: var(--dark-background-color);
+    /* border-top-right-radius: 15px; */
+    box-shadow: 7px 0px 5px rgba(0, 0, 0, 0.6);
     transition: left 1s;
+    padding: 0 0;
 }
 
+#settings h2 {
+    margin: 5px;
+}
 
 .setting-item {
+    padding: 4px 3px;
     display: flex;
     justify-content: space-between;
+}
+
+.setting-item:focus {
+    background-color: var(--dark-background-color-focus);
 }
 
 
