@@ -11,15 +11,12 @@
 body {
     background-color: var(--light-background-color);
     font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 * {
     outline: 0px solid red;
-}
-
-body.dark {
-    background-color: var(--dark-background-color);
-    color: white;
 }
 
 .hidden {
@@ -67,13 +64,27 @@ body.dark {
     top: 0;
     left: 0;
     right: 0;
-    max-height: 100px;
+    /* max-height: 100px; */
     background-color: #ddd;
     box-shadow: #888 0 8px 3px;
     overflow: hidden;
     transition: max-height 0.3s;
-
+    padding: 3px;
 }
+
+.scramble {
+    padding: 3px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    max-height: 100px;
+    overflow: hidden;
+    transition: max-height 0.3s;
+    z-index: 100; 
+}
+
 
 * {
     padding: 3px;
@@ -87,24 +98,8 @@ body.dark {
     margin: 0 0 -15px 0;
 }
 
-body.dark #top-container #session-details {
-    color: #ccc;
-}
-
 #top-container #scramble {
-    padding: 0 5px;
-    overflow: hidden;
-    max-height: 50px;
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-size: 16px;
-}
-
-body.dark #top-container {
-    background-color: #111;
-    box-shadow: rgba(17, 17, 17, .7) 0 8px 3px;
 }
 
 #timer-container {
@@ -124,7 +119,7 @@ body.dark #top-container {
     white-space: pre-line;
     font-size: 15px;
     position: absolute;
-    top: 80%;
+    bottom: 10%;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -139,7 +134,7 @@ body.dark #timer-container::before {
 
 #timer-container::after {
     position: absolute;
-    left: 110%;
+    left: 100%;
     top: 35%;
     content: attr(title);
     font-size: 17px;

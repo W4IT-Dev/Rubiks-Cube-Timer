@@ -1,0 +1,13 @@
+body.dark {
+    background-color: var(--dark-background-color);
+    color: white;
+}
+
+body.dark #top-container {
+    background-color: #151515;
+    box-shadow: rgba(20, 17, 17, .7) 0 8px 3px;
+}
+
+body.dark #top-container #session-details {
+    color: #ccc;
+}

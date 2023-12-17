@@ -47,7 +47,6 @@ function addTime(time, status, scramble, comment, fromTimer) {
         console.log(err)
     });
     if (!fromTimer || times.length < 2) return
-    updateAvg(true, 0)
     difference = times[0].time - times[1].time
     if (difference < 0) {
         difference *= -1;
@@ -99,15 +98,6 @@ function calcAvg(amount, oneAvg, index) {
 
     return parseInt(timesForAvg.reduce((sum, currentValue) => sum + currentValue, 0) / timesForAvg.length);
 }
-
-function updateAvg(oneavg, index) {
-    let result = calcAvg(5, oneavg, index);
-    if(typeof result === 'string') return console.log(result)
-    if(typeof result === 'interger') {
-        console.log(result)
-    }
-}
-
 function convertTime(tenths, doubleZero) {
     const tenthsPerSecond = 10;
     const tenthsPerMinute = 10 * 60;
@@ -129,19 +119,3 @@ function convertTime(tenths, doubleZero) {
 
     }
 }
-
-
-// async function getStoredItems() {
-//     try {
-//         const value = await localforage.getItem('times');
-//         document.querySelector('progress').value = 1
-//         setTimeout(document.querySelector('#loading-screen').remove(), 500)
-//         if (value !== null) times = value;
-//         console.log(value);
-//     } catch (err) {
-//         // This code runs if there were any errors.
-//         console.log(err);
-//         document.querySelector('progress').value = 1
-//         setTimeout(document.querySelector('#loading-screen').remove(), 500)
-//     }
-// }

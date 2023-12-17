@@ -19,6 +19,8 @@ document.addEventListener('keyup', () => {
     }
 })
 let millsec = 0;
+let wakelock;
+
 
 function start() {
     spacedown = canStart = false;
@@ -35,11 +37,10 @@ function start() {
     timer = setInterval(() => {//timer
         millsec++;
         ms.innerText++;
-        if (ms.innerText == 9) s.innerText++, ms.innerText = 0, millsec++, console.log('ms');
+        if (ms.innerText == 9) s.innerText++, ms.innerText = 0, millsec++;
         if (s.innerText == 59) min.innerText++, min.style.display = "block", seperation[1].style.display = "block", s.innerText = 0, console.log('s');
         if (min.innerText == 59) h.innerText++, h.style.display = "block", seperation[0].style.display = "block", min.innerText = 0, console.log('min');
     }, 100)
-    let wakelock;
     if (navigator.requestWakeLock) wakelock = navigator.requestWakeLock('screen');
     if (!timing) return
     document.addEventListener('keydown', stop);

@@ -7,24 +7,24 @@
     <title>Rubik's Cube Timer</title>
 
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dark.css">
     <script src="kaiads.v5.min.js"></script>
     <script src="localforage.min.js"></script>
     <script src="/js/variables.js" defer></script>
+    <script src="/js/foreverFunctions.js" defer></script>
     <script src="/js/functions.js" defer></script>
     <script src="/js/DOMelements.js" defer></script>
     <script src="/script.js" defer></script>
     <script src="/js/timer.js" defer></script>
 </head>
 
-<body class="dark" onload="getScramble(); getStoredItems();">
+<body class="dark" onload="getScramble(); ">
     <!-- <div id="loading-screen">
         <img src="/img/logo.png" alt="W4IT Dev" height="40px">
         <img src="/img/icon.png" alt="Rubik's Cube Timer" height="180px">
         <progress value="0"></progress>
     </div> -->
     <div id="top-container">
-        <!-- <div id="session-details">Session 1 - 3x3</div>
-        <div id="scramble">D F D D F D F D D D D D D D D D D D D D D D D</div> -->
         <p id="session-details">Session 1 - 3x3</p>
         <p tabindex="1" style="margin-bottom: 2px;" class="dark" id="scramble">loading scramble...</p>
     </div>
