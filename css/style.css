@@ -76,7 +76,52 @@ body.debug * {
     z-index: 100;
 }
 
-#timer {
+#timerBox {
+    --color: red;
+    display: flex;
+    font-family: 'Digital7';
+    font-size: 50px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+}
+
+#timerBox::before {
+    content: attr(data-average);
+    white-space: pre-line;
+    font-size: 15px;
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 150px;
+    color: #111;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body.dark #timerBox::before {
+    color: #f0f0f0;
+}
+
+body.light #timerBox::before {
+    color: #111;
+}
+
+
+#timerBox::after {
+    position: absolute;
+    left: 110%;
+    top: 35%;
+    content: attr(title);
+    font-size: 17px;
+    color: var(--color);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* #timer {
     position: fixed;
     top: 50%;
     display: flex;
@@ -84,16 +129,16 @@ body.debug * {
     font-family: 'Digital7';
     font-size: 30px;
     transform: translate(-50%, -50%);
-}
+} */
 
-#averages {
+/* #averages {
     line-height: 4px;
     position: fixed;
     text-align: center;
     left: 50%;
     top: 166.5px;
     transform: translateX(-50%);
-}
+} */
 
 #comment {
     position: fixed;

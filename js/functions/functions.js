@@ -68,9 +68,8 @@ function setSoftkey(object) {
 }
 
 function setDarkOrLightMode() {
-    loadTable();
-    loadSessions();
-
+    
+    document.body.classList.toggle('light')
     for (let elem of allelem) {
         elem.classList.toggle('light', !darkMode.checked);
         elem.classList.toggle('highContrast', highContrastMode.checked);
@@ -87,6 +86,8 @@ function setDarkOrLightMode() {
     if (highContrastMode.checked) return document.querySelector("meta[name='theme-color']").setAttribute('content', 'rgb(248, 248, 248)'), localStorage.setItem('highContrast', 'true');
     localStorage.setItem('highContrast', 'false')
     document.querySelector("meta[name='theme-color']").setAttribute('content', 'rgb(235, 232, 232)');
+    loadTable();
+    loadSessions();
 }
 
 function info() {
@@ -306,25 +307,25 @@ function letItSnow() {
     }
 }
 
-function convert($time) {
-    time = $time
-    over = time % 36000
-    h = (time - over) / 36000;
-    time = over;
-    over = time % 600;
-    m = (time - over) / 600;
-    time = over;
-    over = time % 10;
-    s = (time - over) / 10;
-    time = Math.round(over)
-    over = time % 1;
-    ms = (time - over) / 1;
-    timeToReturn = ''
-    if (h) timeToReturn += h + ":"
-    if (m) timeToReturn += m + ":"
-    if (s) { timeToReturn += s + "." } else { timeToReturn += "0." }
-    if (ms) { timeToReturn += ms } else { timeToReturn += "0" }
-    return (timeToReturn)
+function convertTime(tenths, doubleZero) {
+    const tenthsPerSecond = 10;
+    const tenthsPerMinute = 10 * 60;
+    const tenthsPerHour = 10 * 60 * 60;
+
+    const hours = Math.floor(tenths / tenthsPerHour);
+    const minutes = Math.floor((tenths / tenthsPerMinute) % 60);
+    const seconds = Math.floor((tenths / tenthsPerSecond) % 60);
+    const tenthsRemaining = tenths % tenthsPerSecond;
+
+    if (hours > 0) {
+        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}:${tenthsRemaining.toString().padStart(2, '0')}`;
+    } else if (minutes > 0) {
+        return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}:${tenthsRemaining.toString().padStart(2, '0')}`;
+    } else if (doubleZero) {
+        return `${seconds.toString().padStart(2, '0')}.${tenthsRemaining}`;
+    } else {
+        return `${seconds}.${tenthsRemaining}`;
+    }
 }
 
 function calcAo5(a) {
@@ -363,15 +364,15 @@ function calcAo5(a) {
 
     const sum = timesInMS.reduce((a, b) => a + b, 0);
     Ao5inMS = (sum - max - min) / 3;
-    Ao5converted = convert(Ao5inMS);
-    addAo5(Ao5converted, Ao5inMS)
-    // console.log(Ao5converted)
+    Ao5convertTimeed = convertTime(Ao5inMS);
+    addAo5(Ao5convertTimeed, Ao5inMS)
+    // console.log(Ao5convertTimeed)
 }
 function addAo5(time, timeinMS) {
     allAverages.currents.ao5 = time;
     allAverages.currents.ms.ao5 = timeinMS;
     Ao5.ao5current.innerText = time;
-    Ao5.ao5.innerHTML = `Ao5: ${time}`
+    // Ao5.ao5.innerHTML = `Ao5: ${time}`
 
     if (allAverages.bests.ao5 === "-") {
         allAverages.bests.ao5 = time;
@@ -424,15 +425,15 @@ function calcAo12(a) {
     }
     const sum = timesInMS.reduce((a, b) => a + b, 0);
     Ao12inMS = (sum - max - min) / 10;
-    Ao12converted = convert(Ao12inMS);
-    addAo12(Ao12converted, Ao12inMS);
+    Ao12convertTimeed = convertTime(Ao12inMS);
+    addAo12(Ao12convertTimeed, Ao12inMS);
 }
 function addAo12(time, timeinMS) {
 
     allAverages.currents.ao12 = time;
     allAverages.currents.ms.ao12 = timeinMS;
     Ao12.ao12current.innerHTML = time
-    Ao12.ao12.innerHTML = `Ao12: ${time}`;
+    // Ao12.ao12.innerHTML = `Ao12: ${time}`;
     if (allAverages.bests.ao12 === '-') {
         allAverages.bests.ao12 = time;
         allAverages.bests.ms.ao12 = timeinMS;

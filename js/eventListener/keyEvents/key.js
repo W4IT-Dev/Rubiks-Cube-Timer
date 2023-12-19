@@ -40,7 +40,7 @@ document.addEventListener("keydown", e => {
                 right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'
             });
             //Add +2
-            if (e.key == 'SoftRight') return clearTimeout(tmeout), sessions[activeSession.index].times[0].status = '+2', canChange = false, showToast('Changed Status to +2', 2000), sessions[activeSession.index].times[0].timeInMS += 20, sessions[activeSession.index].times[0].time = convert(sessions[activeSession.index].times[0].timeInMS), localStorage.sessions = JSON.stringify(sessions), setSoftkey({
+            if (e.key == 'SoftRight') return clearTimeout(tmeout), sessions[activeSession.index].times[0].status = '+2', canChange = false, showToast('Changed Status to +2', 2000), sessions[activeSession.index].times[0].timeInMS += 20, sessions[activeSession.index].times[0].time = convertTime(sessions[activeSession.index].times[0].timeInMS), localStorage.sessions = JSON.stringify(sessions), setSoftkey({
                 left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
                 middle: 'Session',
                 right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'

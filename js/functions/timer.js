@@ -8,39 +8,31 @@ function start() {
     waitToStart = setTimeout(() => {
         ready = true;
         timer.style.color = 'green';
-        Ao5.ao5.style.display = 'none', Ao12.ao12.style.display = 'none';
+        // Ao5.ao5.style.display = 'none', Ao12.ao12.style.display = 'none';
         scrambleOnDom.style.display = 'none', setSoftkey({ left: '', middle: '', right: '', });
-        minutes.innerHTML = '', document.querySelector('.point').innerHTML = '', tensecond.innerHTML = '';
-        firstsecond.innerHTML = 0, first.innerHTML = 0;
+        min.innerHTML = document.querySelector('.seperation').innerHTML = '';
+        s.innerHTML = 0, ms.innerHTML = 0;
     }, 550)
 }
 let wakelock;
 function startTimer() {
-    wakelock = navigator.requestWakeLock('screen');
+    if (navigator.requestWakeLock) wakelock = navigator.requestWakeLock('screen');
 
     timing = true;
     timeIn100MS = 0;
     time = setInterval(() => {
         timeIn100MS++;
-        first.innerHTML++;
-        if (first.innerHTML == 10) firstsecond.innerHTML++, first.innerHTML = 0;
-
-        if (firstsecond.innerHTML == 10) firstsecond.innerHTML = 0, tensecond.innerHTML++
-
-        if (tensecond.innerHTML == 6) document.querySelector('.point').innerHTML = ':', minutes.innerHTML++, tensecond.innerHTML = 0, firstsecond.innerHTML = 0;
+        ms.innerText++;
+        if (ms.innerText == 9) s.innerText++, ms.innerText = 0;
+        if (s.innerText == 59) min.innerText++, min.style.display = "block", seperation[1].style.display = "block", s.innerText = 0, console.log('s');
+        if (min.innerText == 59) h.innerText++, h.style.display = "block", seperation[0].style.display = "block", min.innerText = 0, console.log('min');
     }, 100)
 }
 
 function stop() {
-    wakelock.unlock();
+    if (wakelock) wakelock.unlock();
     solves++;
     if (solves == 1) setTimeout(() => { document.querySelector('#showAd1').click() }, 500)
-    if (solves == 50) {
-        setTimeout(() => { document.querySelector('#showAd2').click() }, 500)
-        fullscreenAd('after50solveAd', true, '2')
-
-        solves = 0;
-    }
     clearInterval(time);
     timing = false;
     sessions[activeSession.index].times.unshift({
@@ -50,6 +42,18 @@ function stop() {
         status: 'OK',
         comment: ''
     });
+    if (sessions[activeSession.index].times.length > 2) difference = sessions[activeSession.index].times[0].timeInMS - sessions[activeSession.index].times[1].timeInMS
+    if (difference < 0) {
+        difference *= -1;
+        timerBox.title = '(-' + convertTime(difference) + ')'
+        timerBox.style.setProperty('--color', 'green');
+    } else if (difference > 0) {
+        timerBox.title = '(+' + convertTime(difference) + ')'
+        timerBox.style.setProperty('--color', 'red');
+    } else {
+        timerBox.title = '(0.0)'
+        timerBox.style.setProperty('--color', 'unset');
+    }
     if (sessions[activeSession.index].times.length - 5 > 0) {
         calcAo5(5);
     }
@@ -57,8 +61,8 @@ function stop() {
         calcAo12(12);
     }
     getScramble();
-    Ao5.ao5.style.display = 'block';
-    Ao12.ao12.style.display = 'block';
+    // Ao5.ao5.style.display = 'block';
+    // Ao12.ao12.style.display = 'block';
     document.querySelector('.scramble').style.display = 'block';
     // document.querySelector('.ad').style.display = 'none';
     // document.querySelectorAll('.ad')[1].style.display = 'none';
