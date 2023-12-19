@@ -106,7 +106,7 @@ function updateAvg(oneavg, index) {
     if(typeof resultOf5 === 'string') return console.log(resultOf5)
     if(typeof resultOf5 === 'number') {
         console.log(resultOf5)
-        timerContainer.dataset.average = `Ao5: ${convertTime(resultOf5)}\nAo12: 0:00`
+        timerContainer.dataset.average = `Ao5: ${convertTime(resultOf5)}\nAo12: 0:0`
     }
     if(typeof resultOf12 === 'string') return console.log(resultOf12)
     if(typeof resultOf12 === 'number') {
