@@ -44,16 +44,17 @@ let allAverages = {
     }
 
 }
+
 let Ao5 = {
-    ao5current: document.querySelector('#ao5current'),
-    ao5best: document.querySelector('#ao5best'),
-    ao5: document.querySelector('#ao5')
+    timeInMS: '-',
+    current: document.querySelector('#ao5current'),
+    best: document.querySelector('#ao5best'),
 };
 
 let Ao12 = {
-    ao12current: document.querySelector('#ao12current'),
-    ao12best: document.querySelector('#ao12best'),
-    ao12: document.querySelector('#ao12')
+    timeInMS: '-',
+    current: document.querySelector('#ao12current'),
+    best: document.querySelector('#ao12best'),
 };
 
 let allelem = document.querySelectorAll('select, input, #editTime, #scrambleSizeInput, .divider, #options, .option-button, #resetButton, #resetSession, .dropdown-item, .dropdown-content, #dropDownButton, #comment, .scramble, #scramble, .setting, select, input, #timerBox, body, #settings, #softkeys, #session, td, th, #sessions, #divider, .line');

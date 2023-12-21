@@ -102,6 +102,10 @@ body.debug * {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+#timerBox.timing::before, #timerBox.timing::after {
+    display: none;
+}
+
 body.dark #timerBox::before {
     color: #f0f0f0;
 }

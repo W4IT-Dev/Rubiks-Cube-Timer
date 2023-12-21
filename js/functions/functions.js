@@ -1,3 +1,4 @@
+// scramble
 function getScramble() {
     var last = "";
     var scramble = "";
@@ -67,8 +68,9 @@ function setSoftkey(object) {
     softRight.innerHTML = object.right;
 }
 
+// light mode dark mode
 function setDarkOrLightMode() {
-    
+
     document.body.classList.toggle('light')
     for (let elem of allelem) {
         elem.classList.toggle('light', !darkMode.checked);
@@ -95,13 +97,14 @@ function info() {
 
 }
 
+// get localstorage
 function getStoredData() {
     if (localStorage.darkmode) {
         if (localStorage.highContrast === "true") highContrastMode.checked = true;
         if (localStorage.darkMode == "true") {
-            darkMode.checked = true;
+            // darkMode.checked = true;
         } else {
-            darkMode.checked = false;
+            // darkMode.checked = false;
         }
         setDarkOrLightMode();
     } else {
@@ -118,19 +121,14 @@ function getStoredData() {
     if (localStorage.sessions) sessions = JSON.parse(localStorage['sessions']);
     if (localStorage.activeSession) activeSession = JSON.parse(localStorage['activeSession']);
 
-    // console.log(sessions[activeSession.index].times.length)
-    for (let i = sessions[activeSession.index].times.length; i > 0; i--) {
-        if (i - 5 >= 0) calcAo5(i);
-    }
-
-    for (let i = sessions[activeSession.index].times.length; i > 0; i--) {
-        if (i - 12 >= 0) calcAo12(i);
-    }
-
     document.querySelector('#sessionname').innerText = activeSession.name;
     sessionname.innerText = activeSession.name;
+    // load
     loadTable();
     loadSessions();
+    //calc averages
+    calcAvg(5)
+    calcAvg(12)
 }
 
 function showToast(text, time) {
@@ -145,6 +143,7 @@ function showToast(text, time) {
     }, time);
 }
 
+// load table
 function loadTable() {
     if (darkMode.checked) { e = 'dark' } else { e = 'light' }
 
@@ -328,125 +327,79 @@ function convertTime(tenths, doubleZero) {
     }
 }
 
-function calcAo5(a) {
-    let times = sessions[activeSession.index].times.slice(a - 5, 5);
-    let timesInMS = [];
-    for (let i = 0; i < times.length; i++) {
-        timesInMS.push(times[i].timeInMS)
-    }
-    let idx = 0;
-    let DNF = DNFavg = false;
-    const min = Math.min(...timesInMS);
-    times.forEach(function (time) {
-        if (time.status === 'DNF') {
-            if (DNF) {
-                DNFavg = true;
-            }
-            DNF = true;
-            idx++;
-        }
-    })
+//average
+function calcAvg(amount, oneAvg, index) { // https://github.com/W4IT-Dev/rubiks-cube-average-calculator
+    if (sessions[activeSession.index].times.length < amount) return updateAvg("Not enough time entries to calcualte average of " + amount);
+    if (!oneAvg) {
+        let averages = [];
+        for (let i = 0; i < sessions[activeSession.index].times.length; i++) {
+            if (i >= amount - 1) {
+                let timesForAvg = sessions[activeSession.index].times
+                    .slice(i - amount + 1, i + 1)
+                    .map((timeObj) => timeObj.timeInMS);
 
-    if (DNFavg) {
-        allAverages.currents.ao5 = 'DNF';
-        allAverages.currents.ms.ao5 = 'DNF';
-        Ao5.ao5current.innerHTML = 'DNF'
-        Ao5.ao5.innerHTML = `Ao5: DNF`;
+                timesForAvg.sort((a, b) => a - b);
+                timesForAvg = timesForAvg.slice(1, timesForAvg.length - 1);
+
+                if (timesForAvg.length === 0) {
+                    averages.unshift("No valid times");
+                } else {
+                    averages.unshift(
+                        parseInt(
+                            timesForAvg.reduce((sum, currentValue) => sum + currentValue, 0) /
+                            timesForAvg.length
+                        )
+                    );
+                }
+            }
+        }
+        return updateAvg(averages, amount.toString());
+    }
+    let timesForAvg = sessions[activeSession.index].times
+        .slice(index, index + amount)
+        .map((timeObj) => timeObj.timeInMS);
+
+    timesForAvg.sort((a, b) => a - b);
+    timesForAvg = timesForAvg.slice(1, timesForAvg.length - 1);
+
+    return updateAvg(parseInt(timesForAvg.reduce((sum, currentValue) => sum + currentValue, 0) / timesForAvg.length), amount.toString());
+}
+
+function updateAvg(average, amount) {
+    // function variables setup
+    let variable;
+    const averageDOM = document.querySelector('#timerBox')
+    if (amount == '5') variable = Ao5
+    if (amount == '12') variable = Ao12
+
+    // === RESET === 
+    if (average === 'reset') {
+        Ao5.timeInMS = '-'
+        Ao12.timeInMS = '-'
+        Ao5.current.innerText = '-'
+        Ao5.best.innerText = '-'
+        Ao12.current.innerText = '-'
+        Ao12.best.innerText = '-'
+        averageDOM.dataset.average = `Ao5: -\nAo12: -`;
+
+    }
+
+    if (typeof average === 'string') return console.log('string bruh') // RETURN if string
+
+    // === MULTIPLE Averages === 
+    if (typeof average === 'object') {
+        variable.timeInMS = average[0] // set average in variable
+        averageDOM.dataset.average = `Ao5: ${convertTime(Ao5.timeInMS)}\nAo12: ${convertTime(Ao12.timeInMS)}`; // below timer current
+        variable.current.innerText = convertTime(variable.timeInMS); // current
+        variable.best.innerText = convertTime(Math.min(...average)) // best
         return
     }
-    let max;
-    if (DNF) {
-        // console.log(times.length)
-        max = times[idx].timeInMS;
-    } else {
-        max = Math.max(...timesInMS);//TODO add DNF to average
-    }
 
-    const sum = timesInMS.reduce((a, b) => a + b, 0);
-    Ao5inMS = (sum - max - min) / 3;
-    Ao5convertTimeed = convertTime(Ao5inMS);
-    addAo5(Ao5convertTimeed, Ao5inMS)
-    // console.log(Ao5convertTimeed)
-}
-function addAo5(time, timeinMS) {
-    allAverages.currents.ao5 = time;
-    allAverages.currents.ms.ao5 = timeinMS;
-    Ao5.ao5current.innerText = time;
-    // Ao5.ao5.innerHTML = `Ao5: ${time}`
-
-    if (allAverages.bests.ao5 === "-") {
-        allAverages.bests.ao5 = time;
-        allAverages.bests.ms.ao5 = timeinMS;
-        Ao5.ao5best.innerText = time;
-        // return console.log(allAverages);
-    }
-
-    if (allAverages.currents.ms.ao5 < allAverages.bests.ms.ao5) {
-        allAverages.bests.ao5 = time;
-        allAverages.bests.ms.ao5 = timeinMS;
-        Ao5.ao5best.innerText = time;
-    }
-
-    // localStorage.setItem(allAverages, JSON.stringify(allAverages));
-}
-
-function calcAo12(a) {
-    let times = sessions[activeSession.index].times.slice(a - 12, 12);
-    let timesInMS = [];
-    for (let i = 0; i < times.length; i++) {
-        timesInMS.push(times[i].timeInMS)
-    }
-    const min = Math.min(...timesInMS);
-
-
-    let idx = 0;
-    let DNF = DNFavg = false;
-    times.forEach(function (time) {
-        if (time.status === 'DNF') {
-            if (DNF) {
-                DNFavg = true;
-            }
-            DNF = true;
-            idx++;
-        }
-    })
-    if (DNFavg) {
-        allAverages.currents.ao12 = 'DNF';
-        allAverages.currents.ms.ao12 = 'DNF';
-        Ao12.ao12current.innerHTML = 'DNF'
-        Ao12.ao12.innerHTML = `Ao12: DNF`;
-        return
-    }
-    let max;
-    if (DNF) {
-        max = times[idx].timeInMS;//TODO add DNF to average
-    } else {
-        max = Math.max(...timesInMS);//TODO add DNF to average
-    }
-    const sum = timesInMS.reduce((a, b) => a + b, 0);
-    Ao12inMS = (sum - max - min) / 10;
-    Ao12convertTimeed = convertTime(Ao12inMS);
-    addAo12(Ao12convertTimeed, Ao12inMS);
-}
-function addAo12(time, timeinMS) {
-
-    allAverages.currents.ao12 = time;
-    allAverages.currents.ms.ao12 = timeinMS;
-    Ao12.ao12current.innerHTML = time
-    // Ao12.ao12.innerHTML = `Ao12: ${time}`;
-    if (allAverages.bests.ao12 === '-') {
-        allAverages.bests.ao12 = time;
-        allAverages.bests.ms.ao12 = timeinMS;
-        Ao12.ao12best.innerHTML = time;
-
-    }
-    if (allAverages.currents.ms.ao12 < allAverages.bests.ms.ao12) {
-        allAverages.bests.ms.ao12 = timeinMS;
-        allAverages.bests.ao12 = time;
-        Ao12.ao12best.innerHTML = time;
-    }
-    localStorage.setItem(allAverages, JSON.stringify(allAverages));
-
+    // === ONE Average ===
+    variable.timeInMS = average // set average in variable
+    variable.current.innerText = convertTime(variable.timeInMS); //current
+    if (average < sessions[activeSession.index].times[1]) variable.best.innerText = convertTime(average); // best
+    averageDOM.dataset.average = `Ao5: ${convertTime(Ao5.timeInMS)}\nAo12: ${convertTime(Ao12.timeInMS)}`// below timer current
 }
 
 function setPuzzleType() {
@@ -598,6 +551,7 @@ function a(a) {
     });
 
 }
+
 function loadSessions() {
     if (darkMode.checked) { e = 'dark' } else { e = 'light' };
     i = 0;

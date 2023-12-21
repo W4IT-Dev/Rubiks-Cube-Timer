@@ -8,7 +8,6 @@ function start() {
     waitToStart = setTimeout(() => {
         ready = true;
         timer.style.color = 'green';
-        // Ao5.ao5.style.display = 'none', Ao12.ao12.style.display = 'none';
         scrambleOnDom.style.display = 'none', setSoftkey({ left: '', middle: '', right: '', });
         min.innerHTML = document.querySelector('.seperation').innerHTML = '';
         s.innerHTML = 0, ms.innerHTML = 0;
@@ -17,7 +16,7 @@ function start() {
 let wakelock;
 function startTimer() {
     if (navigator.requestWakeLock) wakelock = navigator.requestWakeLock('screen');
-
+    timerBox.classList.add('timing')
     timing = true;
     timeIn100MS = 0;
     time = setInterval(() => {
@@ -30,6 +29,8 @@ function startTimer() {
 }
 
 function stop() {
+    timerBox.classList.remove('timing')
+
     if (wakelock) wakelock.unlock();
     solves++;
     if (solves == 1) setTimeout(() => { document.querySelector('#showAd1').click() }, 500)
@@ -42,30 +43,28 @@ function stop() {
         status: 'OK',
         comment: ''
     });
-    if (sessions[activeSession.index].times.length > 2) difference = sessions[activeSession.index].times[0].timeInMS - sessions[activeSession.index].times[1].timeInMS
-    if (difference < 0) {
-        difference *= -1;
-        timerBox.title = '(-' + convertTime(difference) + ')'
-        timerBox.style.setProperty('--color', 'green');
-    } else if (difference > 0) {
-        timerBox.title = '(+' + convertTime(difference) + ')'
-        timerBox.style.setProperty('--color', 'red');
-    } else {
-        timerBox.title = '(0.0)'
-        timerBox.style.setProperty('--color', 'unset');
+    if (sessions[activeSession.index].times.length > 1) {
+        difference = sessions[activeSession.index].times[0].timeInMS - sessions[activeSession.index].times[1].timeInMS
+        if (difference < 0) {
+            difference *= -1;
+            timerBox.title = '(-' + convertTime(difference) + ')'
+            timerBox.style.setProperty('--color', 'green');
+        } else if (difference > 0) {
+            timerBox.title = '(+' + convertTime(difference) + ')'
+            timerBox.style.setProperty('--color', 'red');
+        } else {
+            timerBox.title = '(0.0)'
+            timerBox.style.setProperty('--color', 'unset');
+        }
     }
     if (sessions[activeSession.index].times.length - 5 > 0) {
-        calcAo5(5);
+        calcAvg(5, true, 0);
     }
     if (sessions[activeSession.index].times.length >= 12) {
-        calcAo12(12);
+        calcAvg(12, true, 0);
     }
     getScramble();
-    // Ao5.ao5.style.display = 'block';
-    // Ao12.ao12.style.display = 'block';
     document.querySelector('.scramble').style.display = 'block';
-    // document.querySelector('.ad').style.display = 'none';
-    // document.querySelectorAll('.ad')[1].style.display = 'none';
 
     tmeout = setTimeout(() => {
         canChange = true;

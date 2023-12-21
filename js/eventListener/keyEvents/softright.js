@@ -19,8 +19,6 @@ document.addEventListener('keydown', e => {
             a = confirm('Are you sure you want to delete this time?');
             if (a) sessions[activeSession.index].times.splice(document.activeElement.id, 1);
             loadTable();
-            // if (sessions[activeSession.index].times.length >= 5) calcAo5(); 
-            // if (sessions[activeSession.index].times.length >= 12) calcAo12(); 
             document.querySelector('.td').focus();
             localStorage.sessions = JSON.stringify(sessions)
         }
