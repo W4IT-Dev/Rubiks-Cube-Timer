@@ -94,7 +94,6 @@ function setDarkOrLightMode() {
 
 function info() {
     if (document.activeElement.dataset.help) alert(document.activeElement.dataset.help)
-
 }
 
 // get localstorage
@@ -361,8 +360,9 @@ function calcAvg(amount, oneAvg, index) { // https://github.com/W4IT-Dev/rubiks-
 
     timesForAvg.sort((a, b) => a - b);
     timesForAvg = timesForAvg.slice(1, timesForAvg.length - 1);
+    let average = parseInt(timesForAvg.reduce((sum, currentValue) => sum + currentValue, 0) / timesForAvg.length);
 
-    return updateAvg(parseInt(timesForAvg.reduce((sum, currentValue) => sum + currentValue, 0) / timesForAvg.length), amount.toString());
+    return updateAvg(average, amount.toString());
 }
 
 function updateAvg(average, amount) {

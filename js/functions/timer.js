@@ -1,5 +1,5 @@
 function start() {
-    if (ready) return timer.style.color = '', startTimer();
+    if (ready) return timer.style.color = '', starttimer();
 
     if (!spacedown) return timer.style.color = '';
 
@@ -14,7 +14,7 @@ function start() {
     }, 550)
 }
 let wakelock;
-function startTimer() {
+function starttimer() {
     if (navigator.requestWakeLock) wakelock = navigator.requestWakeLock('screen');
     timerBox.classList.add('timing')
     timing = true;
@@ -35,7 +35,6 @@ function stop() {
     solves++;
     if (solves == 1) setTimeout(() => { document.querySelector('#showAd1').click() }, 500)
     clearInterval(time);
-    timing = false;
     sessions[activeSession.index].times.unshift({
         time: timer.innerText.replace(/\s/g, ''),
         timeInMS: timeIn100MS,
@@ -86,4 +85,6 @@ function stop() {
 
     }, 0);
     localStorage.sessions = JSON.stringify(sessions);
+    timing = false;
+
 }

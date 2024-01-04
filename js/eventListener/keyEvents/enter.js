@@ -13,7 +13,7 @@ document.addEventListener('keydown', e => {
         }
         if (!canChange) {
             if (settingsOpened) return select();
-            if (session.style.display === 'none') {
+            if (session.style.display === 'none' && !timing) {
                 loadTable();
                 session.style.display = 'block';
                 document.querySelectorAll('.td')[0].focus();

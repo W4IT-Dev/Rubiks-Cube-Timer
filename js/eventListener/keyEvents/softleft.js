@@ -27,9 +27,8 @@ document.addEventListener('keydown', e => {
                 });
                 return
             }
-            if (settings.style.display == 'none') {
+            if (settings.style.display == 'none' && !timing) {
                 settings.style.display = 'block';
-                // wholeSite.style.filter = 'blur(5px)';
                 puzzleType.focus();
                 setSoftkey({
                     left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2px; left: 2px">arrow_back</i>',
@@ -41,7 +40,6 @@ document.addEventListener('keydown', e => {
             }
             if (settings.style.display == 'block' && document.activeElement.id !== 'timerSize' && document.activeElement.id !== 'scrambleSizeInput') {
                 settings.style.display = 'none';
-                // wholeSite.style.filter = 'none';
                 document.activeElement.blur();
                 searchField.value = '';
                 search();

@@ -15,7 +15,6 @@ body.debug * {
     src: url(/digital-7.regular.woff);
 }
 
-
 @font-face {
     font-family: 'Orbitron';
     src: url(/orbitron-regular.woff);
@@ -93,7 +92,7 @@ body.debug * {
     white-space: pre-line;
     font-size: 15px;
     position: absolute;
-    bottom: 10%;
+    top: 70%;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
