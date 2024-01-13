@@ -55,7 +55,6 @@ document.addEventListener('keydown', e => {
                 if (document.activeElement.id === 'newsessioninput') {
                     // check if emptry string
                     if (!document.activeElement.value || /^\s+$/.test(document.activeElement.value)) return showToast('Please input a name for the session', 1600);
-                    document.querySelector('#newsessioninput').value = '';
                     // add new session
                     sessions.push({
                         name: document.querySelector('#newsessioninput').value,
@@ -91,6 +90,7 @@ document.addEventListener('keydown', e => {
                     localStorage.sessions = JSON.stringify(sessions);
                     session.style.overflow = 'auto';
                     updateAvg('reset');
+                    document.querySelector('#newsessioninput').value = '';
                     return;
                 }
                 if (document.activeElement.classList.contains('notinput')) {
@@ -129,20 +129,10 @@ document.addEventListener('keydown', e => {
                             }
                         }
                     };
-                    if (sessions[activeSession.index].times.length >= 5) {
-                        calcAvg(5, true, 0)
-                    } else {
-                        Ao5.current.innerHTML = '-';
-                        Ao5.best.innerHTML = '-';
-                    }
-                    if (sessions[activeSession.index].times.length >= 12) {
-                        for (let i = 0; i < sessions[activeSession.index].times.length; i++) {
-                            calcAvg(12, true, 0)
-                        }
-                    } else {
-                        Ao12.current.innerHTML = '-';
-                        Ao12.best.innerHTML = '-';
-                    }
+                    Ao5.timeInMS = '-'
+                    Ao12.timeInMS = '-'
+                    calcAvg(5, false);
+                    calcAvg(12, false);
                     session.style.overflow = 'auto';
                     return;
                 }

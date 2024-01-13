@@ -18,6 +18,10 @@ document.addEventListener('keydown', e => {
         if (session.style.display == 'block' && document.activeElement.classList.contains('time')) { 
             a = confirm('Are you sure you want to delete this time?');
             if (a) sessions[activeSession.index].times.splice(document.activeElement.id, 1);
+            Ao5.timeInMS = '-'
+            Ao12.timeInMS = '-'
+            calcAvg(5, false);
+            calcAvg(12, false);
             loadTable();
             document.querySelector('.td').focus();
             localStorage.sessions = JSON.stringify(sessions)
