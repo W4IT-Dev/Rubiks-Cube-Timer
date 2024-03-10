@@ -1,0 +1,21 @@
+if (localStorage.darkmode) {
+    if (localStorage.highContrast === "true") highContrastMode.checked = true;
+    if (localStorage.darkMode == "true") {
+        // darkMode.checked = true;
+    } else {
+        // darkMode.checked = false;
+    }
+    setDarkOrLightMode();
+} else {
+    localStorage.setItem('darkmode', 'true');
+}
+if (localStorage.puzzleTypeSelector) puzzleTypeSelector.value = localStorage.puzzleTypeSelector, setPuzzleType();
+if (localStorage.fontFamily) timerFontSelector.value = localStorage.fontFamily, timer.style.fontFamily = timerFontSelector.value;
+if (localStorage.timerSize) timerSizeSelector.value = localStorage.timerSize, timer.style.fontSize = localStorage.timerSize + 'px';
+if (localStorage.scrambleSizeInput) scrambleSizeInput.value = localStorage.scrambleSizeInput;
+if (localStorage.scrambleSize) {
+    if (localStorage.scrambleSize === 'user') scrambleSize.value = 'user-defined', scrambleSizeInputDiv.classList.add('show'); autoFontSize = false, actualScramble.style.fontSize = scrambleSizeInput.value + "px";
+    if (localStorage.scrambleSize === 'auto') scrambleSizeInputDiv.classList.remove('show'), autoFontSize = true, actualScramble.style.fontSize = scrambleFontSize;
+}
+if (localStorage.sessions) sessions = JSON.parse(localStorage['sessions']);
+if (localStorage.activeSession) activeSession = JSON.parse(localStorage['activeSession']);

@@ -6,7 +6,7 @@ document.addEventListener('keydown', e => {
                 sessions[activeSession.index].times[0].comment = comment.value;
                 comment.value = "";
                 showToast('Added Comment', 2000);
-                localStorage.sessions = JSON.stringify(sessions);
+                localforage.setItem('sessions', sessions)
             }
             comment.blur();
             return;
@@ -77,7 +77,7 @@ document.addEventListener('keydown', e => {
                     // update active session
                     activeSession.name = document.querySelector('#newsessioninput').value;
                     activeSession.index = sessions.map(e => e.name).indexOf(activeSession.name);
-                    localStorage.activeSession = JSON.stringify(activeSession);
+                    localforage.setItem('session', activeSession)
                     // load new
                     loadTable();
                     loadSessions();
@@ -87,7 +87,7 @@ document.addEventListener('keydown', e => {
                     sessionname.innerText = activeSession.name;
                     document.querySelector('#sessionname').innerText = sessions[activeSession.index].name;
                     showToast('Added Session', 1500);
-                    localStorage.sessions = JSON.stringify(sessions);
+                    localforage.setItem('sessions', sessions)
                     session.style.overflow = 'auto';
                     updateAvg('reset');
                     document.querySelector('#newsessioninput').value = '';
@@ -96,7 +96,7 @@ document.addEventListener('keydown', e => {
                 if (document.activeElement.classList.contains('notinput')) {
                     activeSession.name = document.activeElement.innerText;
                     activeSession.index = sessions.map(e => e.name).indexOf(activeSession.name);
-                    localStorage.activeSession = JSON.stringify(activeSession);
+                    localforage.setItem('activeSession', activeSession)
                     sessionname.innerText = activeSession.name;
                     document.querySelector('#sessionname').innerText = activeSession.name;
                     loadTable();

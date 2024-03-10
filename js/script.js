@@ -20,8 +20,6 @@ moves['b'] = new Array("B", "B'", "B2");
 
 keys = new Array("r", "l", "u", "d", "f", "b");
 
-if (progress.value <= 87) load = setInterval(() => { progress.value += .09 }, 120)
-else clearInterval(load);
 
 
 function softkey(e) {
@@ -37,11 +35,7 @@ document.addEventListener("keyup", softkey, true);
 document.addEventListener("keydown", softkey, true);
 
 document.addEventListener("DOMContentLoaded", () => {
-    progress.value = 1;
-    setTimeout(() => {
-        loadScreen.style.display = 'none'; document.querySelector('footer').style.opacity = '1'
 
-    }, 1000)
     fullscreenAd('afterfirstsolveAd', true, '1')
     fullscreenAd('after50solveAd', true, '2')
     getKaiAd({

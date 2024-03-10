@@ -85,6 +85,7 @@ function stop() {
 
     }, 0);
     localStorage.sessions = JSON.stringify(sessions);
+    localforage.setItem('sessions', JSON.stringify(sessions))
     timing = false;
 
 }

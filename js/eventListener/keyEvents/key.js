@@ -1,7 +1,7 @@
 document.addEventListener("keydown", e => {
     if (loadScreen.style.display == 'none' && !spacedown) {
         if (settings.style.display == 'block') {
-            if (e.key == '7') return activeSession.index = 0; localStorage.activeSession = JSON.stringify(activeSession)
+            if (e.key == '7') return activeSession.index = 0; localforage.setItem('activeSession', activeSession)
         }
         // === STOP TIME ===
         if (timing) {
@@ -41,7 +41,7 @@ document.addEventListener("keydown", e => {
             });
             //Add +2
             if (e.key == 'SoftRight') {
-                clearTimeout(tmeout), sessions[activeSession.index].times[0].status = '+2', canChange = false, showToast('Changed Status to +2', 2000), sessions[activeSession.index].times[0].timeInMS += 20, sessions[activeSession.index].times[0].time = convertTime(sessions[activeSession.index].times[0].timeInMS), localStorage.sessions = JSON.stringify(sessions), setSoftkey({
+                clearTimeout(tmeout), sessions[activeSession.index].times[0].status = '+2', canChange = false, showToast('Changed Status to +2', 2000), sessions[activeSession.index].times[0].timeInMS += 20, sessions[activeSession.index].times[0].time = convertTime(sessions[activeSession.index].times[0].timeInMS), localforage.setItem('sessions', sessions), setSoftkey({
                     left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">settings</i>',
                     middle: 'Session',
                     right: '<i class="material-icons" style="font-size: 21px; color: red;position: relative; top: 2.5px; right: 2px">logout</i>'

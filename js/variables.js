@@ -14,7 +14,7 @@ let canChange = false;
 let sessions = [{
     name: "Session 1",
     times: [],
-
+    cubeType: "3x3"
 }];
 let activeSession = { name: "Session 1", index: 0 };
 let allAverages = {
@@ -76,6 +76,7 @@ let puzzleType = document.getElementById('puzzleTypeDiv');
 let puzzleTypeSelector = document.getElementById('puzzleType');
 let timerFont = document.getElementById('timerFontDiv');
 let timerFontSelector = document.getElementById('timerFont');
+let timerSizeSelector = document.getElementById('timerSize')
 let session = document.querySelector('#session');
 let sessionname = document.querySelector('#sessionnameatbutton');
 let scrambleSizeDiv = document.querySelector('#scrambleSizeDiv');

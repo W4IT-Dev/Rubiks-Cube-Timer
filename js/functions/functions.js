@@ -40,7 +40,7 @@ function select() {
         left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
         middle: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px;">check</i>',
         right: '<i class="material-icons" style="font-size: 17px; position: relative; top: 4.5px; right: 2.5px">backspace</i>'
-    }), timerSize.setSelectionRange(2, 2);
+    });
     if (document.activeElement == timerSize) return timerSizeDiv.focus(), setSoftkey({
         left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
         middle: 'Select',
@@ -51,7 +51,7 @@ function select() {
         left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
         middle: 'Select',
         right: '<i class="material-icons" style="font-size: 17px; position: relative; top: 4.5px; right: 2.5px">backspace</i>'
-    }), timerSize.setSelectionRange(2, 2);
+    });
     if (document.activeElement == document.getElementById('scrambleSizeInput')) return document.getElementById('scrambleSizeInputDiv').focus(), setSoftkey({
         left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">arrow_back</i>',
         middle: 'Select',
@@ -78,15 +78,15 @@ function setDarkOrLightMode() {
 
     }
     if (darkMode.checked) {
-        localStorage.setItem('darkmode', 'true');
-        if (highContrastMode.checked) return document.querySelector("meta[name='theme-color']").setAttribute('content', 'rgb(17, 17, 17)'), localStorage.setItem('highContrast', 'true');
-        localStorage.setItem('highContrast', 'false')
+        localforage.setItem('darkmode', true)
+        if (highContrastMode.checked) return document.querySelector("meta[name='theme-color']").setAttribute('content', 'rgb(17, 17, 17)'), localforage.setItem('highContrast', true);
+        localforage.setItem('highContrast', false)
         document.querySelector("meta[name='theme-color']").setAttribute('content', 'rgb(33, 33, 33)');
         return
     }
-    localStorage.setItem('darkmode', 'false');
-    if (highContrastMode.checked) return document.querySelector("meta[name='theme-color']").setAttribute('content', 'rgb(248, 248, 248)'), localStorage.setItem('highContrast', 'true');
-    localStorage.setItem('highContrast', 'false')
+    localforage.setItem('darkmode', false)
+    if (highContrastMode.checked) return document.querySelector("meta[name='theme-color']").setAttribute('content', 'rgb(248, 248, 248)'), localforage.setItem('highContrast', true);
+    localforage.setItem('highContrast', false)
     document.querySelector("meta[name='theme-color']").setAttribute('content', 'rgb(235, 232, 232)');
     loadTable();
     loadSessions();
@@ -98,27 +98,63 @@ function info() {
 
 // get localstorage
 function getStoredData() {
-    if (localStorage.darkmode) {
-        if (localStorage.highContrast === "true") highContrastMode.checked = true;
-        if (localStorage.darkMode == "true") {
-            // darkMode.checked = true;
-        } else {
-            // darkMode.checked = false;
-        }
+    // TODO ! omg wtf this gotta be rewritten extremely
+    localforage.getItem('darkmode', (err, value) => {
+        if (err) localforage.setItem('darkmode', true)
+        else darkMode.checked = value;
         setDarkOrLightMode();
-    } else {
-        localStorage.setItem('darkmode', 'true');
-    }
-    if (localStorage.puzzleTypeSelector) puzzleTypeSelector.value = localStorage.puzzleTypeSelector, setPuzzleType();
-    if (localStorage.fontFamily) timerFontSelector.value = localStorage.fontFamily, timer.style.fontFamily = timerFontSelector.value;
-    if (localStorage.timerSize) document.getElementById('timerSize').value = localStorage.timerSize, timer.style.fontSize = localStorage.timerSize + 'px';
-    if (localStorage.scrambleSizeInput) scrambleSizeInput.value = localStorage.scrambleSizeInput;
-    if (localStorage.scrambleSize) {
-        if (localStorage.scrambleSize === 'user') scrambleSize.value = 'user-defined', scrambleSizeInputDiv.classList.add('show'); autoFontSize = false, actualScramble.style.fontSize = scrambleSizeInput.value + "px";
-        if (localStorage.scrambleSize === 'auto') scrambleSizeInputDiv.classList.remove('show'), autoFontSize = true, actualScramble.style.fontSize = scrambleFontSize;
-    }
-    if (localStorage.sessions) sessions = JSON.parse(localStorage['sessions']);
-    if (localStorage.activeSession) activeSession = JSON.parse(localStorage['activeSession']);
+        progress.value += 0.11875
+    })
+    localforage.getItem('puzzleTypeSelector', (err, value) => {
+        if (err) console.warn('puzzleTypeSelector GET error', err)
+        else puzzleTypeSelector.value = value || "3x3";
+        setPuzzleType()
+        progress.value += 0.11875
+    })
+    localforage.getItem('fontFamily', (err, value) => {
+        if (err) console.warn('fontFamily GET error', err)
+        else timerFontSelector.value = value || "Digital7", timer.style.fontFamily = timerFontSelector.value;
+        progress.value += 0.11875
+    })
+    localforage.getItem('timerSize', (err, value) => {
+        if (err) console.warn('timerSize GET error', err)
+        else timerSizeSelector.value = value || 30, timer.style.fontSize = value + 'px';
+        progress.value += 0.11875
+    })
+    localforage.getItem('scrambleSizeInput', (err, value) => {
+        if (err) console.warn('scrambleSizeInput GET error', err)
+        else scrambleSizeInput.value = value || 16;
+        progress.value += 0.11875
+    })
+    localforage.getItem('scrambleSizeInput', (err, value) => {
+        if (err) console.warn('scrambleSizeInput GET error', err)
+        else {
+            if (value === "auto") {
+                scrambleSizeInputDiv.classList.remove('show');
+                autoFontSize = true;
+                actualScramble.style.fontSize = scrambleFontSize;
+            } else if (value === "user") {
+                scrambleSize.value = 'user-defined';
+                scrambleSizeInputDiv.classList.add('show'); autoFontSize = false;
+                actualScramble.style.fontSize = scrambleSizeInput.value + "px";
+            }
+        }
+        progress.value += 0.11875
+    })
+    localforage.getItem('sessions', (err, value) => {
+        if (err) console.warn('sessions GET error', err)
+        else sessions = value ||  [{
+            name: "Session 1",
+            times: [],
+            cubeType: "3x3"
+        }];;
+        progress.value += 0.11875
+    })
+    localforage.getItem('activeSession', (err, value) => {
+        if (err) console.warn('activeSession GET error', err)
+        else activeSession = value || { name: "Session 1", index: 0 };
+        progress.value += 0.11875
+    })
 
     document.querySelector('#sessionname').innerText = activeSession.name;
     sessionname.innerText = activeSession.name;
@@ -128,6 +164,11 @@ function getStoredData() {
     //calc averages
     calcAvg(5)
     calcAvg(12)
+
+    // let the load screen disappear :o
+    progress.value = 1
+    loadScreen.style.display = "none"
+    document.querySelector('footer').style.opacity = 1
 }
 
 function showToast(text, time) {
@@ -532,11 +573,12 @@ function setPuzzleType() {
         }
         getScramble();
     }
-    localStorage['puzzleTypeSelector'] = puzzleTypeSelector.value;
+    localStorage['puzzleTypeSelector'] = puzzleTypeSelector.value; // TODO Delete
+    localforage.setItem('puzzleTypeSelector', puzzleTypeSelector.value)
     document.querySelector('#puzzleTypename').innerText = puzzleTypeSelector.value;
 }
-function a(a) {
-    if (a) {
+function a(abc) {
+    if (abc) {
         setSoftkey({
             left: '<i class="material-icons" style="font-size: 21px; position: relative; top: 2.5px; left: 2px">expand_less</i>',
             middle: 'Select',

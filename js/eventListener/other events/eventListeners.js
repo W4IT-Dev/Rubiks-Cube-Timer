@@ -4,7 +4,7 @@ puzzleTypeSelector.addEventListener('change', () => {
 
 timerFontSelector.addEventListener('change', () => {
     timer.style.fontFamily = timerFontSelector.value;
-    localStorage.fontFamily = timerFontSelector.value;
+    localforage.setItem('fontFamily', timerFontSelector.value)
 });
 
 document.getElementById('timerSize').addEventListener('input', () => {

@@ -24,7 +24,8 @@ document.addEventListener('keydown', e => {
             calcAvg(12, false);
             loadTable();
             document.querySelector('.td').focus();
-            localStorage.sessions = JSON.stringify(sessions)
+
+            localforage.setItem('sessions', sessions)
         }
     }
 });
